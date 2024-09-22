@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway:wght@400;700&family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+#page{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#header{
+    height: 50px;
+    background-color: rgb(33, 33, 49);
+    display: flex;
+}
+
+#titolo{
+    padding: 16px;
+    border-right: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#titolo-home{
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    color: white;
+}
+
+#navbar{
+    flex-grow: 1;
+    display: flex;
+
+
+}
+
+#box-options{
+    flex-grow: 1;
+    display: flex;
+
+}
+
+.navbar{
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    padding: 3px;
+}
+
+.option-nav{
+    color: yellow;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    font-weight: 100;
+}
