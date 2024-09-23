@@ -10,19 +10,19 @@
     margin: 0;
 }
 
-#page{
+#page {
     height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-#header{
+#header {
     height: 50px;
     background-color: rgb(33, 33, 49);
     display: flex;
 }
 
-#titolo{
+#titolo {
     padding: 16px;
     border-right: 1px solid white;
     display: flex;
@@ -30,35 +30,89 @@
     justify-content: center;
 }
 
-#titolo-home{
+#titolo-home {
     font-family: 'Raleway', sans-serif;
     font-size: 20px;
     color: white;
 }
 
-#navbar{
+#navbar {
     flex-grow: 1;
     display: flex;
 
 
 }
 
-#box-options{
+#box-options {
     flex-grow: 1;
     display: flex;
 
 }
 
-.navbar{
+.navbar {
     margin-top: 15px;
     margin-left: 5px;
     margin-bottom: 5px;
     padding: 3px;
 }
 
-.option-nav{
-    color: yellow;
+.option-nav {
+    color: white;
     font-family: 'Raleway', sans-serif;
     font-size: 15px;
     font-weight: 100;
 }
+
+
+
+/* PARTE DEL CONTENUTO */
+
+#contenuto {
+    flex-grow: 1;
+    background-color: rgb(51, 143, 150);
+    display: flex;
+    flex-direction: column;
+}
+#titolo-categorie {
+    margin: 20px;
+    padding: 16px;
+}
+#titolo-categorie h1{
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    font-weight: 150;
+}
+
+#categorie {
+    flex-grow: 1;
+    background-color: rgb(51, 143, 150);
+    display: flex;
+    justify-content: center;
+    flex-shrink: 5;
+}
+#contenuto-categorie{
+    width: 70%;
+    height: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-content: center;
+
+}
+
+
+
+
+
+
+.categorie {
+    background-color: aliceblue;
+    width: 25%;
+    height: 27%;
+    margin: 5%;
+    
+
+
+}
+

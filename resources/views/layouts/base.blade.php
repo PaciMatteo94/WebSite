@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/homestyle.css') }}?v={{ time() }}">
     <title>NEX:Assistenza Tecnica</title>
 </head>
 <body>
@@ -17,8 +17,8 @@
             </div>
 
         </header>
-        <div>
-            <h1>Qui va il contenuto</h1>
+        <div id="contenuto">
+            @include('layouts/catalogohome')
         </div>
 
     </div>

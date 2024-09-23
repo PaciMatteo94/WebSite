@@ -10,7 +10,8 @@ class PublicController extends Controller
 {
     //
 
-    public function showHome(): View{
+    public function showHome(): View
+    {
         return view('home');
     }
 }
