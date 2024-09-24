@@ -10,7 +10,7 @@
     <div id="page">
         <header id="header">
             <div id="titolo">
-                <h2 id="titolo-home">NEX:Assistenza Tecnica</h2>
+                <a href="{{ route('Home') }}"><h2 id="titolo-home">NEX:Assistenza Tecnica</h2></a>
             </div>
             <div id="navbar">
                 @include('layouts/navutente')
@@ -18,7 +18,7 @@
 
         </header>
         <div id="contenuto">
-            @include('layouts/catalogohome')
+            @yield('content')
         </div>
 
     </div>

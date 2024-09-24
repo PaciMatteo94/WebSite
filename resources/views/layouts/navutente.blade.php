@@ -1,6 +1,6 @@
 <div id="box-options">
     <div class="navbar">
-        <h2 class="option-nav">Info</h2>
+        <h2 class="option-nav"> <a href="{{ route('Info') }}">Info</a></h2>
     </div>
     <div class="navbar">
         <h2 class="option-nav">Dove Siamo</h2>

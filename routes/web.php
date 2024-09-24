@@ -15,3 +15,5 @@ use App\Http\Controllers\PublicController;
 */
 
 Route::get('/',[PublicController::class, 'showHome'])->name('Home');
+
+Route::get('/info', [PublicController::class, 'showInfo'])->name('Info');
