@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto:wght@400&display=swap" rel="stylesheet"');
+
+
+
+#contenuto {
+    flex-grow: 1;
+    background-color: rgb(51, 143, 150);
+    display: flex;
+    flex-direction: column;
+}
+
+.sezione {
+    display: flex;
+}
+
+.contenitore-immagine {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5px;
+    padding: 16px;
+}
+
+.immagine {
+    height: 200px;
+    width: 400px;
+
+}
+
+.sezione-1{
+    background-color: rgb(218, 253, 255);
+}
+
+.sezione-2 {
+    background-color: rgb(196, 235, 255);
+    flex-direction: row-reverse;
+}
+.sezione-3{
+    background-color: rgb(218, 253, 255);
+}
+
+.sezione-4{
+    background-color:  rgb(196, 235, 255);
+}
+
+.sezione-5{
+    background-color: rgb(33, 33, 49);
+}
+
+
+
+
+.descrizione{
+    margin: 5px;
+    padding: 16px;
+}
+
+.descrizione.descrizione-1{
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.descrizione.descrizione-2{
+    margin-right: 0px;
+    padding-right: 0px;
+}
+
+.descrizione.descrizione-3{
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+hr{
+    height: 3px;
+    color:rgb(40, 43, 43) ;
+
+}
+
+
+h2{
+font-family: 'Lora', serif;
+font-weight: 700;
+color: #252c2b;
+}
+
+p{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #37474f;
+}
+li{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #37474f;
+}
+
+#contatti{
+    font-family: 'Lora', serif;
+font-weight: 700;
+color: white;
+}
+

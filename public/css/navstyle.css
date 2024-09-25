@@ -1,0 +1,54 @@
+#navbar {
+    flex-grow: 1;
+    display: flex;
+}
+
+#box-options {
+    flex-grow: 1;
+    display: flex;
+}
+
+.navbar {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 0px;
+    margin-right: 5px;
+    padding-right: 16px;
+    padding-left: 0px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.option-nav {
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+.option-1{
+    margin-left: 5px;
+    padding-left: 16px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+
+}
+
+a:visited {
+    color: white;
+}
+
+a:hover {
+    color: white;
+}
+
+a:active {
+    color: white;
+}
