@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-
+use App\Models\Stabilimenti;
 
 class PublicController extends Controller
 {
@@ -35,5 +35,12 @@ class PublicController extends Controller
         $navbarView = 'layouts/navutente';
         $cssFile = asset('css/navstyle.css');
         return view('info',['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
+    }
+
+    public function showPosition(): View{
+        $navbarView = 'layouts/navutente';
+        $cssFile = asset('css/navstyle.css');
+        $stabilimenti = Stabilimenti::all();
+        return view('posizione',['navbarView'=>$navbarView, 'cssFile'=>$cssFile,  'stabilimenti' => $stabilimenti]);
     }
 }

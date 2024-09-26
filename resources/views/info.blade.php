@@ -37,7 +37,6 @@
 
     </div>
 
-    <hr>
 
     <div class="sezione sezione-2">
         <div class="contenitore-immagine">
@@ -71,7 +70,7 @@
 
     </div>
 
-    <hr>
+
 
     <div class="sezione sezione-3">
         <div class="contenitore-immagine">
@@ -90,7 +89,7 @@
 
     </div>
 
-    <hr>
+
 
     <div class="sezione sezione-4">
         <div class="descrizione">
@@ -120,8 +119,13 @@
     <hr>
     <div class="sezione sezione-5">
         <div class="descrizione">
-            <h2 id="contatti">Contatti</h2>
+            <h2 id="titolo-contatti">Contatti</h2>
         </div>
+        <p id="contatti">
+            Email commerciale: <a href="mailto: NextElettronicsXtreme@outlook.it">NextElettronicsXtreme@outlook.it</a>
+            <br>
+            Email per supporto tecnico: <a href="mailto: NEX.Assistenza@outlook.it">NEX.Assistenza@outlook.it</a>
+        </p>
     </div>
 
 </div>

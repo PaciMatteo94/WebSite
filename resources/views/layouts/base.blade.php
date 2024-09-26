@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/homestyle.css') }}?v={{ time() }}">
     @yield('content_css') <!-- Inserimento dinamico del css associato al contenuto -->
     @yield('navbar_css') <!-- Inserimento dinamico del css associato alla navbar -->
+
     <title>NEX:Assistenza Tecnica</title>
 </head>
 
@@ -23,6 +24,7 @@
         </header>
         @yield('content') <!-- Inserimento dinamico del contentuto -->
     </div>
+    @yield('javascript')
 </body>
 
 </html>

@@ -4,7 +4,7 @@
             <h2 class="option-nav"> <a href="{{ route('Info') }}">Info</a></h2>
         </div>
         <div class="navbar option-2">
-            <h2 class="option-nav ">Dove Siamo</h2>
+            <h2 class="option-nav "> <a href="{{ route('Posizione') }}">Dove Siamo</a></h2>
         </div>
     </div>
     <div class="navbar option-3">
