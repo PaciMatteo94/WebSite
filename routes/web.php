@@ -19,3 +19,7 @@ Route::get('/',[PublicController::class, 'showHome'])->name('Home');
 Route::get('/info', [PublicController::class, 'showInfo'])->name('Info');
 
 Route::get('/posizione', [PublicController::class, 'showPosition'])->name('Posizione');
+
+Route::get('/login', [PublicController::class, 'login'])->name('Login');
+
+Route::get('/catalogo', [PublicController::class, 'showCatalogo'])->name('Catalogo');

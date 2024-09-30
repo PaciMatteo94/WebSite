@@ -27,7 +27,7 @@
                 <img src="{{ asset('images/scheda-madre.jpg') }}?v={{ time() }}" alt="Schede Madri" height="200" width="200">
             </header>
             <footer class="nome-categoria">
-                Schede madri
+               <a class="ancora-catalogo" href="{{ route('Catalogo') }}">Schede madri</a> 
             </footer>
 
         </div>
@@ -36,7 +36,7 @@
                 <img src="{{ asset('images/scheda-video.jpg') }}?v={{ time() }}" alt="Schede Video" height="200" width="200">
             </header>
             <footer class="nome-categoria">
-                Schede video
+               <a class="ancora-catalogo" href="{{ route('Catalogo') }}">Schede video</a> 
             </footer>
 
         </div>
@@ -45,7 +45,7 @@
                 <img src="{{ asset('images/cpu.jpg') }}?v={{ time() }}" alt="Processori" height="200" width="200">
             </header>
             <footer class="nome-categoria">
-                Processori
+                <a class="ancora-catalogo" href="{{ route('Catalogo') }}">Processori</a>
             </footer>
 
         </div>
@@ -54,7 +54,7 @@
                 <img src="{{ asset('images/ram.jpg') }}?v={{ time() }}" alt="Memoria" height="200" width="200">
             </header>
             <footer class="nome-categoria">
-                Memoria
+               <a class="ancora-catalogo" href="{{ route('Catalogo') }}">Memoria</a> 
             </footer>
 
         </div>
@@ -63,7 +63,7 @@
                 <img src="{{ asset('images/storage.jpg') }}?v={{ time() }}" alt="Storage" height="200" width="200">
             </header>
             <footer class="nome-categoria">
-                Storage
+               <a class="ancora-catalogo" href="{{ route('Catalogo') }}">Storage</a> 
             </footer>
 
         </div>
@@ -72,7 +72,7 @@
                 <img src="{{ asset('images/psu.jpg') }}?v={{ time() }}" alt="Alimentatori" height="200" width="200">
             </header>
             <footer class="nome-categoria">
-                Alimentatori
+               <a class="ancora-catalogo" href="{{ route('Catalogo') }}">Alimentatori</a> 
             </footer>
 
         </div>
@@ -81,7 +81,7 @@
                 <img src="{{ asset('images/cooling.jpg') }}?v={{ time() }}" alt="Dissipatori" height="200" width="200">
             </header>
             <footer class="nome-categoria">
-                Dissipatori
+               <a class="ancora-catalogo" href="{{ route('Catalogo') }}">Dissipatori</a> 
             </footer>
 
         </div>
@@ -90,7 +90,7 @@
                 <img src="{{ asset('images/periferiche.jpg') }}?v={{ time() }}" alt="Periferiche" height="200" width="200">
             </header>
             <footer class="nome-categoria">
-                Periferiche I/O
+               <a class="ancora-catalogo" href="{{ route('Catalogo') }}">Periferiche I/O</a> 
             </footer>
 
         </div>
@@ -99,7 +99,7 @@
                 <img src="{{ asset('images/ventole.jpg') }}?v={{ time() }}" alt="Ventole" height="200" width="200">
             </header>
             <footer class="nome-categoria">
-                Ventole
+               <a class="ancora-catalogo" href="{{ route('Catalogo') }}">Ventole</a> 
             </footer>
 
         </div>

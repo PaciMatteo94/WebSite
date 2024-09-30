@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProdottiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StabilimentiController;
@@ -22,4 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/stabilimenti', [StabilimentiController::class, 'getAllStabilimenti']);
+
+Route::get('/prodotti', [ProdottiController::class, 'getAllProdotti']);
 

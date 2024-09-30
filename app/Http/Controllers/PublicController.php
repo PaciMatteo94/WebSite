@@ -27,8 +27,9 @@ class PublicController extends Controller
 
     public function showHome(): View{
         $navbarView = 'layouts/navutente';
-        $cssFile = asset('css/navstyle.css');
+        $cssFile = asset('css/navstyle.css'); //asset = funzione base di laravel per creare l'url completo, si riferisce ai file nella cartella public
         return view('catalogohome', ['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
+        // view = funzione base di laravel per restituire un file che si trova in resources
     }
 
     public function showInfo(): View{
@@ -40,7 +41,18 @@ class PublicController extends Controller
     public function showPosition(): View{
         $navbarView = 'layouts/navutente';
         $cssFile = asset('css/navstyle.css');
-        $stabilimenti = Stabilimenti::all();
-        return view('posizione',['navbarView'=>$navbarView, 'cssFile'=>$cssFile,  'stabilimenti' => $stabilimenti]);
+        return view('posizione',['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
+    }
+
+    public function login(): View{
+        $navbarView = 'layouts/navutente';
+        $cssFile = asset('css/navstyle.css');
+        return view('login',['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
+    }
+
+    public function showCatalogo(): View{
+        $navbarView = 'layouts/navutente';
+        $cssFile = asset('css/navstyle.css');
+        return view('catalogo',['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
     }
 }

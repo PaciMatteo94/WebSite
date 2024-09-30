@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="navbar option-3">
-        <h2 class="option-nav ">Login</h2>
+        <h2 class="option-nav "> <a href="{{ route('Login') }}">Login</a></h2>
     </div>
 
 </div>
