@@ -20,19 +20,14 @@
     <div id="iframe">
         <iframe id="mapIframe" src="https://www.google.com/maps/d/u/0/embed?mid=1iv7R0_xQ0hXPdcRlPKvxbXjWb2arw0o&ehbc=2E312F" width="640" height="480"></iframe>
     </div>
-    <div id="posizione">
-        <label for="regionSelect">Seleziona una regione:</label>
-        <select id="regionSelect">
-            @foreach($stabilimenti->groupBy('regione') as $regione =>$stabilimentiRegione )
-            <option value="{{$regione}}"> {{$regione}}</option>
-            @endforeach
-        </select>
-        <div id="stabilimenti">
+    <div id="select-container">
+    </div>
+        <div id="stabilimenti-list">
 
         </div>
 
 
-    </div>
+    
 </div>
 @endsection
 

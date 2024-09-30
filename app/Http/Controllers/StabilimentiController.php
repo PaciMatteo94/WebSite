@@ -6,19 +6,10 @@ use Illuminate\Http\Request;
 
 class StabilimentiController extends Controller
 {
-    public function index()
+    public function getAllStabilimenti()
     {
-        // Recupera tutte le regioni e stabilimenti
+        // Recupero tutti gli stabilimenti dal database
         $stabilimenti = Stabilimenti::all();
-        
-        return view('posizione', compact('stabilimenti'));
-    }
-
-    public function getByRegione($regione)
-    {
-        // Recupera gli stabilimenti per la regione selezionata
-        $stabilimenti = Stabilimenti::where('regione', $regione)->get();
-        
         return response()->json($stabilimenti);
     }
 }
