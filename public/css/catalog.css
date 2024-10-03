@@ -1,0 +1,24 @@
+#contenuto{
+    flex-grow: 1;
+    display: flex;
+    background-color: rgb(83, 153, 144);
+    padding: 16px;
+}
+
+#ricerca{
+
+    height: 50vh;
+    background-color: aqua;
+    padding: 16px;
+    margin: 5px;
+}
+
+#risultati{
+    flex-grow: 1;
+    height: 50vh;
+
+    background-color: bisque;
+
+    padding: 16px;
+    margin: 5px;
+}

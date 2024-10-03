@@ -1,7 +1,7 @@
-@extends('layouts.base')
+@extends('layouts.basic')
 
 @section('content_css')
-<link rel="stylesheet" type="text/css" href="{{ asset('css/infostyle.css') }}?v={{ time() }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/info.css') }}?v={{ time() }}">
 @endsection
 
 @section('navbar')

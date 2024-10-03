@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway:wght@400;700&family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    min-width: 700px;
+}
+
+#page {
+    height: 100vh;
+    width: 100v;
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    height: 50px;
+    background-color: rgb(33, 33, 49);
+    display: flex;
+}
+
+#titolo {
+    padding: 16px;
+    margin: 5px;
+    border-right: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#titolo-home {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    color: white;
+}
+
+
+a{
+    text-decoration: none;
+    color: white;
+    
+}
+
+a:visited{
+    color: white;
+}
+
+a:hover{
+    color: white;
+}
+
+a:active{
+    color: white;
+}
+

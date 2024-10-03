@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.basic')
 
 @section('navbar')
 @include($navbarView) <!-- Include dinamico della navbar -->

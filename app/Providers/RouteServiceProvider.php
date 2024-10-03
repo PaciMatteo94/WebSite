@@ -17,12 +17,12 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/home'; //costante pubblica che definisce la route predefinita verso cui un utente autenticato viene reindirizzato dopo il login. Posso cambiarla
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
      */
-    public function boot(): void
+    public function boot(): void //metodo eseguito quando il service provider viene caricato all'avvio dell'applicazione
     {
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());

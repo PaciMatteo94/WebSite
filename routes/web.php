@@ -14,12 +14,12 @@ use App\Http\Controllers\PublicController;
 |
 */
 
-Route::get('/',[PublicController::class, 'showHome'])->name('Home');
+Route::get('/',[PublicController::class, 'home'])->name('Home');
 
-Route::get('/info', [PublicController::class, 'showInfo'])->name('Info');
+Route::get('/info', [PublicController::class, 'info'])->name('Info');
 
-Route::get('/posizione', [PublicController::class, 'showPosition'])->name('Posizione');
+Route::get('/where', [PublicController::class, 'where'])->name('Where');
 
 Route::get('/login', [PublicController::class, 'login'])->name('Login');
 
-Route::get('/catalogo', [PublicController::class, 'showCatalogo'])->name('Catalogo');
+Route::get('/catalog', [PublicController::class, 'catalog'])->name('Catalog');
