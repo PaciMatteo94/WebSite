@@ -16,7 +16,7 @@
     <div id="page">
         <header id="header">
             <div id="titolo">
-                <a href="{{ route('Home') }}">
+                <a href="{{ route('home') }}">
                     <h2 id="titolo-home">NEX:Assistenza Tecnica</h2>
                 </a>
             </div>
@@ -24,7 +24,10 @@
         </header>
         @yield('content') <!-- Inserimento dinamico del contentuto -->
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @yield('javascript')
+
+
 </body>
 
 </html>

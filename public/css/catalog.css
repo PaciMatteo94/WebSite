@@ -11,6 +11,8 @@
     background-color: aqua;
     padding: 16px;
     margin: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 #risultati{
@@ -21,4 +23,10 @@
 
     padding: 16px;
     margin: 5px;
+}
+
+#barra-ricerca{
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
 }

@@ -17,10 +17,24 @@
 @section('content')
 <div id="contenuto">
     <aside id="ricerca">
-        
+        <div id="barra-ricerca">
+            <input type="text" name="barra">
+        </div>
+        <div>
+            @foreach($categories as $category)
+            <div>
+                <input type="checkbox" class="category-checkbox" value="{{$category['id']}}"><label>{{ $category['name'] }}</label>
+            </div>
+
+            @endforeach
+        </div>
+
+
     </aside>
     <div id="risultati">
-        
+
+
+
     </div>
 
 

@@ -53,6 +53,17 @@ class PublicController extends Controller
     public function catalog(): View{
         $navbarView = 'layouts/navUser';
         $cssFile = asset('css/navUser.css');
-        return view('catalog',['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
+        $categories = [
+            ['id' => 'MoBo', 'name' => 'Schede Madri'],
+            ['id' => 'Cpu', 'name' => 'Processori'],
+            ['id' => 'Gpu', 'name' => 'Schede Video'],
+            ['id' => 'RAM', 'name' => 'RAM'],
+            ['id' => 'Storage', 'name' => 'Storage'],
+            ['id' => 'Monitor', 'name' => 'Monitor'],
+            ['id' => 'Psu', 'name' => 'Alimentatori'],
+            ['id' => 'Cooling', 'name' => 'Dissipatori'],
+            ['id' => 'Fan', 'name' => 'Ventole'],
+        ];
+        return view('catalog',['navbarView'=>$navbarView, 'cssFile'=>$cssFile, 'categories'=>$categories]);
     }
 }

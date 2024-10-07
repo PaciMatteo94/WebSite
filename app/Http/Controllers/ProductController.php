@@ -10,10 +10,16 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $prodotti = Product::all();
-        return response()->json($prodotti);
+        $categoryIds = $request->get('categories');
+        if (!empty($categoryIds)) {
+            $products = Product::whereIn('category', $categoryIds)->get();
+            return view('productsList', ['products' => $products])->render();
+        }else{
+            return view('productsList', ['message' => "Non ci sono categorie selezionate"])->render();
+        }
+        
     }
 
     /**
