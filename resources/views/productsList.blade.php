@@ -1,9 +1,17 @@
 @if(!empty($products) && $products->count() > 0)
-@foreach($products as $product)
+
 <div class="product-item">
-        <p>{{ $product->name }}</p>
+<ul>
+        @foreach ($products as $product)
+            <li>{{ $product->name }}</li>
+        @endforeach
+    </ul>
 </div>
-@endforeach
+
+<div class="pagination">
+{{ $products->links() }}
+</div>
+
 @else
 <div>
         <p>{{$message}}</p>

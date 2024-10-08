@@ -16,9 +16,10 @@
 
 @section('content')
 <div id="contenuto">
-    <aside id="ricerca">
-        <div id="barra-ricerca">
-            <input type="text" name="barra">
+    <aside id="sezione-ricerca">
+        <div id="ricerca">
+            <input id="barra-ricerca" type="text" name="barra">
+            <button id="bottone-ricerca">cerca</button>
         </div>
         <div>
             @foreach($categories as $category)
