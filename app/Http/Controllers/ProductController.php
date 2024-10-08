@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
+use function Laravel\Prompts\search;
+
 class ProductController extends Controller
 {
     /**
@@ -14,12 +16,11 @@ class ProductController extends Controller
     {
         $categoryIds = $request->get('categories');
         if (!empty($categoryIds)) {
-            $products = Product::whereIn('category', $categoryIds)->get();
+            $products = Product::whereIn('category', $categoryIds)->simplePaginate(3);
             return view('productsList', ['products' => $products])->render();
-        }else{
+        } else {
             return view('productsList', ['message' => "Non ci sono categorie selezionate"])->render();
         }
-        
     }
 
     /**
@@ -68,5 +69,17 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+
+    public function getProducts(Request $request)
+    {
+        $searchArray = $request->get('products');
+        if (!empty( $searchArray)) {
+            $search = $searchArray[0];
+            $products = Product::where('name', 'LIKE', "%{$search}%")->simplePaginate(3);
+            return view('productsList', ['products' => $products])->render();
+        }
     }
 }
