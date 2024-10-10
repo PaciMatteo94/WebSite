@@ -31,3 +31,24 @@
     flex-direction: column;
 }
 
+.product-name{
+    margin: 5px;
+    padding: 16px;
+}
+
+.link-product{
+    text-decoration: none ;
+    color: black ;
+}
+
+.link-product:visited {
+    color: black;
+}
+
+.link-product:hover {
+    color: black;
+}
+
+.link-product:active {
+    color: black;
+}

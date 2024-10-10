@@ -23,3 +23,5 @@ Route::get('/where', [PublicController::class, 'where'])->name('where');
 Route::get('/login', [PublicController::class, 'login'])->name('login');
 
 Route::get('/catalog', [PublicController::class, 'catalog'])->name('catalog');
+
+Route::get('/product/{id}', [PublicController::class, 'show'])->name('product.show');

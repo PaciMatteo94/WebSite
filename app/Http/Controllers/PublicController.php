@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Stabilimenti;
+use App\Models\Product;
 
 class PublicController extends Controller
 {
@@ -66,4 +67,16 @@ class PublicController extends Controller
         ];
         return view('catalog',['navbarView'=>$navbarView, 'cssFile'=>$cssFile, 'categories'=>$categories]);
     }
+
+    public function show($id)
+    {
+        $navbarView = 'layouts/navUser';
+        $cssFile = asset('css/navUser.css');
+        // Cerca il prodotto nel database usando l'ID
+        $product = Product::where('name', $id)->first();
+    
+        // Ritorna la view 'product.show' con i dettagli del prodotto
+        return view('productShow', ['navbarView'=>$navbarView, 'cssFile'=>$cssFile, 'product' => $product])->render();
+    }
+
 }

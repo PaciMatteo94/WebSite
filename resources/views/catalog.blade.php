@@ -28,7 +28,7 @@
             </div>
 
             @endforeach
-        </div>
+      </div>
 
 
     </aside>
@@ -43,5 +43,5 @@
 @endsection
 
 @section('javascript')
-<script src="{{ asset('js/catalog.js') }}?v={{ time() }}"> </script>
+<script src="{{ asset('js/catalog2.js') }}?v={{ time() }}"> </script>
 @endsection

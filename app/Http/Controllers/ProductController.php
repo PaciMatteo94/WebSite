@@ -15,12 +15,19 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $categoryIds = $request->get('categories');
-        if (!empty($categoryIds)) {
+        $searchArray = $request->get('search');
+        if($searchArray[0]==""|| empty($searchArray)){
             $products = Product::whereIn('category', $categoryIds)->simplePaginate(3);
-            return view('productsList', ['products' => $products])->render();
-        } else {
-            return view('productsList', ['message' => "Non ci sono categorie selezionate"])->render();
+        }else{
+                $search= $searchArray[0];
+                if(!empty($categoryIds)){
+                    $products = Product::whereIn('category', $categoryIds)->where('name', 'LIKE', "%{$search}%")->simplePaginate(3);
+                }else{
+                    $products = Product::where('name', 'LIKE', "%{$search}%")->simplePaginate(3);
+                }
+                
         }
+        return view('productsList', ['products' => $products])->render();
     }
 
     /**
@@ -73,13 +80,13 @@ class ProductController extends Controller
 
 
 
-    public function getProducts(Request $request)
-    {
-        $searchArray = $request->get('products');
-        if (!empty( $searchArray)) {
-            $search = $searchArray[0];
-            $products = Product::where('name', 'LIKE', "%{$search}%")->simplePaginate(3);
-            return view('productsList', ['products' => $products])->render();
-        }
-    }
+    // public function getProducts(Request $request)
+    // {
+    //     $searchArray = $request->get('products');
+    //     if (!empty($searchArray)) {
+    //         $search = $searchArray[0];
+    //         $products = Product::where('name', 'LIKE', "%{$search}%")->simplePaginate(3);
+    //         return view('productsList', ['products' => $products])->render();
+    //     }
+    // }
 }

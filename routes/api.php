@@ -27,5 +27,5 @@ Route::get('/assistence_center', [AssistenceCenterController::class, 'index']);
 
 Route::get('/products', [ProductController::class, 'index']);
 
-Route::get('/list-products', [ProductController::class, 'getProducts']);
+// Route::get('/list-products', [ProductController::class, 'getProducts']);
 
