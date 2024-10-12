@@ -16,18 +16,18 @@
 
 
 @section('content')
-<div id="contenuto">
+
 <div id="login">
-            <fieldset id="campo">
-                <label for="Nome Utente">Nome Utente</label>
-                <input type="text" name="Nome Utente">
-                <label for="Password">Password</label>
-                <input type="password" name="password">
-            </fieldset>
+    <fieldset id="campo">
+        <label for="Nome Utente">Nome Utente</label>
+        <input type="text" name="Nome Utente">
+        <label for="Password">Password</label>
+        <input type="password" name="password">
+    </fieldset>
 
 
-
-        </div>
 
 </div>
+
+
 @endsection

@@ -15,7 +15,7 @@
 
 
 @section('content')
-<div id="contenuto">
+<div id="catalogo">
     <aside id="sezione-ricerca">
         <div id="ricerca">
             <input id="barra-ricerca" type="text" name="barra">

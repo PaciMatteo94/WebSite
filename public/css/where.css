@@ -1,26 +1,23 @@
-#contenuto{
-    flex-grow: 1;
+#contenuto-where{
     display: flex;
-    background-color: rgb(83, 153, 144);
-
-
+    justify-content: space-between;
 }
-
-#iframe{
+#map{
     margin: 5px;
     padding: 16px;
+    height: 500px;
+    width: 500px;
 }
 
-#posizione{
+
+#prova-position{
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     margin: 5px;
     padding: 16px;
 }
 
-
-
-#stabilimenti-list{
-    margin: 5px;
-    padding: 16px;
+.p{
+    color: white;
 }

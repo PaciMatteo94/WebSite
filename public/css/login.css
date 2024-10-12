@@ -1,14 +1,10 @@
-#contenuto{
-    flex-grow: 1;
+#login{
     display: flex;
-    background-color: rgb(83, 153, 144);
     justify-content: center;
-
-
 }
-
 #campo{
     display: flex;
     flex-direction: column;
     margin-top: 30px;
+    color: white;
 }

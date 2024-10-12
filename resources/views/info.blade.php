@@ -15,7 +15,7 @@
 
 
 @section('content')
-<div id="contenuto">
+
 
     <div class="sezione sezione-1">
         <div class="contenitore-immagine">
@@ -128,6 +128,6 @@
         </p>
     </div>
 
-</div>
+
 
 @endsection

@@ -1,14 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto:wght@400&display=swap" rel="stylesheet"');
 
-#contenuto {
-    flex-grow: 1;
-    background-color: rgb(51, 143, 150);
-    display: flex;
-    flex-direction: column;
-}
+
 
 .sezione {
     display: flex;
+    flex-grow: 1;
 }
 
 .sezione-1 {
@@ -52,6 +48,9 @@
 .descrizione {
     margin: 5px;
     padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .descrizione.descrizione-1 {

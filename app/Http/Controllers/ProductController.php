@@ -78,15 +78,4 @@ class ProductController extends Controller
         //
     }
 
-
-
-    // public function getProducts(Request $request)
-    // {
-    //     $searchArray = $request->get('products');
-    //     if (!empty($searchArray)) {
-    //         $search = $searchArray[0];
-    //         $products = Product::where('name', 'LIKE', "%{$search}%")->simplePaginate(3);
-    //         return view('productsList', ['products' => $products])->render();
-    //     }
-    // }
 }

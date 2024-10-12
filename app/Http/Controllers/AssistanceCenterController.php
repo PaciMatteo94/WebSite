@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\AsssistenceCenter;
+use App\Models\AssistanceCenter;
 
-class AssistenceCenterController extends Controller
+class AssistanceCenterController extends Controller
 {
     /**
      * Display a listing of the resource.

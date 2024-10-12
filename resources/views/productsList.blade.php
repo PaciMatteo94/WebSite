@@ -1,6 +1,5 @@
-@if(!empty($products) && $products->count() > 0)
-@foreach($products as $product)
-<a class="link-product" href="{{ route('product.show', ['id' => $product->name]) }}">
+@forelse($products as $product)
+<a class="link-product" href="{{ route('product.show', ['id' => $product->id, 'name' =>urlencode($product->name)]) }}">
     <div class="product-item">
         <!-- Parte superiore: immagine del prodotto -->
         <!-- <div class="product-image">
@@ -12,10 +11,9 @@
         </div>
     </div>
 </a>
-@endforeach
-@else
+@empty
 <p>Nessun prodotto trovato.</p>
-@endif
+@endforelse
 
 @if($products->hasPages())
 <div class="pagination">

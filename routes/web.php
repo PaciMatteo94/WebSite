@@ -24,4 +24,4 @@ Route::get('/login', [PublicController::class, 'login'])->name('login');
 
 Route::get('/catalog', [PublicController::class, 'catalog'])->name('catalog');
 
-Route::get('/product/{id}', [PublicController::class, 'show'])->name('product.show');
+Route::get('/product/{id}/{name?}', [PublicController::class, 'show'])->name('product.show');

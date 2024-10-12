@@ -22,7 +22,9 @@
             </div>
             @yield('navbar') <!-- Inserimento dinamico della navbar -->
         </header>
+        <div id="contenuto">
         @yield('content') <!-- Inserimento dinamico del contentuto -->
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @yield('javascript')
