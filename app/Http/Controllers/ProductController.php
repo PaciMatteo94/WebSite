@@ -17,7 +17,7 @@ class ProductController extends Controller
         $categoryIds = $request->get('categories');
         $searchArray = $request->get('search');
         if($searchArray[0]==""|| empty($searchArray)){
-            $products = Product::whereIn('category', $categoryIds)->simplePaginate(3);
+            $products = Product::whereIn('category', $categoryIds)->simplePaginate(5);
         }else{
                 $search= $searchArray[0];
                 if(!empty($categoryIds)){

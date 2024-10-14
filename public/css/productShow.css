@@ -1,5 +1,8 @@
 .product-detail{
     display: flex;
+    border-radius: 10px;
+    background-color: rgb(159, 167, 202);
+    margin: 20px;
 
     
 }
@@ -7,8 +10,8 @@
 .product-image{
     margin: 5px;
     padding: 16px;
-    height: 400px;
-    width: 400px;
+    height: auto;
+    width: auto;
     overflow: hidden;
 }
 
@@ -23,15 +26,15 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     margin: 5px;
     padding: 16px;
 }
 
 .product-info h1{
-    color: white;
+    color: black;
 }
 
 .product-info p{
-    color: white;
+    color: black;
 }

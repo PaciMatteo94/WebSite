@@ -1,39 +1,98 @@
 #catalogo{
     display: flex;
+    margin: 5px;
+    padding: 16px;
+    max-height: fit-content;
 }
 
 #sezione-ricerca{
-
-    height: 50vh;
-    background-color: aqua;
+    max-height: auto;
+    background-color: rgb(159, 167, 202);
     padding: 16px;
     margin: 5px;
     display: flex;
     flex-direction: column;
+    border-radius: 10px;
 }
 
-#risultati{
-    flex-grow: 1;
-    height: 50vh;
-
-    background-color: bisque;
-
-    padding: 16px;
-    margin: 5px;
+#ricerca{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-bottom: solid;
+    border-bottom-width: 2px;
+    border-color: black;
+    padding-bottom: 10px;
 }
+
 
 #barra-ricerca{
     margin: 5px;
+}
+
+#bottone-ricerca{
+    margin: 5px;
+}
+.categorie-ricerca{
     display: flex;
     flex-direction: column;
+    margin-top: 10px;
+}
+
+.categoria{
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    color: black;
+    
+}
+
+
+#risultati{
+    flex-grow: 1;
+    max-height: 50vh;
+    background-color: rgb(159, 167, 202);
+    padding: 16px;
+    margin: 5px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+/* Sezione della view dinamica */
+#mostra-prodotti{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+}
+
+.product-image{
+    margin: 5px;
+    padding: 16px;
 }
 
 .product-name{
     margin: 5px;
     padding: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
 }
 
 .link-product{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     text-decoration: none ;
     color: black ;
 }

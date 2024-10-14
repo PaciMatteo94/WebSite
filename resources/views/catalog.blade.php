@@ -17,21 +17,28 @@
 @section('content')
 <div id="catalogo">
     <aside id="sezione-ricerca">
+
         <div id="ricerca">
             <input id="barra-ricerca" type="text" name="barra">
             <button id="bottone-ricerca">cerca</button>
         </div>
-        <div>
+
+        <div class="categorie-ricerca">
             @foreach($categories as $category)
-            <div>
+            <div class="categoria">
                 <input type="checkbox" class="category-checkbox" value="{{$category['id']}}"><label>{{ $category['name'] }}</label>
             </div>
 
+
             @endforeach
-      </div>
+        </div>
+
+
 
 
     </aside>
+
+
     <div id="risultati">
 
 
@@ -43,5 +50,5 @@
 @endsection
 
 @section('javascript')
-<script src="{{ asset('js/catalog2.js') }}?v={{ time() }}"> </script>
+<script src="{{ asset('js/catalog.js') }}?v={{ time() }}"> </script>
 @endsection
