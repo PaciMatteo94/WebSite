@@ -20,9 +20,15 @@
 <div id="login">
     <fieldset id="campo">
         <label for="Nome Utente">Nome Utente</label>
-        <input type="text" name="Nome Utente">
+        <div class="input-location">
+            <input type="text" name="Nome Utente">
+        </div>
         <label for="Password">Password</label>
-        <input type="password" name="password">
+        <div class="input-location">
+            <input type="password" name="password">
+        </div>
+
+
     </fieldset>
 
 

@@ -17,13 +17,13 @@
 #titolo-categorie h1 {
     color: white;
     font-family: 'Raleway', sans-serif;
-    font-size: 30px;
-    font-weight: 200;
+    font-size: 36px;
+    font-weight: bold;
 }
 
 
 .categorie {
-    background-color: #8489a1;
+    background-color: rgb(159, 167, 202);
     /* Colore di sfondo per visibilità */
     width: 360px;
     /* 3 elementi per riga, meno il margine */
