@@ -45,11 +45,7 @@ class PublicController extends Controller
         return view('where',['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
     }
 
-    public function login(): View{
-        $navbarView = 'layouts/navUser';
-        $cssFile = asset('css/navUser.css');
-        return view('login',['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
-    }
+
 
     public function catalog(): View{
         $navbarView = 'layouts/navUser';

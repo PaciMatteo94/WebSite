@@ -18,21 +18,21 @@
 @section('content')
 
 <div id="login">
-    <fieldset id="campo">
-        <label for="Nome Utente">Nome Utente</label>
-        <div class="input-location">
-            <input type="text" name="Nome Utente">
-        </div>
-        <label for="Password">Password</label>
-        <div class="input-location">
-            <input type="password" name="password">
-        </div>
+    <form method="POST" action="{{ route('login') }}">
+        @csrf <!-- Token CSRF per la sicurezza -->
+        <fieldset id="campo">
+            <label for="username">Nome Utente</label>
+            <div class="input-location">
+                <input type="text" name="username" id="username" required>
+            </div>
+            <label for="password">Password</label>
+            <div class="input-location">
+                <input type="password" name="password" id="password" required>
+            </div>
+        </fieldset>
 
-
-    </fieldset>
-
-
-
+        <button type="submit">Login</button>
+    </form>
 </div>
 
 

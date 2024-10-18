@@ -22,8 +22,39 @@
         <!-- Aggiungi altre informazioni del prodotto -->
         <p>{{ $product->info }}</p>
 
+        <h1>Tecniche d'uso</h1>
+        <p>{{ $product->usage_techniques }}</p>
+
+        <h1>Modalità d'istallazione</h1>
+        <p>{{ $product->installation_mode }}</p>
+
         <!-- Mostra l'immagine del prodotto -->
+             <!-- Se l'utente è loggato e ha il ruolo 'technician', mostra malfunctions e solutions -->
+    @if (auth()->check() && auth()->user()->role === 'technician')
+    <div class="product-malfunctions">
+        <h2>Malfunctions</h2>
+        <!-- Qui visualizza gli elementi malfunctions associati al prodotto -->
+        <ul>
+            <li>{{ $product->malfunctions }}</li>
+        </ul>
     </div>
+
+    <div class="product-solutions">
+        <h2>Solutions</h2>
+        <!-- Qui visualizza gli elementi solutions associati al prodotto -->
+
+
+        <ul>
+
+            <li>{{ $product->solutions }}</li>
+
+        </ul>
+
+    </div>
+    @endif
+    </div>
+
+
 
 
 </div>

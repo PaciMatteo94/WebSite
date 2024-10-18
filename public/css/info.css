@@ -36,12 +36,13 @@
     justify-content: center;
     margin: 5px;
     padding: 16px;
+
 }
 
 .immagine {
-    height: 200px;
-    width: 400px;
-
+    height: auto;
+    width: auto;
+    border-radius: 10px;
 }
 
 
@@ -63,6 +64,22 @@
     padding-right: 0px;
 }
 
+#link-where{
+    text-decoration: underline;
+    color: blue;
+}
+
+#link-where:visited{
+    color: purple;
+}
+#link-where:hover{
+    color: blue;
+}
+
+#link-where:active{
+    color: red;
+}
+
 .descrizione.descrizione-3 {
     margin-left: 0px;
     padding-left: 0px;
@@ -80,6 +97,8 @@
     color: rgb(179, 191, 201);
 
 }
+
+
 
 
 h2 {

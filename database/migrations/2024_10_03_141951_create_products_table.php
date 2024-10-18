@@ -16,8 +16,12 @@ return new class extends Migration
             $table->string('category');
             $table->string('name');
             $table->string('info',500);
+            $table->string('usage_techniques',500)->default('descrizione di come utilizzare il prodotto');
+            $table->string('installation_mode',500)->default('descrizione di come installare il prodotto');
             $table->string('image');
             $table->string('thumbnail');
+            $table->string('malfunctions',2000)->default('descrizione dei malfunzionameti');
+            $table->string('solutions',2000)->default('descrizione delle soluzioni');
             $table->timestamps();
         });
     }

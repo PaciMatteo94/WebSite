@@ -15,7 +15,11 @@ class Product extends Model
         'category',
         'name',
         'info',
+        'usage_techniques',
+        'installation_mode',
         'image',
-        'thumbnail'
+        'thumbnail',
+        'malfunctions',
+        'solutions'
     ];
 }
