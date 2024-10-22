@@ -16,19 +16,51 @@ class ProductController extends Controller
     {
         $categoryIds = $request->get('categories');
         $searchArray = $request->get('search');
-        if($searchArray[0]==""|| empty($searchArray)){
-            $products = Product::whereIn('category', $categoryIds)->simplePaginate(5);
-        }else{
-                $search= $searchArray[0];
-                if(!empty($categoryIds)){
-                    $products = Product::whereIn('category', $categoryIds)->where('name', 'LIKE', "%{$search}%")->simplePaginate(3);
-                }else{
-                    $products = Product::where('name', 'LIKE', "%{$search}%")->simplePaginate(3);
-                }
-                
+
+        if (empty($categoryIds) && ($searchArray[0]==null ||$searchArray[0]==='') ) {
+            $products = Product::simplePaginate(5); 
+        } else if(!empty($categoryIds) && ($searchArray[0]==null ||$searchArray[0]==='') ){
+            $products = Product::whereIn('category', $categoryIds)->simplePaginate(5); 
+        } else if(!empty($categoryIds) && !($searchArray[0]==null ||$searchArray[0]==='')){
+            $search = $searchArray[0];
+            if(substr($search, -1) === '*'){ 
+                $search = rtrim($search, '*');
+                $products = Product::whereIn('category', $categoryIds)->where('info', 'LIKE',"% {$search}%")->simplePaginate(5);
+            } else{
+                $products = Product::whereIn('category', $categoryIds)->where('info','LIKE', "% $search %")->simplePaginate(5); 
+            }
+
+        } else if(empty($categoryIds) && !($searchArray[0]==null ||$searchArray[0]==='')){
+            $search = $searchArray[0];
+            if(substr($search, -1) === '*'){
+                $search = rtrim($search, '*');
+                $products = Product::where('info', 'LIKE', "% {$search}%")->simplePaginate(5); 
+            } else{
+                $products = Product::where('info','LIKE',"% $search %")->simplePaginate(5); 
+            }
         }
+
+
+
         return view('productsList', ['products' => $products])->render();
+
+
     }
+
+
+    public function getInfo(Request $request){
+
+    $info = Product::select('category', 'name')->get();
+    return response()->json($info);
+
+    }
+
+    public function getProduct(Request $request){
+
+        $product = Product::whereIn('name', $request)->get();
+        return response()->json($product);
+    
+        }
 
     /**
      * Show the form for creating a new resource.
@@ -77,5 +109,4 @@ class ProductController extends Controller
     {
         //
     }
-
 }

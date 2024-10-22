@@ -55,7 +55,7 @@
 
 #risultati{
     flex-grow: 1;
-    max-height: 50vh;
+    max-height: auto;
     background-color: rgb(159, 167, 202);
     padding: 16px;
     margin: 5px;

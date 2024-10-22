@@ -32,6 +32,9 @@ class AuthenticatedSessionController extends Controller
             //     break;
             case 'technician': return redirect()->route('info');
                 break;
+                case 'staff': return redirect()->route('staffprova');
+                break;
+                case 'admin': return redirect()->route('adminprova');
             default: return redirect('/');
         }
     }

@@ -30,8 +30,8 @@
                 <input type="password" name="password" id="password" required>
             </div>
         </fieldset>
-
-        <button type="submit">Login</button>
+<!-- da convertire in input da bottone -->
+        <button type="submit">Login</button> 
     </form>
 </div>
 

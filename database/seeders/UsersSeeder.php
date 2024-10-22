@@ -17,8 +17,8 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Alex',
                 'surname' => 'Verdi',
-                'username' => 'alexalex',
-                'password' => Hash::make('alexalex'),
+                'username' => 'tecnico',
+                'password' => Hash::make('tecnico'),
                 'role' => 'technician',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
@@ -26,18 +26,18 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Marco',
                 'surname' => 'Bianchi',
-                'username' => 'useruser',
-                'password' => Hash::make('useruser'),
-                'role' => 'technician',
+                'username' => 'staff',
+                'password' => Hash::make('staff'),
+                'role' => 'staff',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
             ],
             [
                 'name' => 'Mario',
                 'surname' => 'Rossi',
-                'username' => 'technician',
-                'password' => Hash::make('technician'),
-                'role' => 'technician',
+                'username' => 'admin',
+                'password' => Hash::make('admin'),
+                'role' => 'admin',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
             ]
