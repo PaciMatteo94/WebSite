@@ -22,4 +22,8 @@ class Product extends Model
         'malfunctions',
         'solutions'
     ];
+
+    public function malfunctions(){
+        return $this->hasMany(Malfunction::class);
+    }
 }

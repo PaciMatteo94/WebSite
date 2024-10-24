@@ -17,50 +17,78 @@ class ProductController extends Controller
         $categoryIds = $request->get('categories');
         $searchArray = $request->get('search');
 
-        if (empty($categoryIds) && ($searchArray[0]==null ||$searchArray[0]==='') ) {
-            $products = Product::simplePaginate(5); 
-        } else if(!empty($categoryIds) && ($searchArray[0]==null ||$searchArray[0]==='') ){
-            $products = Product::whereIn('category', $categoryIds)->simplePaginate(5); 
-        } else if(!empty($categoryIds) && !($searchArray[0]==null ||$searchArray[0]==='')){
+        if (empty($categoryIds) && ($searchArray[0] == null || $searchArray[0] === '')) {
+            $products = Product::simplePaginate(5);
+        } else if (!empty($categoryIds) && ($searchArray[0] == null || $searchArray[0] === '')) {
+            $products = Product::whereIn('category', $categoryIds)->simplePaginate(5);
+        } else if (!empty($categoryIds) && !($searchArray[0] == null || $searchArray[0] === '')) {
             $search = $searchArray[0];
-            if(substr($search, -1) === '*'){ 
+            if (substr($search, -1) === '*') {
                 $search = rtrim($search, '*');
-                $products = Product::whereIn('category', $categoryIds)->where('info', 'LIKE',"% {$search}%")->simplePaginate(5);
-            } else{
-                $products = Product::whereIn('category', $categoryIds)->where('info','LIKE', "% $search %")->simplePaginate(5); 
+                $products = Product::whereIn('category', $categoryIds)->where('info', 'LIKE', "% {$search}%")->simplePaginate(5);
+            } else {
+                $products = Product::whereIn('category', $categoryIds)->where('info', 'LIKE', "% $search %")->simplePaginate(5);
             }
-
-        } else if(empty($categoryIds) && !($searchArray[0]==null ||$searchArray[0]==='')){
+        } else if (empty($categoryIds) && !($searchArray[0] == null || $searchArray[0] === '')) {
             $search = $searchArray[0];
-            if(substr($search, -1) === '*'){
+            if (substr($search, -1) === '*') {
                 $search = rtrim($search, '*');
-                $products = Product::where('info', 'LIKE', "% {$search}%")->simplePaginate(5); 
-            } else{
-                $products = Product::where('info','LIKE',"% $search %")->simplePaginate(5); 
+                $products = Product::where('info', 'LIKE', "% {$search}%")->simplePaginate(5);
+            } else {
+                $products = Product::where('info', 'LIKE', "% $search %")->simplePaginate(5);
             }
         }
 
 
 
         return view('productsList', ['products' => $products])->render();
-
-
     }
 
 
-    public function getInfo(Request $request){
+    public function getInfo(Request $request)
+    {
 
-    $info = Product::select('category', 'name')->get();
-    return response()->json($info);
-
+        $info = Product::select('id', 'category', 'name')->get();
+        return response()->json($info);
     }
 
-    public function getProduct(Request $request){
 
-        $product = Product::whereIn('name', $request)->get();
-        return response()->json($product);
-    
+    public function getMalfuntionsAndSolutions($productId, Request $request)
+    {
+        $product = Product::with('malfunctions.solutions')->find($productId);
+        if (!$product) {
+            return response()->json(['error' => 'Prodotto non trovato'], 404);
         }
+        $malfunctions = $product->malfunctions->map(function ($malfunction) {
+            return [
+                'id' => $malfunction->id,
+                'title' => $malfunction->title,
+                'description' => $malfunction->description,
+                'solutions' => $malfunction->solutions->map(function ($solution) {
+                    return [
+                        'id' => $solution->id,
+                        'title' => $solution->title,
+                        'description' => $solution->description
+                    ];
+                })
+            ];
+        });
+
+        switch ($request->get('case')) {
+            case 'remove':
+                return view('staff/removeOption', ['malfunctions' => $malfunctions])->render();
+                break;
+            case 'change':
+                return response()->json($malfunctions);
+                break;
+
+            default:
+                
+                break;
+        }
+
+        
+    }
 
     /**
      * Show the form for creating a new resource.

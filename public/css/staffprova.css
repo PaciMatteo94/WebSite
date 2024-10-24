@@ -1,8 +1,27 @@
 #modifiche{
     background-color: beige;
+    
 }
 
-div{
+#form-operation{
     margin: 5px;
     padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
+#settore-modifiche{
+    display: flex;
+    justify-content: space-between;
+    background-color: aliceblue;
+
+}
+
+.selezione{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+

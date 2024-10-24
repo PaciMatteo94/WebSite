@@ -16,7 +16,10 @@ class DatabaseSeeder extends Seeder
             RegionSeeder::class,
             AssistanceCentersSeeder::class,
             ProductsSeeder::class,
-            UsersSeeder::class
+            UsersSeeder::class,
+            MalfunctionsSeeder::class,
+            SolutionsSeeder::class
+
         ]);
 
         // \App\Models\User::factory(10)->create();

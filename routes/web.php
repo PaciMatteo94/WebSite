@@ -28,6 +28,12 @@ Route::get('/product/{id}/{name?}', [PublicController::class, 'show'])->name('pr
 
 Route::get('/staff', [StaffController::class, 'staff'])->name('staffprova');
 
+Route::get('/staff/remove', [StaffController::class, 'remove'])->name('staff.remove');
+
+Route::get('/staff/change', [StaffController::class, 'change'])->name('staff.change');
+
+Route::get('/staff/insert', [StaffController::class, 'insert'])->name('staff.insert');
+
 Route::get('/admin', [AdminController::class, 'admin'])->name('adminprova');
 
 require __DIR__.'/auth.php'; 

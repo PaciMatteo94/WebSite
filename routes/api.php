@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\AssistanceCenterController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MalfunctionController;
+use App\Http\Controllers\SolutionController;
+use App\Models\Malfunction;
+use App\Models\Solution;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +33,8 @@ Route::get('/products', [ProductController::class, 'index']);
 
 Route::get('/getInfo', [ProductController::class, 'getInfo']);
 
-Route::get('/getProduct', [ProductController::class, 'getProduct']);
-// Route::get('/list-products', [ProductController::class, 'getProducts']);
+Route::get('/getInfoProduct/{id}', [ProductController::class, 'getMalfuntionsAndSolutions']);
 
+Route::delete('/delete.malfunction/{id}', [MalfunctionController::class, 'destroy']);
+
+Route::delete('/delete.solution/{id}', [SolutionController::class, 'destroy']);
