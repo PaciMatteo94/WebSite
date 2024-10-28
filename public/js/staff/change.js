@@ -114,7 +114,8 @@ $(document).ready(function () {
 
             // Cerca nei malfunzionamenti la soluzione corrispondente
             responseObjMalfSol.forEach(malfunction => {
-                const foundSolution = malfunction.solutions.find(solution => solution.id === Number(id));
+                const solutions = Array.isArray(malfunction.solutions) ? malfunction.solutions : Object.values(malfunction.solutions || []);
+                const foundSolution = solutions.find(solution => solution.id === Number(id));
                 if (foundSolution) {
                     selectedItem = foundSolution;
                     console.log(selectedItem);

@@ -38,6 +38,10 @@ Route::middleware('can:isStaff')->group(function () {
 
 Route::middleware('can:isAdmin')->group(function () {
     Route::get('/admin', [AdminController::class, 'admin'])->name('adminprova');
+    Route::get('/admin/prodotti', [AdminController::class, 'adminProdotti'])->name('adminProdotti');
+    Route::get('/admin/staff', [AdminController::class, 'adminStaff'])->name('adminStaff');
+    Route::get('/admin/tecnici', [AdminController::class, 'adminTecnici'])->name('adminTecnici');
+    
 });
 
 require __DIR__ . '/auth.php'; 

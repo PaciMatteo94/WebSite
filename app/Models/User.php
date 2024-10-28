@@ -52,4 +52,9 @@ class User extends Authenticatable
         $role = (array) $role;
         return in_array($this->role, $role);
     }
+
+    public function techProfile()
+    {
+        return $this->hasOne(TechProfile::class);
+    }
 }
