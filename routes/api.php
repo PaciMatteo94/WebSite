@@ -26,15 +26,30 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+    Route::get('/assistance_center', [AssistanceCenterController::class, 'index']);
 
-Route::get('/assistance_center', [AssistanceCenterController::class, 'index']);
+    Route::get('/products', [ProductController::class, 'index']);
 
-Route::get('/products', [ProductController::class, 'index']);
+    Route::get('/getInfo', [ProductController::class, 'getInfo']);
 
-Route::get('/getInfo', [ProductController::class, 'getInfo']);
+    Route::get('/getInfoProduct/{id}', [ProductController::class, 'getMalfuntionsAndSolutions']);
 
-Route::get('/getInfoProduct/{id}', [ProductController::class, 'getMalfuntionsAndSolutions']);
+    Route::delete('/malfunctions/delete/{id}', [MalfunctionController::class, 'destroy']);
 
-Route::delete('/delete.malfunction/{id}', [MalfunctionController::class, 'destroy']);
+    Route::delete('/solutions/delete/{id}', [SolutionController::class, 'destroy']);
 
-Route::delete('/delete.solution/{id}', [SolutionController::class, 'destroy']);
+    Route::put('/malfunctions/update/{id}', [MalfunctionController::class, 'update']);
+
+    Route::put('/solutions/update/{id}', [SolutionController::class, 'update']);
+
+    Route::get('/malfunctions/index/{id}', [MalfunctionController::class, 'index']);
+
+    Route::get('/solutions/index/{id}', [SolutionController::class, 'index']);
+
+    Route::post('/malfunctions/insert/{id}', [MalfunctionController::class, 'store']);
+
+    Route::post('/solutions/insert/{id}', [SolutionController::class, 'store']);
+
+
+
+

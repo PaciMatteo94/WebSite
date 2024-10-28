@@ -1,0 +1,139 @@
+/* Stile di base per la tabella con bordi arrotondati */
+#form-operation{
+    display: flex;
+    justify-content: center;
+
+}
+
+#change-table{
+    display: flex;
+    justify-content: center;
+}
+
+/* Stile di base per la select */
+select {
+    margin: 5px;
+    background-color: #333; /* Sfondo scuro per la select */
+    color: #e0e0e0; /* Colore del testo più chiaro per contrastare con lo sfondo */
+    border: 1px solid #555; /* Bordo leggermente più chiaro */
+    border-radius: 5px; /* Bordi arrotondati */
+    padding: 8px; /* Spaziatura interna */
+    font-size: 14px; /* Dimensione del testo */
+    outline: none; /* Rimuove il contorno quando la select è in focus */
+    appearance: none; /* Rimuove l'aspetto di default per browser che supportano questa proprietà */
+    cursor: pointer; /* Cambia il cursore in una mano */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombra leggera */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Effetto di transizione */
+}
+
+/* Stile per quando la select è in focus (cliccata) */
+select:focus {
+    background-color: #444; /* Colore leggermente più chiaro quando in focus */
+    border-color: #777; /* Bordo ancora più chiaro in focus */
+}
+
+/* Stile per quando la select è disabilitata */
+select:disabled {
+    background-color: #2a2a2a; /* Sfondo ancora più scuro per la select disabilitata */
+    color: #777; /* Colore del testo più opaco per indicare che è disabilitata */
+    cursor: not-allowed; /* Cursore per indicare che non è cliccabile */
+}
+
+/* Freccia personalizzata per la select */
+select::-ms-expand {
+    display: none; /* Nasconde la freccia predefinita nei browser Microsoft */
+}
+
+/* Container per la freccia personalizzata (optional) */
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Freccia personalizzata (aggiunta sopra la select) */
+.select-wrapper::after {
+    content: '▼'; /* Simbolo per la freccia */
+    font-size: 10px;
+    color: #999; /* Colore della freccia */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Non cliccabile */
+}
+
+input{
+    margin: 5px;
+    background-color: #333; /* Sfondo scuro per il bottone */
+    color: #e0e0e0; /* Colore del testo chiaro per contrasto */
+    border: 1px solid #555; /* Bordo leggermente più chiaro */
+    border-radius: 5px; /* Bordi arrotondati */
+    padding: 8px; /* Spaziatura interna (più largo del select per migliorare l'aspetto) */
+    font-size: 14px; /* Dimensione del testo */
+    cursor: pointer; /* Cambia il cursore in una mano */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombra leggera */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Effetto di transizione */
+    outline: none; /* Rimuove il contorno quando in focus */
+}
+
+
+table {
+    width: 70%; /* Rende la tabella larga quanto il container */
+    border-collapse: separate; /* Permette di usare bordi arrotondati */
+    border-spacing: 0; /* Rimuove gli spazi tra le celle */
+    margin: 20px 0; /* Spazio sopra e sotto la tabella */
+    font-size: 16px; /* Dimensione del testo */
+    font-family: Arial, sans-serif; /* Font semplice e leggibile */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Aggiunge un'ombra leggera */
+    border-radius: 8px; /* Bordi arrotondati per l'intera tabella */
+    overflow: hidden; /* Nasconde gli angoli fuori dai bordi arrotondati */
+}
+
+/* Stile per le intestazioni delle colonne con bordi arrotondati */
+th {
+    background-color: #009879; /* Colore di sfondo per l'intestazione */
+    color: white; /* Colore del testo */
+    text-align: left; /* Allinea il testo a sinistra */
+    padding: 12px 15px; /* Spazio interno */
+    font-weight: bold; /* Testo in grassetto */
+}
+
+/* Arrotonda i bordi delle celle di intestazione solo se si trovano ai lati */
+th:first-child {
+    border-top-left-radius: 8px; /* Arrotonda l'angolo in alto a sinistra */
+}
+
+th:last-child {
+    border-top-right-radius: 8px; /* Arrotonda l'angolo in alto a destra */
+}
+
+/* Stile per le righe della tabella */
+td {
+    padding: 12px 15px; /* Spazio interno */
+    border-bottom: 1px solid #ddd; /* Linea divisoria tra le righe */
+}
+
+
+/* Stile per quando si passa sopra le righe */
+tr {
+    background-color: #f1f1f1; /* Colore di sfondo quando il cursore è sopra una riga */
+}
+
+/* Bordi arrotondati per l'ultima riga della tabella */
+tr:last-child td:first-child {
+    border-bottom-left-radius: 8px; /* Arrotonda l'angolo in basso a sinistra */
+}
+
+tr:last-child td:last-child {
+    border-bottom-right-radius: 8px; /* Arrotonda l'angolo in basso a destra */
+}
+
+/* Stile per un pulsante o un link all'interno della tabella */
+table a {
+    color: #009879; /* Colore del link */
+    text-decoration: none; /* Rimuove la sottolineatura */
+}
+
+table a:hover {
+    text-decoration: underline; /* Sottolineatura quando si passa sopra */
+}

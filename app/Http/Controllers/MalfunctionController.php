@@ -10,9 +10,10 @@ class MalfunctionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $datas = Malfunction::where('product_id', $id)->get();
+        return view('staff/removeOption', ['datas' => $datas])->render();
     }
 
     /**
@@ -26,9 +27,19 @@ class MalfunctionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store($id, Request $request)
     {
-        //
+        // Validazione dei dati in arrivo
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+        $malfunction = new Malfunction();
+        $malfunction->product_id = $id;
+        $malfunction->title = $request->get('title');
+        $malfunction->description = $request->get('description');
+        $malfunction->save();
+        return;
     }
 
     /**
@@ -50,9 +61,17 @@ class MalfunctionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $malfunction = Malfunction::findOrFail($id);
+
+        // Controlla i valori e, se vuoti, mantieni i valori attuali
+        $malfunction->title = $request->input('title') ?: $malfunction->title;
+        $malfunction->description = $request->input('description') ?: $malfunction->description;
+
+        $malfunction->save();
+
+        return response()->json(['success' => true, 'message' => 'Malfunction updated successfully']);
     }
 
     /**

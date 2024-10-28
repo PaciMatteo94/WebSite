@@ -25,5 +25,15 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('access-staff-area', function ($user) {
             return $user->role === 'staff';
         });
+
+        Gate::define('isStaff', function ($user) {
+            return $user->hasRole('staff');
+        });
+        Gate::define('isAdmin', function ($user) {
+            return $user->hasRole('admin');
+        });
+        Gate::define('isPublicOrTech', function ($user = null) {
+            return $user === null || $user->hasRole('technician');
+        });
     }
 }

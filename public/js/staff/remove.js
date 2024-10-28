@@ -1,6 +1,7 @@
 $(document).ready(function () {
     var responseObj = [];
     var products;
+    var selectedOption='';
     //ajax per ottenere solo i nomi dei prodotti e le loro categorie
     $.ajax({
         type: "GET",
@@ -16,13 +17,11 @@ $(document).ready(function () {
                 };
             });
 
-
             //creazione delle opzioni per le select per categorie e prodotti
             $.each(categories, function (index, category) {
                 $('#categorySelect').append('<option value="' + category + '">' + category + '</option>');
             });
             $.each(products, function (index, product) {
-                console.log(product.id);
                 $('#productSelect').append('<option value="' + product.id + '" >' + product.name + '</option>');
             });
         },
@@ -34,8 +33,8 @@ $(document).ready(function () {
 
 
 
-    // mettere il caso di default delle categorie che rida la lista di tutti i prodotti
 
+    //aggiorna la select dei prodotti in base alla categoria selezionata
     $('#categorySelect').on('change', function () {
         var selectedCategory = $(this).val();  // Ottieni la categoria selezionata
 
@@ -58,7 +57,6 @@ $(document).ready(function () {
             $('#productSelect').empty();
             $('#productSelect').append('<option value="">Seleziona un prodotto</option>');
             $.each(products, function (index, product) {
-                console.log(product.id);
                 $('#productSelect').append('<option value="' + product.id + '" >' + product.name + '</option>');
             });
         }
@@ -67,18 +65,30 @@ $(document).ready(function () {
     //richiesta ajax per ottenere una view con i malfunzionamenti e le soluzioni del prodotto selezionato
     $('#form-operation').on('submit', function (event) {
         event.preventDefault();
+        var url='';
         var idProduct = $('#productSelect').val();
-        console.log(idProduct);
+        selectedOption = $('#operationSelect').val();
 
-        if (!idProduct) {
-            alert('Devi selezionare un prodotto')
-            return;
+        if (idProduct === '' || selectedOption === '') {
+            alert('Bisogna selezionare un\'operazione e un prodotto su cui effettuare l\'operazine');
         }
+
+        switch (selectedOption) {
+            case 'malfunction':
+                url = `/api/malfunctions/index/${idProduct}`;
+                break;
+            case 'solution':
+                url = `/api/solutions/index/${idProduct}`;
+                break;
+            default:
+                break;
+        }
+
+
 
         $.ajax({
             type: "GET",
-            url: "/api/getInfoProduct/" + idProduct,
-            data:{case: 'remove'},
+            url: url,
             dataType: "HTML",
             success: function (data) {
                 $('#settore-modifiche').html(data);
@@ -91,15 +101,34 @@ $(document).ready(function () {
 
     });
 
+
+
+
+
     //importante capire perchè
     //richiesta ajax per l'eliminazione del malfunzionamento selezionato
-    $(document).on('submit', '#malfunction-form', function (event) {
+    $(document).on('submit', '#operation', function (event) {
         event.preventDefault();
-        var malfunctionId = $('#malfunctionSelect').val();
+        var Id = $('#select').val();
+
+        switch (selectedOption) {
+            case 'malfunction':
+                url = `/api/malfunctions/delete/${Id}`;
+                break;
+            case 'solution':
+                url = `/api/solutions/delete/${Id}`;
+                break;
+            default:
+                break;
+        }
+
+
+
         $.ajax({
             type: "DELETE",
-            url: "/api/delete.malfunction/" + malfunctionId,
+            url: url,
             success: function (response) {
+                $('#settore-modifiche').empty();
                 $('#settore-modifiche').html('<p>Operazione completata con successo!</p>');
 
             },
@@ -112,24 +141,6 @@ $(document).ready(function () {
     });
 
 
-    //richiesta ajax per l'eliminazione della soluzione selezionata
-    $(document).on('submit', '#solution-form', function (event) {
-        event.preventDefault();
-        var solutionId = $('#solutionSelect').val();
-        $.ajax({
-            type: "DELETE",
-            url: "/api/delete.solution/" + solutionId,
-            success: function (response) {
-                $('#settore-modifiche').html('<p>Operazione completata con successo!</p>');
-
-            },
-            error: function (xhr) {
-                // Gestisci gli errori
-                alert("Si è verificato un errore: " + xhr.responseText);
-            }
-        });
-
-    });
 
 
 

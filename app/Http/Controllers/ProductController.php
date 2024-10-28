@@ -53,41 +53,28 @@ class ProductController extends Controller
     }
 
 
-    public function getMalfuntionsAndSolutions($productId, Request $request)
+    public function getMalfuntionsAndSolutions($productId)
     {
-        $product = Product::with('malfunctions.solutions')->find($productId);
+        $product = Product::with('malfunctions', 'solutions')->find($productId);
         if (!$product) {
             return response()->json(['error' => 'Prodotto non trovato'], 404);
         }
-        $malfunctions = $product->malfunctions->map(function ($malfunction) {
-            return [
-                'id' => $malfunction->id,
-                'title' => $malfunction->title,
-                'description' => $malfunction->description,
-                'solutions' => $malfunction->solutions->map(function ($solution) {
-                    return [
-                        'id' => $solution->id,
-                        'title' => $solution->title,
-                        'description' => $solution->description
-                    ];
-                })
-            ];
-        });
-
-        switch ($request->get('case')) {
-            case 'remove':
-                return view('staff/removeOption', ['malfunctions' => $malfunctions])->render();
-                break;
-            case 'change':
-                return response()->json($malfunctions);
-                break;
-
-            default:
-                
-                break;
-        }
-
-        
+    // Mappa i malfunzionamenti e le soluzioni correlate
+    $datas = $product->malfunctions->map(function ($malfunction) use ($product) {
+        return [
+            'id' => $malfunction->id,
+            'title' => $malfunction->title,
+            'description' => $malfunction->description,
+            'solutions' => $product->solutions->where('malfunction_id', $malfunction->id)->map(function ($solution) {
+                return [
+                    'id' => $solution->id,
+                    'title' => $solution->title,
+                    'description' => $solution->description
+                ];
+            })
+        ];
+    });
+        return response()->json($datas);
     }
 
     /**

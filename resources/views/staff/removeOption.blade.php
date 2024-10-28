@@ -1,31 +1,18 @@
+@if(!($datas->isEmpty()))
 <div class="selezione">
-    <h1>seleziona un malfunzionamento</h1>
-    <p>In questo caso tutte le soluzioni a tale malfunzionamento saranno eliminate</p>
-    <form id="malfunction-form">
-    <label for="malfunctionSelect">Malfunzionamento:</label>
-        <select id="malfunctionSelect" name="malfunction">
-            @foreach($malfunctions as $malfunction)
-            <option value="{{ $malfunction['id'] }}">{{ $malfunction['title'] }}</option>
+    <h1>seleziona un elemento da rimuovere</h1>
+    <form id="operation">
+    <label for="select">Malfunzionamento:</label>
+        <select id="select" name="malfunction">
+            @foreach($datas as $object)
+            <option value="{{ $object['id'] }}">{{ $object['title'] }}</option>
             @endforeach
         </select>
 
         <button type="submit">Invia</button>
     </form>
 </div>
+@else
+<p>Non è stato trovato nessun elemento da poter rimuovere</p>
+@endif
 
-<div class="selezione">
-    <h1>Seleziona una soluzione da eliminare</h1>
-    <form id="solution-form" action="" method="">
-    <label for="solutionSelect">Soluzione:</label>
-        <select id="solutionSelect" name="solution">
-            @if(count($malfunctions) > 0)
-            @foreach($malfunctions[0]['solutions'] as $solution)
-            <option value="{{ $solution['id'] }}">{{ $solution['title'] }}</option>
-            @endforeach
-            @endif
-        </select>
-
-        <button type="submit">Invia</button>
-
-    </form>
-</div>

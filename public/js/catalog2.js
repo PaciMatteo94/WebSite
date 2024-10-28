@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var testo= '';
-    const regex = /^[a-zA-Z0-9-*]+$/;
+    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ*]+$/;
     var selectedCategories = [];
 
     //PARTE AJAX PER LA SELEZIONE DELLE CATEGORIE PRODOTTO

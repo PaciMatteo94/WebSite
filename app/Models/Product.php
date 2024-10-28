@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Product extends Model
 {
@@ -18,12 +19,14 @@ class Product extends Model
         'usage_techniques',
         'installation_mode',
         'image',
-        'thumbnail',
-        'malfunctions',
-        'solutions'
+        'thumbnail'
     ];
 
     public function malfunctions(){
         return $this->hasMany(Malfunction::class);
+    }
+    public function solutions(): HasManyThrough
+    {
+        return $this->hasManyThrough(Solution::class, Malfunction::class, 'product_id', 'malfunction_id', 'id', 'id');
     }
 }
