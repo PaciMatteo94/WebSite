@@ -29,7 +29,7 @@ Route::middleware('can:isPublicOrTech')->group(function () {
 });
 
 Route::middleware('can:isStaff')->group(function () {
-    Route::get('/staff', [StaffController::class, 'staff'])->name('staffprova');
+    Route::get('/staff', [StaffController::class, 'staffHome'])->name('staffHome');
     Route::get('/staff/remove', [StaffController::class, 'remove'])->name('staff.remove');
     Route::match(['get', 'post'], '/staff/change', [StaffController::class, 'change'])->name('staff.change');
     Route::get('/staff/insert', [StaffController::class, 'insert'])->name('staff.insert');
@@ -37,10 +37,10 @@ Route::middleware('can:isStaff')->group(function () {
 
 
 Route::middleware('can:isAdmin')->group(function () {
-    Route::get('/admin', [AdminController::class, 'admin'])->name('adminprova');
-    Route::get('/admin/prodotti', [AdminController::class, 'adminProdotti'])->name('adminProdotti');
-    Route::get('/admin/staff', [AdminController::class, 'adminStaff'])->name('adminStaff');
-    Route::get('/admin/tecnici', [AdminController::class, 'adminTecnici'])->name('adminTecnici');
+    Route::get('/admin', [AdminController::class, 'adminHome'])->name('adminHome');
+    Route::get('/admin/product', [AdminController::class, 'viewAdminProduct'])->name('viewAdminProduct');
+    Route::get('/admin/staff', [AdminController::class, 'viewAdminStaff'])->name('viewAdminStaff');
+    Route::get('/admin/tech', [AdminController::class, 'viewAdminTech'])->name('viewAdminTech');
     
 });
 

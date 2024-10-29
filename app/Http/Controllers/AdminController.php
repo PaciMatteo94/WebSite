@@ -2,58 +2,103 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
-    public function admin(): View
+    public function adminHome(): View
     {
         $navbarView = 'admin/navbarAdmin';
         $cssFile = asset('css/navUser.css');
-        return view('admin/adminProva', ['navbarView' => $navbarView, 'cssFile' => $cssFile]);
+        return view('admin/adminHome', ['navbarView' => $navbarView, 'cssFile' => $cssFile]);
     }
 
-    public function adminProdotti(): View
+    //SEZIONE VIEW STAFF
+    public function viewAdminStaff(): View
     {
+        $javascript = 'js/admin/operationsStaff.js';
         $navbarView = 'admin/navbarAdmin';
         $cssFile = asset('css/navUser.css');
-        return view('admin/prodotti', ['navbarView' => $navbarView, 'cssFile' => $cssFile]);
-    }
-
-    public function adminStaff(): View
-    {
-        $navbarView = 'admin/navbarAdmin';
-        $cssFile = asset('css/navUser.css');
-        return view('admin/staff', ['navbarView' => $navbarView, 'cssFile' => $cssFile]);
-    }
-
-    public function adminTecnici(): View
-    {
-        $navbarView = 'admin/navbarAdmin';
-        $cssFile = asset('css/navUser.css');
-        return view('admin/tecnici', ['navbarView' => $navbarView, 'cssFile' => $cssFile]);
+        return view('admin/basicViewAdmin', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
     }
 
     public function insertStaff(): View
     {
 
-        return view('admin/staffInsert');
+        return view('admin/staff/staffInsert');
     }
 
     public function changeStaff(): View
     {
         $staffMembers = User::where('role', 'staff')->get();
-        return view('admin/staffChange', compact('staffMembers'));
+        return view('admin/staff/staffChange', compact('staffMembers'));
     }
 
     public function removeStaff(): View
     {
         $staffMembers = User::where('role', 'staff')->get();
-        return view('admin/staffRemove', compact('staffMembers'));
+        return view('admin/staff/staffRemove', compact('staffMembers'));
     }
+
+
+
+    //SEZIONE VIEW PRODOTTI
+
+
+
+    public function viewAdminProduct(): View
+    {
+        $javascript = 'js/admin/operationsProduct.js';
+        $navbarView = 'admin/navbarAdmin';
+        $cssFile = asset('css/navUser.css');
+        return view('admin/basicViewAdmin', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
+    }
+    public function insertProduct()
+    {
+        
+        $categories = Product::distinct()->pluck('category');
+        return view('admin/product/productInsert', compact('categories'));
+    }
+
+    public function viewChangeProduct($productId) : View {
+        $product = Product::find($productId);
+        return view('admin/product/productChange', compact('product'));
+        
+    }
+
+//SEZIONE VIEW TECNICI
+
+    public function viewAdminTech(): View
+    {
+        $javascript = 'js/admin/operationsTech.js';
+        $navbarView = 'admin/navbarAdmin';
+        $cssFile = asset('css/navUser.css');
+        return view('admin/basicViewAdmin', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
+    }
+    public function insertTech()
+    {
+        return view('admin/tech/techInsert');
+    }
+
+    public function changeTech()
+    {
+        $user = User::where('role', 'technician')->get();
+        return view('admin/tech/techChange', compact('user'));
+    }
+    public function removeTech()
+    {
+        $techMembers = User::where('role', 'technician')->get();
+        return view('admin/tech/techRemove', compact('techMembers'));
+    }
+
+
+
+    //SEZIONE OPERAZIONI DB
 
     public function update(Request $request, $id)
     {
@@ -108,6 +153,15 @@ class AdminController extends Controller
         $user->save();
         return;
     }
+    public function changeProduct()
+    {
+        $categories = Product::distinct()->pluck('category');
+        $products = Product::select('id', 'name', 'category')->get();
+        return response()->json([
+            'categories' => $categories,
+            'products' => $products
+        ]);
+    }
 
     public function store(Request $request)
     {
@@ -140,28 +194,60 @@ class AdminController extends Controller
 
         return;
     }
+
+
     public function destroy(string $id)
     {
         User::destroy($id);
     }
 
-
-
-    public function insertTech()
+    public function productDestroy($id)
     {
-        return view('admin/tech/techInsert');
+        Product::destroy($id);
     }
 
-    public function changeTech()
-    {
-        $user = User::where('role', 'technician')->get();
-        return view('admin/tech/techChange', compact('user'));
-    }
-    public function removeTech()
-    {
-        $techMembers = User::where('role', 'technician')->get();
-        return view('admin/tech/techRemove', compact('techMembers'));
+    public function storeProduct(){
+        return;
     }
 
+
+
+
+
+
+
+
+    public function operationChangeProduct(Request $request, $productId ){
+        $product = Product::findOrFail($productId);
+        $category = $product->category;
+        $basePath = "images/{$category}/";
+    $thumbnailPath = "images/{$category}/thumbnail/";
+    if ($request->hasFile('image')) {
+        // Elimina l'immagine esistente, se presente
+        if ($product->image && Storage::disk('public')->exists($product->image)) {
+            Storage::disk('public')->delete($product->image);
+        }
+
+        // Carica la nuova immagine e salva il percorso nel database
+        $newImagePath = $request->file('image')->store($basePath, 'public');
+        $product->image = $newImagePath;
+    }
+    if ($request->hasFile('thumbnail')) {
+        // Elimina la thumbnail esistente, se presente
+        if ($product->thumbnail && Storage::disk('public')->exists($product->thumbnail)) {
+            Storage::disk('public')->delete($product->thumbnail);
+        }
+
+        // Carica la nuova thumbnail e salva il percorso nel database
+        $newThumbnailPath = $request->file('thumbnail')->store($thumbnailPath, 'public');
+        $product->thumbnail = $newThumbnailPath;
+    }
+    $product->name = $request->input('name') ?? $product->name;
+    $product->info = $request->input('info') ?? $product->info;
+    $product->usage_techniques = $request->input('usage_techniques') ?? $product->usage_techniques;
+    $product->installation_mode = $request->input('installation_mode') ?? $product->installation_mode;
+    $product->save();
+    return;
+    }
 
 }

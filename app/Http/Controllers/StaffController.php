@@ -7,7 +7,7 @@ use Illuminate\View\View;
 
 class StaffController extends Controller
 {
-    public function staff(): View{
+    public function staffHome(): View{
         $navbarView = 'staff/navbarStaff';
         $cssFile = asset('css/navUser.css');
         return view('/staff/benvenuto',['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);

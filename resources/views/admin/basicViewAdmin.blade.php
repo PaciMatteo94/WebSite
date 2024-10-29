@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-<div id="catalogo">
+<div id="section-operation">
     <aside>
         <ul id="operation">
             <li><a href="#" class="operation-link" id="insert">Inserimento</a></li>
@@ -18,7 +18,7 @@
         </ul>
     </aside>
 
-    <div id="section-form">
+    <div id="visualization-section">
 
 
     </div>
@@ -28,5 +28,5 @@
 @endsection
 
 @section('javascript')
-<script src="{{ asset('js/admin/staffop.js') }}?v={{ time() }}"> </script>
+<script src="{{ asset($javascript) }}?v={{ time() }}"> </script>
 @endsection

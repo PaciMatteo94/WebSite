@@ -29,7 +29,7 @@ $(document).ready(function () {
 
             dataType: "HTML",
             success: function (response) {
-                $('#section-form').html(response);
+                $('#visualization-section').html(response);
 
             }
         });
@@ -37,7 +37,7 @@ $(document).ready(function () {
 
     });
 
-    $('#section-form').on('submit', function (event) {
+    $('#visualization-section').on('submit', function (event) {
         event.preventDefault();
 
         switch (id) {
@@ -55,7 +55,7 @@ $(document).ready(function () {
                     type: 'POST',
                     data: formDataInsert,
                     success: function (response) {
-                        $('#section-form').empty();
+                        $('#visualization-section').empty();
                         alert('Dati inseriti con successo!');
                     },
                     error: function (xhr) {
@@ -88,7 +88,7 @@ $(document).ready(function () {
                     type: 'PUT',
                     data: formData,
                     success: function (response) {
-                        $('#section-form').empty();
+                        $('#visualization-section').empty();
                         alert('Dati aggiornati con successo!');
                     },
                     error: function (xhr) {
@@ -111,7 +111,7 @@ $(document).ready(function () {
                     url: '/api/admin/staff/deleteOp/'+userIdRemove,
                     type: 'DELETE',
                     success: function (response) {
-                        $('#section-form').empty();
+                        $('#visualization-section').empty();
                         alert('utente eleiminato con successo!');
                     },
                     error: function (xhr) {

@@ -1,13 +1,13 @@
 <div id="navbar">
     <div id="box-options">
         <div class="navbar option-1">
-            <h2 class="option-nav"> <a href="{{ route('adminProdotti') }}">Prodotti</a></h2>
+            <h2 class="option-nav"> <a href="{{ route('viewAdminProduct') }}">Prodotti</a></h2>
         </div>
         <div class="navbar option-2">
-            <h2 class="option-nav "> <a href="{{ route('adminStaff') }}">Staff</a></h2>
+            <h2 class="option-nav "> <a href="{{ route('viewAdminStaff') }}">Staff</a></h2>
         </div>
         <div class="navbar option-3">
-            <h2 class="option-nav "> <a href="{{ route('adminTecnici') }}">Tecnici</a></h2>
+            <h2 class="option-nav "> <a href="{{ route('viewAdminTech') }}">Tecnici</a></h2>
         </div>
     </div>
     <div class="navbar option-3">

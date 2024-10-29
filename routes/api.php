@@ -48,7 +48,7 @@ Route::get('/solutions/index/{id}', [SolutionController::class, 'index']);
 Route::post('/malfunctions/insert/{id}', [MalfunctionController::class, 'store']);
 
 Route::post('/solutions/insert/{id}', [SolutionController::class, 'store']);
-
+//ROTTE ADMIN STAFF
 Route::get('/admin/staff/insert', [AdminController::class, 'insertStaff']);
 Route::get('/admin/staff/change', [AdminController::class, 'changeStaff']);
 Route::get('/admin/staff/remove', [AdminController::class, 'removeStaff']);
@@ -56,10 +56,18 @@ Route::put('/admin/staff/change/{id}', [AdminController::class, 'update']);
 Route::post('/admin/staff/insertOp', [AdminController::class, 'store']);
 Route::delete('/admin/staff/deleteOp/{id}', [AdminController::class, 'destroy']);
 
-
+//ROTTE ADMIN TECNICI
 Route::get('/admin/tech/insert', [AdminController::class, 'insertTech']);
 Route::get('/admin/tech/change', [AdminController::class, 'changeTech']);
 Route::get('/admin/tech/remove', [AdminController::class, 'removeTech']);
 Route::put('/admin/tech/change/{id}', [AdminController::class, 'update']);
 Route::post('/admin/tech/insertOp', [AdminController::class, 'store']);
 Route::delete('/admin/tech/deleteOp/{id}', [AdminController::class, 'destroy']);
+
+//ROTTE ADMIN PRODOTTI
+Route::get('/admin/product/insert', [AdminController::class, 'insertProduct']);
+Route::get('/admin/product/change', [AdminController::class, 'changeProduct']);
+Route::get('/admin/product/change/product/{id}', [AdminController::class, 'viewChangeProduct']);
+Route::put('/admin/product/change2/product/{id}', [AdminController::class, 'operationChangeProduct']);
+Route::delete('/admin/product/deleteOp/{id}', [AdminController::class, 'productDestroy']);
+Route::post('/admin/product/insertOp', [AdminController::class, 'storeProduct']);
