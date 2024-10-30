@@ -1,0 +1,50 @@
+/* Imposta lo sfondo del contenitore */
+#container {
+    background-color: #2c2c2c; /* Grigio scuro */
+    padding: 20px; /* Padding per spaziatura interna */
+    border-radius: 8px; /* Angoli arrotondati */
+    max-width: 600px; /* Larghezza massima per centrare la form */
+    margin: auto; /* Centratura del contenitore */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Ombra per profondità */
+}
+
+/* Stile per le etichette */
+label {
+    color: #e0e0e0; /* Grigio chiaro */
+    font-weight: bold; /* Grassetto per maggiore leggibilità */
+    display: block; /* Mostra le etichette su righe separate */
+    margin-bottom: 5px; /* Spaziatura sotto le etichette */
+}
+
+/* Stile per gli input */
+input[type="text"],
+input[type="password"] {
+    width: 100%; /* Larghezza totale */
+    padding: 10px; /* Padding interno */
+    margin-bottom: 15px; /* Spaziatura sotto gli input */
+    border: 1px solid #4a4a4a; /* Bordo grigio */
+    border-radius: 4px; /* Angoli arrotondati */
+    background-color: #3a3a3a; /* Sfondo scuro per gli input */
+    color: #ffffff; /* Colore del testo bianco */
+}
+
+/* Stile per il bottone di invio */
+button {
+    background-color: #007bff; /* Verde chiaro */
+    color: white; /* Colore del testo bianco */
+    border: none; /* Nessun bordo */
+    padding: 10px 15px; /* Padding interno */
+    text-align: center; /* Centratura del testo */
+    text-decoration: none; /* Nessuna sottolineatura */
+    display: inline-block; /* Mostra come elemento in linea */
+    font-size: 16px; /* Dimensione del font */
+    margin-top: 10px; /* Spaziatura sopra il bottone */
+    border-radius: 4px; /* Angoli arrotondati */
+    cursor: pointer; /* Cambia il cursore a mano */
+    transition: background-color 0.3s; /* Transizione per il colore di sfondo */
+}
+
+/* Effetto hover per il bottone */
+button:hover {
+    background-color: #0056b3; /* Colore di sfondo più scuro al passaggio del mouse */
+}

@@ -1,7 +1,9 @@
-<div>
+
+<div id="container">
+    <h1>Sezione cambio staff</h1>
     <form id="select-user-form">
         <label for="user-select">Seleziona Utente:</label>
-        <select id="user-select" name="user_id">
+        <select id="user-select" name="user_id" required>
             <option value="">-- Seleziona Utente --</option>
             @foreach($staffMembers as $staff)
             <option value="{{ $staff->id }}">{{ $staff->name }} {{ $staff->surname }}</option>
@@ -17,17 +19,17 @@
 
         <div>
             <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" value="{{ old('name') }}">
+            <input type="text" id="name" name="name">
         </div>
 
         <div>
             <label for="surname">Cognome:</label>
-            <input type="text" id="surname" name="surname" value="{{ old('surname') }}">
+            <input type="text" id="surname" name="surname">
         </div>
 
         <div>
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" value="{{ old('username') }}">
+            <input type="text" id="username" name="username">
         </div>
 
         <div>

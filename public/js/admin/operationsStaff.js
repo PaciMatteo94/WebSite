@@ -1,13 +1,20 @@
 $(document).ready(function () {
-    var id;
+    var operation;
+    $('<link>', {
+        id: 'dynamic-css',                    
+        rel: 'stylesheet',
+        href: '',                                     
+        type: 'text/css'                      
+    }).appendTo('head');
+
     $('#operation').on('click', '.operation-link', function (event) {
         event.preventDefault();
-        id = $(this).attr('id');
-        console.log(id);
-        var url = '';
+        operation = $(this).attr('id');
+        let url = '';
 
 
-        switch (id) {
+
+        switch (operation) {
             case 'insert':
                 url = '/api/admin/staff/insert';
                 break;
@@ -21,15 +28,21 @@ $(document).ready(function () {
                 break;
 
             default:
-                break;
+                $('#visualization-section').empty();
+                $('#visualization-section').html('<p>Si è verificato un errore, perfavore segnlare il problema all\'assistenza</p>');
+                return;
         }
         $.ajax({
             type: "GET",
             url: url,
-
-            dataType: "HTML",
+            dataType: "JSON",
             success: function (response) {
-                $('#visualization-section').html(response);
+                $('#dynamic-css').attr('href', response.css);
+                $('#visualization-section').html(response.html);
+
+            }, error: function (xhr) {
+                alert('Errore durante la richiesta dei dati');
+                console.log(xhr);
 
             }
         });
@@ -39,92 +52,67 @@ $(document).ready(function () {
 
     $('#visualization-section').on('submit', function (event) {
         event.preventDefault();
-
-        switch (id) {
+        let password;
+        let passwordConfirmation;
+        let userId;
+        let formData;
+        let url = '';
+        let typeOperation = '';
+        switch (operation) {
             case 'insert':
-                const passwordInsert = $('#password').val();
-                const passwordConfirmationInsert = $('#password_confirmation').val();
-                if (passwordInsert !== passwordConfirmationInsert) {
+                password = $('#password').val();
+                passwordConfirmation = $('#password_confirmation').val();
+                if (password !== passwordConfirmation) {
                     alert("Le password non combaciano.");
-                    return; // Esce dalla funzione senza inviare i dati
+                    return;
                 }
-                const formDataInsert = $('#form-insert').serialize() +'&role=staff';
-                console.log(formDataInsert);
-                $.ajax({
-                    url: '/api/admin/staff/insertOp',
-                    type: 'POST',
-                    data: formDataInsert,
-                    success: function (response) {
-                        $('#visualization-section').empty();
-                        alert('Dati inseriti con successo!');
-                    },
-                    error: function (xhr) {
-                        alert('Errore durante l’inserimento dei dati');
-                        console.log(xhr);
-                        
-                    }
-                });
-                
+                formData = $('#form-insert').serialize() + '&role=staff';
+                url = '/api/admin/staff/insertOp';
+                typeOperation = 'POST';
 
                 break;
             case 'change':
-                const userId = $('#user-select').val();
-                const password = $('#password').val();
-                const passwordConfirmation = $('#password_confirmation').val();
+                userId = $('#user-select').val();
+                password = $('#password').val();
+                passwordConfirmation = $('#password_confirmation').val();
                 if (password !== passwordConfirmation) {
                     alert("Le password non combaciano.");
-                    return; // Esce dalla funzione senza inviare i dati
-                }
-
-                if (!userId) {
-                    alert('Seleziona un utente prima di inviare');
                     return;
                 }
-                const url = `/api/admin/staff/change/${userId}`;
-                const formData = $('#select-user-form').serialize();
-                console.log(formData);
-                $.ajax({
-                    url: url,
-                    type: 'PUT',
-                    data: formData,
-                    success: function (response) {
-                        $('#visualization-section').empty();
-                        alert('Dati aggiornati con successo!');
-                    },
-                    error: function (xhr) {
-                        alert('Errore durante l’aggiornamento dei dati');
-                    }
-                });
-
-
-
-
+                formData = $('#select-user-form').serialize();
+                url = '/api/admin/staff/change/' + userId;
+                typeOperation = 'PUT';
                 break;
             case 'remove':
-                const userIdRemove = $('#user-select').val();
-                if (!userIdRemove) {
-                    alert('Seleziona un utente da rimuovere');
-                    return;
-                }
-                console.log(userIdRemove);
-                $.ajax({
-                    url: '/api/admin/staff/deleteOp/'+userIdRemove,
-                    type: 'DELETE',
-                    success: function (response) {
-                        $('#visualization-section').empty();
-                        alert('utente eleiminato con successo!');
-                    },
-                    error: function (xhr) {
-                        alert('Errore durante l’operazione dei dati');
-                    }
-                });
+                FormData = null;
+                userId = $('#user-select').val();
+                url = '/api/admin/staff/deleteOp/' + userId;
+                typeOperation = 'DELETE';
 
                 break;
 
             default:
+                $('#visualization-section').empty();
+                $('#visualization-section').html('<p>Si è verificato un errore, perfavore segnlare il problema all\'assistenza</p>');
                 break;
-        }
 
+
+
+        }
+        $.ajax({
+            url: url,
+            type: typeOperation,
+            data: formData,
+            success: function (response) {
+                $('#visualization-section').empty();
+                $('#visualization-section').html('<p>operazione eseguita con successo</p>');
+            },
+            error: function (xhr) {
+                alert('Errore durante l’inserimento dei dati');
+                console.log(xhr);
+
+            }
+        });
 
     });
 

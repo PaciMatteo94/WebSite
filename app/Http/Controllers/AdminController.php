@@ -27,22 +27,37 @@ class AdminController extends Controller
         return view('admin/basicViewAdmin', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
     }
 
-    public function insertStaff(): View
+    public function insertStaff()
     {
-
-        return view('admin/staff/staffInsert');
+        $cssView = asset('css/admin/staff/staffInsert.css'). '?v=' . time();
+        $htmlContent = view('admin/staff/staffInsert')->render();
+        return response()->json([
+            'css' =>  $cssView ,
+            'html' => $htmlContent
+        ]);
     }
 
-    public function changeStaff(): View
+    public function changeStaff()
     {
         $staffMembers = User::where('role', 'staff')->get();
-        return view('admin/staff/staffChange', compact('staffMembers'));
+        $cssView = asset('css/admin/staff/staffChange.css'). '?v=' . time();
+        $htmlContent = view('admin/staff/staffChange', compact('staffMembers'))->render();
+        return response()->json([
+            'css' =>  $cssView,
+            'html' => $htmlContent
+        ]);
     }
 
-    public function removeStaff(): View
+    public function removeStaff()
     {
         $staffMembers = User::where('role', 'staff')->get();
-        return view('admin/staff/staffRemove', compact('staffMembers'));
+        $cssView = asset('css/admin/staff/staffRemove.css'). '?v=' . time();
+        $htmlContent = view('admin/staff/staffRemove', compact('staffMembers'))->render();
+        return response()->json([
+            'css' =>  $cssView,
+            'html' => $htmlContent
+        ]);
+
     }
 
 

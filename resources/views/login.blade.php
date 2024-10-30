@@ -29,9 +29,13 @@
             <div class="input-location">
                 <input type="password" name="password" id="password" required>
             </div>
+            <div class="input-location">
+                <button  type="submit">Login</button>
+            </div>
+
         </fieldset>
-<!-- da convertire in input da bottone -->
-        <button type="submit">Login</button> 
+        <!-- da convertire in input da bottone -->
+
     </form>
 </div>
 

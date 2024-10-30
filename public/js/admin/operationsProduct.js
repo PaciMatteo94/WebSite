@@ -1,6 +1,6 @@
 $(document).ready(function () {
     //variabili globali che salvano dati da usare in vari eventi
-    var id;
+    var operation;
     var categories;
     var products;
     var productId;
@@ -11,12 +11,27 @@ $(document).ready(function () {
         event.preventDefault();
         $('#visualization-section').empty();
 
-        id = $(this).attr('id');
-        var url = '';
+        operation = $(this).attr('id');
 
-        switch (id) {
+        switch (operation) {
             case 'insert':
-                url = '/api/admin/product/insert';
+                $.ajax({
+                    type: "GET",
+                    url: '/api/admin/product/insert',
+                    dataType: "HTML",
+                    success: function (response) {
+                        $('<div>', {
+                            id: 'formView'
+                        }).appendTo('#visualization-section');
+                        $('#formView').html(response);
+        
+                    },
+                    error: function (xhr) {
+                        alert('Errore durante l’inserimento dei dati');
+                        console.log(xhr);
+        
+                    }
+                });
                 break;
 
             case 'change':
@@ -28,26 +43,12 @@ $(document).ready(function () {
                 return;
 
             default:
+                $('#visualization-section').empty();
+                $('#visualization-section').html('<p>Si è verificato un errore, perfavore segnlare il problema all\'assistenza</p>');
                 break;
         }
 
-        $.ajax({
-            type: "GET",
-            url: url,
-            dataType: "HTML",
-            success: function (response) {
-                $('<div>', {
-                    id: 'formView'
-                }).appendTo('#visualization-section');
-                $('#formView').html(response);
 
-            },
-            error: function (xhr) {
-                alert('Errore durante l’inserimento dei dati');
-                console.log(xhr);
-
-            }
-        });
 
 
     });
@@ -121,7 +122,8 @@ $(document).ready(function () {
             contentType: false, // Imposta a false per inviare i dati correttamente
             processData: false,
             success: function (response) {
-                console.log('chiama con successo');
+                $('#visualization-section').empty();
+                $('#visualization-section').html('<p>operazione eseguita con successo</p>');
             },
             error: function (xhr) {
                 alert('Errore durante l’inserimento dei dati');
@@ -156,7 +158,10 @@ $(document).ready(function () {
 
     });
 
-
+    /*
+    Evento per il caso di insert. 
+    Si estraggono i dati dalla form che vengono inviati per l'inserimento di un nuovo utente.
+    */
     $(document).on('submit','#form-insert', function (event) {
         event.preventDefault();
         var formData = new FormData(this);
@@ -167,7 +172,8 @@ $(document).ready(function () {
             contentType: false, // Imposta a false per inviare i dati correttamente
             processData: false,
             success: function (response) {
-                console.log('chiama con successo');
+                $('#visualization-section').empty();
+                $('#visualization-section').html('<p>operazione eseguita con successo</p>');
             },
             error: function (xhr) {
                 alert('Errore durante l’inserimento dei dati');
@@ -216,7 +222,7 @@ $(document).ready(function () {
                 category: product.category
             };
         });
-        switch (id) {
+        switch (operation) {
             case 'change':
                 idSelect = 'productSelect'
 
@@ -226,7 +232,9 @@ $(document).ready(function () {
                 break;
 
             default:
-                break;
+                $('#visualization-section').empty();
+                $('#visualization-section').html('<p>Si è verificato un errore, perfavore segnlare il problema all\'assistenza</p>');
+                return;
         }
         var $categorySelect = $('<select>', { id: 'categorySelect' });
         $categorySelect.append(new Option("Seleziona una categoria", ""));
@@ -240,7 +248,7 @@ $(document).ready(function () {
             $productSelect.append(new Option(product.name, product.id));
         });
 
-        switch (id) {
+        switch (operation) {
             case 'change':
                 $('<div>', {
                     id: 'select-product'
@@ -261,7 +269,9 @@ $(document).ready(function () {
                 }).appendTo('#form-product');
                 break;
             default:
-                break;
+                $('#visualization-section').empty();
+                $('#visualization-section').html('<p>Si è verificato un errore, perfavore segnlare il problema all\'assistenza</p>');
+                return;
         }
 
 

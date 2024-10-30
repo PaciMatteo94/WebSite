@@ -1,7 +1,7 @@
-<div>
+<div id="container">
     <form id="edit-tech-form">
         <label for="user-select">Seleziona Utente:</label>
-        <select id="user-select" name="user_id">
+        <select id="user-select" name="user_id" required>
             <option value="">-- Seleziona Utente --</option>
             @foreach($user as $staff)
             <option value="{{ $staff->id }}">{{ $staff->name }} {{ $staff->surname }}</option>

@@ -1,0 +1,57 @@
+/* Contenitore principale */
+#container {
+    display: flex;
+    flex-direction: column; /* Disposizione verticale */
+    align-items: center; /* Centra gli elementi */
+    max-width: 600px; /* Larghezza massima del contenitore */
+    margin: 0 auto; /* Centra il contenitore */
+    padding: 20px; /* Padding interno */
+    background-color: #1e1e1e; /* Sfondo del contenitore */
+    border-radius: 8px; /* Bordo arrotondato */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Ombra leggera */
+}
+
+/* Etichette */
+label {
+    color: #e0e0e0; /* Grigio chiaro */
+    display: block; /* Rende le etichette blocchi */
+    margin-bottom: 5px; /* Margine inferiore */
+    font-weight: bold; /* Testo in grassetto */
+}
+
+/* Selezione utente */
+select, input[type="text"], input[type="password"] {
+    width: 100%; /* Larghezza completa */
+    padding: 10px; /* Padding interno */
+    margin-bottom: 15px; /* Margine inferiore */
+    background-color: #2b2b2b; /* Sfondo grigio scuro per i campi */
+    color: #e0e0e0; /* Testo chiaro */
+    border: 1px solid #444; /* Bordo grigio scuro */
+    border-radius: 5px; /* Bordo arrotondato */
+    transition: border-color 0.3s; /* Transizione per il colore del bordo */
+}
+
+select:focus, input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #1e90ff; /* Colore blu chiaro al focus */
+}
+
+/* Bottone */
+button {
+    background-color: #007bff; /* Colore blu chiaro */
+    color: #ffffff; /* Testo bianco */
+    border: none; /* Rimuove il bordo */
+    border-radius: 5px; /* Bordo arrotondato */
+    padding: 10px 15px; /* Padding interno */
+    cursor: pointer; /* Cambia il cursore al passaggio */
+    transition: background-color 0.3s; /* Transizione per il colore di sfondo */
+}
+
+button:hover {
+    background-color: #0056b3; /* Colore blu scuro al passaggio del mouse */
+}
+
+/* Messaggi di errore */
+.error-message {
+    color: #ff4d4d; /* Rosso per i messaggi di errore */
+    margin-top: 5px; /* Margine superiore */
+}

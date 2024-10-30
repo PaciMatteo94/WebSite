@@ -1,4 +1,4 @@
-<div>
+<div id="container">
 <form id="create-tech-form">   
     <div>
         <label for="name">Nome:</label>
