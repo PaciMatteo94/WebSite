@@ -3,8 +3,9 @@
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
-use App\Http\Controllers\StaffController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StaffController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,10 +30,17 @@ Route::middleware('can:isPublicOrTech')->group(function () {
 });
 
 Route::middleware('can:isStaff')->group(function () {
-    Route::get('/staff', [StaffController::class, 'staffHome'])->name('staffHome');
-    Route::get('/staff/remove', [StaffController::class, 'remove'])->name('staff.remove');
-    Route::match(['get', 'post'], '/staff/change', [StaffController::class, 'change'])->name('staff.change');
-    Route::get('/staff/insert', [StaffController::class, 'insert'])->name('staff.insert');
+    
+    // Route::get('/staff/remove', [StaffController::class, 'remove'])->name('staff.remove');
+    // Route::match(['get', 'post'], '/staff/change', [StaffController::class, 'change'])->name('staff.change');
+    // Route::get('/staff/insert', [StaffController::class, 'insert'])->name('staff.insert');
+
+    //rofacimento staff in modo più semplice
+    Route::get('/staff', [StaffController::class, 'viewStaffHome'])->name('viewStaffHome');
+    Route::get('/staff/catalog', [StaffController::class, 'viewStaffCatalog'])->name('viewStaffCatalog');
+    
+    //Route::get('/staff/malfunction', [StaffController::class, 'viewStaffMalfunction'])->name('viewStaffMalfunction');
+    //Route::get('/staff/solution', [StaffController::class, 'viewStaffSolution'])->name('viewStaffSolution');
 });
 
 
@@ -41,7 +49,6 @@ Route::middleware('can:isAdmin')->group(function () {
     Route::get('/admin/product', [AdminController::class, 'viewAdminProduct'])->name('viewAdminProduct');
     Route::get('/admin/staff', [AdminController::class, 'viewAdminStaff'])->name('viewAdminStaff');
     Route::get('/admin/tech', [AdminController::class, 'viewAdminTech'])->name('viewAdminTech');
-    
 });
 
 require __DIR__ . '/auth.php'; 

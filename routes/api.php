@@ -5,6 +5,7 @@ use App\Http\Controllers\AssistanceCenterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MalfunctionController;
 use App\Http\Controllers\SolutionController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,20 @@ Route::get('/solutions/index/{id}', [SolutionController::class, 'index']);
 Route::post('/malfunctions/insert/{id}', [MalfunctionController::class, 'store']);
 
 Route::post('/solutions/insert/{id}', [SolutionController::class, 'store']);
+
+//ROTTE STAFF
+Route::get('/staff/insert/malfunction', [StaffController::class, 'viewInsertMalfunction']);
+Route::get('/staff/change/malfunction', [StaffController::class, 'viewChangeMalfuction']);
+Route::get('/staff/remove/malfunction', [StaffController::class, 'viewRemoveMalfunction']);
+Route::get('/staff/product/{id}/info', [StaffController::class, 'infoProduct']);
+Route::get('/staff/info', [StaffController::class, 'index']);
+
+
+
+
+
+
+
 //ROTTE ADMIN STAFF
 Route::get('/admin/staff/insert', [AdminController::class, 'insertStaff']);
 Route::get('/admin/staff/change', [AdminController::class, 'changeStaff']);
