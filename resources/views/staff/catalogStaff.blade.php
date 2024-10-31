@@ -23,7 +23,7 @@
             <div class="categorie-ricerca">
                 @foreach($categories as $category)
                 <div class="categoria">
-                    <input type="checkbox" class="category-checkbox" value="{{$category['id']}}" name="categories[]"><label>{{ $category['name'] }}</label>
+                    <input type="checkbox" class="category-checkbox" value="{{$category->id}}" name="categories[]"><label>{{ $category['name'] }}</label>
                 </div>
 
 
@@ -47,6 +47,7 @@
 
 
     </div>
+
 
 
 

@@ -16,29 +16,42 @@ class ProductController extends Controller
     {
         $categoryIds = $request->get('categories');
         $searchArray = $request->get('search');
+        $user = $request->get('user'); 
 
         if (empty($categoryIds) && ($searchArray[0] == null || $searchArray[0] === '')) {
             $products = Product::simplePaginate(5);
         } else if (!empty($categoryIds) && ($searchArray[0] == null || $searchArray[0] === '')) {
-            $products = Product::whereIn('category', $categoryIds)->simplePaginate(5);
+            $query = Product::query();
+            $query->whereIn('category_id', $categoryIds);
+            $products = $query->simplePaginate(5);
         } else if (!empty($categoryIds) && !($searchArray[0] == null || $searchArray[0] === '')) {
             $search = $searchArray[0];
+            $query = Product::query();
+            $query->whereIn('category_id', $categoryIds);
             if (substr($search, -1) === '*') {
                 $search = rtrim($search, '*');
-                $products = Product::whereIn('category', $categoryIds)->where('info', 'LIKE', "% {$search}%")->simplePaginate(5);
+                $query->where('info', 'LIKE', "%{$search}%");
+                $products = $query->simplePaginate(5);
             } else {
-                $products = Product::whereIn('category', $categoryIds)->where('info', 'LIKE', "% $search %")->simplePaginate(5);
+                $query->where('info', 'LIKE', "% $search %");
+                $products = $query->simplePaginate(5);
             }
         } else if (empty($categoryIds) && !($searchArray[0] == null || $searchArray[0] === '')) {
             $search = $searchArray[0];
+            $query = Product::query();
             if (substr($search, -1) === '*') {
                 $search = rtrim($search, '*');
-                $products = Product::where('info', 'LIKE', "% {$search}%")->simplePaginate(5);
+                $query->where('info', 'LIKE', "% {$search}%");
+                $products = $query->simplePaginate(5);
             } else {
-                $products = Product::where('info', 'LIKE', "% $search %")->simplePaginate(5);
+                $query->where('info', 'LIKE', "% $search %")->simplePaginate(5);
+                $products = $query->simplePaginate(5);
             }
         }
-
+        if ($user === 'staff') {
+            // Restituisce una view diversa se l'utente è staff
+            return view('staff/staffProductsList',['products' => $products])->render();
+        }
 
 
         return view('productsList', ['products' => $products])->render();

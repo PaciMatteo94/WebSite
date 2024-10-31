@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    var testo="";
-    const regex = /^[a-zA-Z0-9]+$/;
+    var testo= '';
+    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ*]+$/;
     var selectedCategories = [];
 
     //PARTE AJAX PER LA SELEZIONE DELLE CATEGORIE PRODOTTO
@@ -11,27 +11,31 @@ $(document).ready(function () {
         checkCategories();
         localStorage.clear();
         handleSearch();
+        console.log(localStorage.length);
 
     } else{
         checkCategories();
         handleSearch();
     }
 
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Preveniamo il comportamento predefinito del form (ricaricare la pagina)
+        // Raccogliamo i dati dal form
+        const formData = new FormData(this);
+        // Creiamo un oggetto con i dati
+        testo = formData.get('barra').trim(); // otteniamo il testo di ricerca
+        selectedCategories = formData.getAll('categories[]'); // otteniamo tutte le categorie selezionate
+    
+        // Verifica i dati (facoltativo)
+        console.log('Ricerca:', testo);
+        console.log('Categorie selezionate:', selectedCategories);
+        handleSearch();
 
+    
+    });
 
  
-    //acquisisco quale categorie sono selezionate
-    $('.category-checkbox').change(function () {
-        checkCategories();
-        handleSearch();
-    });
 
-
-    // PARTE AJAX PER LA BARRA DI RICERCA CON ANCHE NOME PARZIALE
-    $('#bottone-ricerca').on('click', function () {
-        testo = $('#barra-ricerca').val().trim();      
-            handleSearch();
-    });
 
     $(document).on('click', '.pagination a', function (e) {
         e.preventDefault();
@@ -41,21 +45,12 @@ $(document).ready(function () {
 
     function handleSearch(){
         console.log('funzione handle, catergorie:'+selectedCategories);
-
-        if(!(selectedCategories.length>0)){
-            if(!regex.test(testo)){
-                alert('Non ci sono ne categorie e il testo è nullo non valido');
-            }else{
-                fetchProducts();
-            }
-        }
-
-        if(selectedCategories.length>0 ){
-            if(testo===""|| regex.test(testo) ){
-                fetchProducts();
-            }else if(!regex.test(testo)){
-                alert('Ci sono categorie ma il testo non è valido')
-            }
+        if(testo === ''){
+            fetchProducts();
+        }else if(!regex.test(testo)){
+            alert(' sono stati inseriti caratteri non validi')
+        }else{
+            fetchProducts();
         }
     }
 
@@ -63,9 +58,10 @@ $(document).ready(function () {
 
 
     function fetchProducts(page = 1) {
-        console.log('arrivo anche qua');
-        console.log(selectedCategories);
-        console.log(testo);
+        console.log('arrivo a fetche prodotti e richiesta ajax');
+        console.log('categorie che vanno in ajax: ' + selectedCategories);
+        console.log('Categorie selezionate:', selectedCategories);
+        console.log('testo che va in ajax:' , testo);
         
         $.ajax({
             type: "GET",
@@ -93,7 +89,7 @@ $(document).ready(function () {
             
         });
 
-        console.log('fetch categorie'+ selectedCategories);
+        console.log('fetch categorie: '+ selectedCategories);
     }
 
 

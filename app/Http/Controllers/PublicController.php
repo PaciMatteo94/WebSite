@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Stabilimenti;
@@ -27,9 +28,10 @@ class PublicController extends Controller
     
 
     public function home(): View{
+        $categories = Category::all();
         $navbarView = 'layouts/navUser';
         $cssFile = asset('css/navUser.css'); //asset = funzione base di laravel per creare l'url completo, si riferisce ai file nella cartella public
-        return view('home', ['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
+        return view('home',compact('categories'), ['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
         // view = funzione base di laravel per restituire un file che si trova in resources
     }
 
@@ -50,17 +52,7 @@ class PublicController extends Controller
     public function catalog(): View{
         $navbarView = 'layouts/navUser';
         $cssFile = asset('css/navUser.css');
-        $categories = [
-            ['id' => 'MoBo', 'name' => 'Schede Madri'],
-            ['id' => 'Cpu', 'name' => 'Processori'],
-            ['id' => 'Gpu', 'name' => 'Schede Video'],
-            ['id' => 'RAM', 'name' => 'RAM'],
-            ['id' => 'Storage', 'name' => 'Storage'],
-            ['id' => 'Monitor', 'name' => 'Monitor'],
-            ['id' => 'Psu', 'name' => 'Alimentatori'],
-            ['id' => 'Cooling', 'name' => 'Dissipatori'],
-            ['id' => 'Fan', 'name' => 'Ventole'],
-        ];
+        $categories = Category::all();
         return view('catalog',['navbarView'=>$navbarView, 'cssFile'=>$cssFile, 'categories'=>$categories]);
     }
 

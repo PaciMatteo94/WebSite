@@ -13,7 +13,7 @@ class Product extends Model
     protected $table = 'products';
 
     protected $fillable = [
-        'category',
+        'category_id',
         'name',
         'info',
         'usage_techniques',
@@ -21,6 +21,10 @@ class Product extends Model
         'image',
         'thumbnail'
     ];
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function malfunctions(){
         return $this->hasMany(Malfunction::class);

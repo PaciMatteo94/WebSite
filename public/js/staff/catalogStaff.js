@@ -75,7 +75,8 @@ $(document).ready(function () {
             url: "/api/staff/info?page=" + page,
             data: {
                 search: [testo], 
-                categories: selectedCategories
+                categories: selectedCategories,
+                user: 'staff'
             },
             dataType: "HTML",
             success: function (data) {

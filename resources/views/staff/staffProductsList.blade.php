@@ -4,7 +4,7 @@
     <div class="product-item">
         <!-- Parte superiore: immagine del prodotto -->
         <div class="product-image">
-            <img src="{{ asset('images/' . $product->category . '/'. 'Thumbnails' .'/'. $product->thumbnail) }}" alt="{{ $product->name }}">
+            <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->name }}">
         </div>
         <!-- Parte inferiore: nome del prodotto -->
         <div class="product-name">

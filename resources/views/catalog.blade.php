@@ -25,7 +25,7 @@
             <div class="categorie-ricerca">
                 @foreach($categories as $category)
                 <div class="categoria">
-                    <input type="checkbox" class="category-checkbox" value="{{$category['id']}}" name="categories[]"><label>{{ $category['name'] }}</label>
+                    <input type="checkbox" class="category-checkbox" value="{{$category->id}}" name="categories[]"><label>{{ $category['name'] }}</label>
                 </div>
 
 
@@ -55,5 +55,5 @@
 @endsection
 
 @section('javascript')
-<script src="{{ asset('js/catalog2.js') }}?v={{ time() }}"> </script>
+<script src="{{ asset('js/catalog.js') }}?v={{ time() }}"> </script>
 @endsection

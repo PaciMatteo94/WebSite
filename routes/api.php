@@ -55,7 +55,7 @@ Route::get('/staff/insert/malfunction', [StaffController::class, 'viewInsertMalf
 Route::get('/staff/change/malfunction', [StaffController::class, 'viewChangeMalfuction']);
 Route::get('/staff/remove/malfunction', [StaffController::class, 'viewRemoveMalfunction']);
 Route::get('/staff/product/{id}/info', [StaffController::class, 'infoProduct']);
-Route::get('/staff/info', [StaffController::class, 'index']);
+Route::get('/staff/info', [ProductController::class, 'index']);
 
 
 

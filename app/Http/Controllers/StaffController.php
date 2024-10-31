@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Malfunction;
 use App\Models\Product;
 use App\Models\Solution;
@@ -10,37 +11,6 @@ use Illuminate\View\View;
 
 class StaffController extends Controller
 {
-    public function index(Request $request)
-    {
-        $categoryIds = $request->get('categories');
-        $searchArray = $request->get('search');
-
-        if (empty($categoryIds) && ($searchArray[0] == null || $searchArray[0] === '')) {
-            $products = Product::simplePaginate(5);
-        } else if (!empty($categoryIds) && ($searchArray[0] == null || $searchArray[0] === '')) {
-            $products = Product::whereIn('category', $categoryIds)->simplePaginate(5);
-        } else if (!empty($categoryIds) && !($searchArray[0] == null || $searchArray[0] === '')) {
-            $search = $searchArray[0];
-            if (substr($search, -1) === '*') {
-                $search = rtrim($search, '*');
-                $products = Product::whereIn('category', $categoryIds)->where('info', 'LIKE', "% {$search}%")->simplePaginate(5);
-            } else {
-                $products = Product::whereIn('category', $categoryIds)->where('info', 'LIKE', "% $search %")->simplePaginate(5);
-            }
-        } else if (empty($categoryIds) && !($searchArray[0] == null || $searchArray[0] === '')) {
-            $search = $searchArray[0];
-            if (substr($search, -1) === '*') {
-                $search = rtrim($search, '*');
-                $products = Product::where('info', 'LIKE', "% {$search}%")->simplePaginate(5);
-            } else {
-                $products = Product::where('info', 'LIKE', "% $search %")->simplePaginate(5);
-            }
-        }
-
-
-
-        return view('staff/staffProductsList', ['products' => $products])->render();
-    }
 
     public function viewStaffHome(): View
     {
@@ -53,33 +23,9 @@ class StaffController extends Controller
     {
         $navbarView = 'staff/navbarStaff2';
         $cssFile = asset('css/navUser.css');
-        $categories = [
-            ['id' => 'MoBo', 'name' => 'Schede Madri'],
-            ['id' => 'Cpu', 'name' => 'Processori'],
-            ['id' => 'Gpu', 'name' => 'Schede Video'],
-            ['id' => 'RAM', 'name' => 'RAM'],
-            ['id' => 'Storage', 'name' => 'Storage'],
-            ['id' => 'Monitor', 'name' => 'Monitor'],
-            ['id' => 'Psu', 'name' => 'Alimentatori'],
-            ['id' => 'Cooling', 'name' => 'Dissipatori'],
-            ['id' => 'Fan', 'name' => 'Ventole'],
-        ];
-        return view('/staff/catalog', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'categories' => $categories]);
+        $categories = Category::all();
+        return view('/staff/catalogStaff', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'categories' => $categories]);
     }
-
-
-
-    // public function viewStaffMalfunction() : View {
-    //         $javascript = 'js/staff/operationsMalfunction.js';
-    //         $navbarView = 'staff/navbarStaff2';
-    //         $cssFile = asset('css/navUser.css');
-    //         return view('staff/basicViewStaff', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
-    // }
-    // public function viewStaffSolution() : View {
-    //         $navbarView = 'staff/navbarStaff2';
-    //         $cssFile = asset('css/navUser.css');
-    //         return view('staff/basicViewStaff', ['navbarView' => $navbarView, 'cssFile' => $cssFile]);
-    // }
 
 
 
