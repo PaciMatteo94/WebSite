@@ -35,7 +35,9 @@
         <h2>Malfunctions</h2>
         <!-- Qui visualizza gli elementi malfunctions associati al prodotto -->
         <ul>
-            <li>{{ $product->malfunctions }}</li>
+        @foreach ($malfunctions as $malfunction)
+        <li>{{ $malfunction->description }}</li>
+    @endforeach
         </ul>
     </div>
 
@@ -46,7 +48,9 @@
 
         <ul>
 
-            <li>{{ $product->solutions }}</li>
+        @foreach ($solutions as $solution)
+        <li>{{ $solution->description }}</li>
+    @endforeach
 
         </ul>
 

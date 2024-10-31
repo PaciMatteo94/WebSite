@@ -60,11 +60,14 @@ class PublicController extends Controller
     {
         $navbarView = 'layouts/navUser';
         $cssFile = asset('css/navUser.css');
-        // Cerca il prodotto nel database usando l'ID
-        //$product = Product::where('name', $id)->first();
-        $product = Product::find( $id);
-        // Ritorna la view 'product.show' con i dettagli del prodotto
-        return view('productShow', ['navbarView'=>$navbarView, 'cssFile'=>$cssFile, 'product' => $product])->render();
+        $product = Product::with(['malfunctions', 'solutions'])->find($id);
+        return view('productShow', [
+            'navbarView' => $navbarView,
+            'cssFile' => $cssFile,
+            'product' => $product,
+            'malfunctions' => $product->malfunctions, // Passa i malfunzionamenti alla view
+            'solutions' => $product->solutions,       // Passa le soluzioni alla view
+        ])->render();
     }
 
 }
