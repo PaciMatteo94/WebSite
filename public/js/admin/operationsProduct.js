@@ -1,280 +1,263 @@
 $(document).ready(function () {
-    //variabili globali che salvano dati da usare in vari eventi
-    var operation;
-    var categories;
-    var products;
-    var productId;
-    var idSelect = '';
-
-    //evento per la scelta dell'operazione da effettuare
-    $('#operation').on('click', '.operation-link', function (event) {
-        event.preventDefault();
-        $('#visualization-section').empty();
-
-        operation = $(this).attr('id');
-
-        switch (operation) {
-            case 'insert':
-                $.ajax({
-                    type: "GET",
-                    url: '/api/admin/product/insert',
-                    dataType: "HTML",
-                    success: function (response) {
-                        $('<div>', {
-                            id: 'formView'
-                        }).appendTo('#visualization-section');
-                        $('#formView').html(response);
-        
-                    },
-                    error: function (xhr) {
-                        alert('Errore durante l’inserimento dei dati');
-                        console.log(xhr);
-        
-                    }
-                });
-                break;
-
-            case 'change':
-                ajaxSelections();
-                return;
-
-            case 'remove':
-                ajaxSelections();
-                return;
-
-            default:
-                $('#visualization-section').empty();
-                $('#visualization-section').html('<p>Si è verificato un errore, perfavore segnlare il problema all\'assistenza</p>');
-                break;
-        }
+    var testo = '';
+    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ*]+$/;
+    var selectedCategories = [];
+    let productId;
+    let categoryId;
+    listCategoryAjax();
 
 
 
 
+
+
+
+
+
+    $(document).on('click', '.titleLink', function (event) {
+        event.preventDefault();;
+        $('#sectionFormView').empty();
+        categoryId = $(this).data('id');
+        createProductList();
     });
 
-    /*
-    Evento sulla select del caso modifica. 
-    Serve per filtrare i prodotti in base alla categoria scelta in modo avere una ricerca migliore
-    */
-    $(document).on('change', '#categorySelect', function (event) {
-        event.preventDefault();
-        var productsAssociated;
-        var selectedCategory = $(this).val();
-        if (selectedCategory === '') {
-            $(`#${idSelect}`).empty();
-            $(`#${idSelect}`).append(new Option("Seleziona un prodotto", ""));
-            products.forEach(product => {
-                $(`#${idSelect}`).append(new Option(product.name, product.id));
-            });
+    function createProductList() {
+        $.ajax({
+            type: "GET",
+            url: "/api/admin/category/" + categoryId + "/product",
+            dataType: "html",
+            success: function (response) {
+                if ($('#productsList').length) {
+                    $('#productsList').empty();
+                    $('#productsList').html(response);
+                } else {
+                    $('<div>', {
+                        id: 'productsList'
+                    }).appendTo('#results');
+                    $('#productsList').html(response);
+                }
+
+            }
+        });
+    }
+    $(document).on('click', '#add', function (event) {
+        event.preventDefault();;
+        const element = $(this).data('element');
+        const method = 'GET';
+        let url;
+        switch (element) {
+            case 'category':
+                url = '/api/admin/category/insertView';
+                break;
+            case 'product':
+                url = '/api/admin/product/insertView';
+                break;
+            default:
+                break;
+        }
+        listOperationAjax(method, url);
+    });
+
+        //listener sui bottoni dell'occhio per visualizzare le info dell'elemento
+        $(document).on('click', '.viewLink', function (event) {
+            event.preventDefault();;
+            const element = $(this).data('element');
+            elementId = $(this).data('id'); // Ottiene l'ID
+            console.log(elementId);
+            
+            let url;
+            switch (element) {
+                case 'category':
+                    url = '/api/admin/category/'+elementId+'/info' ;
+                    break;
+                case 'product':
+                    url = '/api/admin/product/'+ elementId+'/info' ;
+                    break;
+                default:
+                    break;
+            }
+            const method = 'GET';
+            listOperationAjax(method, url);
+        });
+
+
+   //listener sui bottoni matita per ottenere la form per il cambio degli elementi
+   $(document).on('click', '.changeLink', function (event) {
+    event.preventDefault();;
+    const element = $(this).data('element');
+    elementId = $(this).data('id'); // Ottiene l'ID
+    let url;
+    switch (element) {
+        case 'category':
+            url = '/api/admin/category/'+elementId +'/change';
+            break;
+        case 'product':
+            url = '/api/admin/product/'+elementId +'/change';
+            break;
+        default:
+            break;
+    }
+    const method = 'GET';
+    listOperationAjax(method, url);
+
+});
+
+    //listener sui bottoni della croce per inviare la richiesta di eliminazione del prodotto
+    $(document).on('click', '.removeLink', function (event) {
+        event.preventDefault();;
+        const element = $(this).data('element');
+        var result = confirm("Sei sicuro di voler rimuovere questo malfunzionamento?");
+        if (result) {
+            elementId = $(this).data('id'); // Ottiene l'ID
+            let url;
+            switch (element) {
+                case 'category':
+                    url = '/api/admin/category/'+elementId+'/remove';
+                    break;
+                case 'product':
+                    url = '/api/admin/product/'+elementId+'/remove';
+                    break;
+                default:
+                    break;
+            }
+
+            const method = 'DELETE';
+            listOperationAjax(method, url, element);
         } else {
-            var productsAssociated = products.filter(function (product) {
-                return product.category === selectedCategory;
-            });
-            $(`#${idSelect}`).empty();
-            $(`#${idSelect}`).append(new Option("Seleziona un prodotto", ""));
-            productsAssociated.forEach(product => {
-                $(`#${idSelect}`).append(new Option(product.name, product.id));
-            });
+            alert("Operazione annullata.");
         }
-    });
 
 
-    /*
-    Evento sulla select del caso modifica. 
-    ogni volta che si cambia il prodotto selezionato chiama il db per ottenere i dati del prodotto e visualizzare la form di modifica
-    */
-    $(document).on('change', '#productSelect', function (event) {
-        productId = $(this).val();
-        $('<div>', {
-            id: 'changeFormView'
-        }).appendTo('#visualization-section');
-        $.ajax({
-            type: "GET",
-            url: "/api/admin/product/change/product/" + productId,
-            dataType: "HTML",
-            success: function (response) {
-                $('#changeFormView').empty();
-                $('#changeFormView').html(response);
 
-            },
-            error: function (xhr) {
-                alert('Errore durante l’inserimento dei dati');
-                console.log(xhr);
-
-            }
-        });
 
     });
 
 
-    /*
-    Evento sulla select del caso modifica. 
-    Si estraggono i dati dalla form e li si inviano per la modifica nel db
-    */
-    $(document).on('submit', '#changeProductForm', function (event) {
-        event.preventDefault();
-        var formData = new FormData(this);
-        $.ajax({
-            type: "PUT",
-            url: "/api/admin/product/change2/product/" + productId,
-            data: formData,
-            contentType: false, // Imposta a false per inviare i dati correttamente
-            processData: false,
-            success: function (response) {
-                $('#visualization-section').empty();
-                $('#visualization-section').html('<p>operazione eseguita con successo</p>');
-            },
-            error: function (xhr) {
-                alert('Errore durante l’inserimento dei dati');
-                console.log(xhr);
 
-            }
-        });
-    });
 
-    /*
-    Evento per il caso della remove. 
-    Si estra l'id dalla form e si manda la richiesta di rimozione.
-    */
-    $(document).on('submit', '#form-product', function (event) {
-        event.preventDefault();
-        var productIdForm = $('#productFormSelect').val();
-        console.log(productIdForm);
+
+    //funzione che invia la richiesta ajax in base hai parametri passati
+    function listOperationAjax(method, url, element = null) {
+        console.log(url);
         
         $.ajax({
-            type: "DELETE",
-            url: "/api/admin/product/deleteOp/" + productIdForm,
+            type: method,
+            url: url,
+            dataType: "html",
             success: function (response) {
-                $('#visualization-section').empty();
-                $('#visualization-section').html('<p>operazione eseguita con successo</p>');
+                if ($('#sectionFormView').length) {
+                    $('#sectionFormView').empty();
+                } else {
+                    $('<div>', {
+                        id: 'sectionFormView'
+                    }).appendTo('#prova');
+                }
+
+                $('#sectionFormView').html(response);
+                if (method === 'DELETE') {
+                    if (element == 'product') {
+                        createProductList();
+                    } else {
+                        listCategoryAjax();
+                    }
+
+                }
+
             },
-            error: function (xhr) {
-                alert('Errore durante l’inserimento dei dati');
+            error: function (xhr, error) {
+                console.error('Errore nella richiesta AJAX:', error);
                 console.log(xhr);
 
             }
         });
 
-    });
-
-    /*
-    Evento per il caso di insert. 
-    Si estraggono i dati dalla form che vengono inviati per l'inserimento di un nuovo utente.
-    */
-    $(document).on('submit','#form-insert', function (event) {
-        event.preventDefault();
-        var formData = new FormData(this);
-        $.ajax({
-            type: "POST",
-            url: "/api/admin/product/insertOp",
-            data: formData,
-            contentType: false, // Imposta a false per inviare i dati correttamente
-            processData: false,
-            success: function (response) {
-                $('#visualization-section').empty();
-                $('#visualization-section').html('<p>operazione eseguita con successo</p>');
-            },
-            error: function (xhr) {
-                alert('Errore durante l’inserimento dei dati');
-                console.log(xhr);
-
-            }
-        });
-    });
 
 
+    }
 
 
-
-
-
-
-
-
-
-
-
-
-    //Funzione che ottiene con una richiesta ajax le categorie e i prodotti con solo nome,id e categoria
-    function ajaxSelections() {
+    function listCategoryAjax(){
         $.ajax({
             type: "GET",
-            url: '/api/admin/product/change',
-            dataType: "JSON",
+            url: '/api/admin/category',
+            dataType: "html",
             success: function (response) {
-                createSelections(response);
+                $('#productsList').empty();
+                $('#list-div').empty();
+                $('#list-div').html(response);
+                console.log('eseguo la creazione tabella');
+
             },
-            error: function (xhr) {
-                alert('Errore durante l’inserimento dei dati');
+            error: function (xhr, error) {
+                console.error('Errore nella richiesta AJAX:', error);
                 console.log(xhr);
+
             }
         });
     }
 
-    //funzione che crea la select della categoria e dei prodotti. 
-    function createSelections(datas) {
-        categories = datas.categories;
-        products = datas.products.map(product => {
-            return {
-                id: product.id,
-                name: product.name,
-                category: product.category
-            };
+
+
+
+
+
+
+        //listener sulle form delle view di inserimento e cambio per estrarre i dati e chiamare la giusta rotta per l'operazione
+        $(document).on('submit', '#form form', function (event) {
+            event.preventDefault();;
+            const formId = this.id;
+            const formData = new FormData(this);
+            const formElement = $(this).data('element');
+            let url;
+            let elementId
+            switch (formId) {
+                case 'changeFormCategory':
+                    elementId = $(this).data('id');
+                    url = '/api/admin/category/'+ elementId+'/change';
+                    break;
+                case 'insertFormCategory':
+                    url = '/api/admin/category/add';
+                    break;
+                case 'insertFormProduct':
+                    url = '/api/admin/category/'+ categoryId +'/product/add'
+                    break;
+                case 'changeFormProduct':
+                    elementId = $(this).data('id');
+                    url = '/api/admin/product/'+elementId+'/change'
+                    break;
+                default:
+                    break;
+            }
+    
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    $('#sectionFormView').empty();
+                    alert(response.message);
+                    switch (formElement) {
+                        case 'category':
+                            listCategoryAjax();
+                            break;
+                        case 'product':
+                            createProductList();
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                error: function (xhr, error) {
+                    console.error('Errore nella richiesta AJAX:', error);
+                    console.log(xhr);
+    
+                }
+            });
+    
+    
         });
-        switch (operation) {
-            case 'change':
-                idSelect = 'productSelect'
-
-                break;
-            case 'remove':
-                idSelect = 'productFormSelect'
-                break;
-
-            default:
-                $('#visualization-section').empty();
-                $('#visualization-section').html('<p>Si è verificato un errore, perfavore segnlare il problema all\'assistenza</p>');
-                return;
-        }
-        var $categorySelect = $('<select>', { id: 'categorySelect' });
-        $categorySelect.append(new Option("Seleziona una categoria", ""));
-        categories.forEach(category => {
-            $categorySelect.append(new Option(category, category));
-        });
-
-        var $productSelect = $('<select>', { id: idSelect });
-        $productSelect.append(new Option("Seleziona un prodotto", ""));
-        products.forEach(product => {
-            $productSelect.append(new Option(product.name, product.id));
-        });
-
-        switch (operation) {
-            case 'change':
-                $('<div>', {
-                    id: 'select-product'
-                }).appendTo('#visualization-section');
-
-                $('#select-product').append('<label for="categorySelect">Categoria:</label>', $categorySelect);
-                $('#select-product').append('<br><label for="productSelect">Prodotto:</label>', $productSelect);
-                break;
-            case 'remove':
-                $('<form>', {
-                    id: 'form-product'
-                }).appendTo('#visualization-section');
-                $('#form-product').append('<label for="categorySelect">Categoria:</label>', $categorySelect);
-                $('#form-product').append('<br><label for="productSelect">Prodotto:</label>', $productSelect);
-                $('<input>', {
-                    type: 'submit',
-                    id: 'form-product'
-                }).appendTo('#form-product');
-                break;
-            default:
-                $('#visualization-section').empty();
-                $('#visualization-section').html('<p>Si è verificato un errore, perfavore segnlare il problema all\'assistenza</p>');
-                return;
-        }
-
-
-    }
 
 });

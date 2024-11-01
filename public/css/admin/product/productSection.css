@@ -1,0 +1,25 @@
+#catalogo{
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    padding: 16px;
+    max-height: fit-content;
+    background-color: rgb(159, 167, 202);
+}
+
+#productsList{
+    max-height: auto;
+    background-color: rgb(159, 167, 202);
+    padding: 16px;
+    margin: 5px;
+
+}
+
+#prova{
+    display: flex;
+}
+
+#sectionFormView{
+    background-color: rgb(159, 167, 202);
+}
+

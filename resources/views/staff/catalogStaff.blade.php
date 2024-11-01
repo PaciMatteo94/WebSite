@@ -25,10 +25,9 @@
                 <div class="categoria">
                     <input type="checkbox" class="category-checkbox" value="{{$category->id}}" name="categories[]"><label>{{ $category['name'] }}</label>
                 </div>
-
-
                 @endforeach
             </div>
+            
             <button id="bottone-ricerca" type="submit">cerca</button>
 
         </form>

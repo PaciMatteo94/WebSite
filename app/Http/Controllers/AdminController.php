@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -64,6 +65,10 @@ class AdminController extends Controller
 
     //SEZIONE VIEW PRODOTTI
 
+    public function listCategory(): View{
+        $categories = Category::all();
+         return view('admin/product/listCategory', compact('categories'));
+    }
 
 
     public function viewAdminProduct(): View
@@ -71,20 +76,47 @@ class AdminController extends Controller
         $javascript = 'js/admin/operationsProduct.js';
         $navbarView = 'admin/navbarAdmin';
         $cssFile = asset('css/navUser.css');
-        return view('admin/basicViewAdmin', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
+        return view('admin/product/productBasic', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
     }
-    public function insertProduct()
+    public function listProduct($categoryId): View
     {
         
-        $categories = Product::distinct()->pluck('category');
-        return view('admin/product/productInsert', compact('categories'));
+        $products = Product::where('category_id', $categoryId)
+        ->select('id', 'name')
+        ->get();
+        return view('admin/product/listProducts', compact('products'));
     }
 
-    public function viewChangeProduct($productId) : View {
-        $product = Product::find($productId);
-        return view('admin/product/productChange', compact('product'));
-        
+    public function viewInsertCategory(): View
+    {
+        return view('admin/product/adminInsert', ['type' => 'category']);
     }
+    public function viewInsertProduct(): View
+    {
+        return view('admin/product/adminInsert', ['type' => 'product']);
+    }
+
+    public function viewCategory($categoryId) : View {
+        $category = Category::find($categoryId);
+        return view('admin/product/adminView', compact('category'));
+    }
+
+    public function viewProduct($productId) : View {
+        $product = Product::find($productId);
+        return view('admin/product/adminView', compact('product'));
+    }
+
+    public function changeViewCategory($categoryId) : View {
+        $category = Category::find($categoryId);
+        return view('admin/product/adminChangeElement', compact('category'));
+    }
+
+    public function changeViewProduct($productId) : View {
+        $product = Product::find($productId);
+        return view('admin/product/adminChangeElement', compact('product'));
+    }
+
+
 
 //SEZIONE VIEW TECNICI
 

@@ -24,9 +24,11 @@
     </form>
     @elseif(isset($solution))
     <h2>Modifica Soluzione: {{ $solution->title }}</h2>
+    <p>Se i campi vengono lasciati vuoti, si manterrano le informazioni correnti </p>
     
     <!-- Form per il cambiamento dei dati -->
     <form id="changeFormSolution" data-id="{{ $solution->id }}" data-element="solution">
+
 
 
         <!-- Titolo -->

@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AssistanceCenterController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MalfunctionController;
 use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\StaffController;
+use App\Models\Category;
 use App\Models\Malfunction;
 use App\Models\Solution;
 use Illuminate\Http\Request;
@@ -55,13 +57,13 @@ Route::post('/solutions/insert/{id}', [SolutionController::class, 'store']);
 //ROTTE STAFF
 Route::get('/staff/info', [ProductController::class, 'index']);
 //view malfunction
-Route::get('/staff/product/{id}/malfunction', [StaffController::class, 'tableMalfuntions']);
+Route::get('/staff/product/{id}/malfunction', [StaffController::class, 'listMalfuntions']);
 Route::get('/staff/malfunction/insertView', [StaffController::class, 'viewInsertMalfunction']);
 Route::get('/staff/malfunction/{id}', [StaffController::class, 'viewMalfunction']);
 Route::get('/staff/malfunction/{id}/change', [StaffController::class, 'changeMalfunction']);
 //view solution
 
-Route::get('/staff/malfunction/{id}/solution', [StaffController::class, 'tableSolutions']);
+Route::get('/staff/malfunction/{id}/solution', [StaffController::class, 'listSolutions']);
 Route::get('/staff/solution/insertView', [StaffController::class, 'viewInsertSolution']);
 Route::get('/staff/solution/{id}', [StaffController::class, 'viewSolution']);
 Route::get('/staff/solution/{id}/change', [StaffController::class, 'changeSolution']);
@@ -95,6 +97,33 @@ Route::post('/admin/tech/insertOp', [AdminController::class, 'store']);
 Route::delete('/admin/tech/deleteOp/{id}', [AdminController::class, 'destroy']);
 
 //ROTTE ADMIN PRODOTTI
+Route::get('/admin/category', [AdminController::class, 'listCategory']);
+Route::get('/admin/category/{id}/product', [AdminController::class, 'listProduct']);
+Route::get('/admin/category/insertView', [AdminController::class, 'viewInsertCategory']);
+Route::get('/admin/product/insertView', [AdminController::class, 'viewInsertProduct']);
+Route::get('/admin/category/{id}/info', [AdminController::class, 'viewCategory']);
+Route::get('/admin/product/{id}/info', [AdminController::class, 'viewProduct']);
+Route::get('/admin/category/{id}/change', [AdminController::class, 'changeViewCategory']);
+Route::get('/admin/product/{id}/change', [AdminController::class, 'changeViewProduct']);
+
+
+Route::delete('/admin/category/{id}/remove', [CategoryController::class, 'destroy']);
+Route::delete('/admin/product/{id}/remove', [ProductController::class, 'destroy']);
+Route::post('/admin/category/add', [CategoryController::class, 'store']);
+Route::post('/admin/category/{id}/product/add', [ProductController::class, 'store']);
+Route::post('/admin/category/{id}/change', [CategoryController::class, 'update']);
+Route::post('/admin/product/{id}/change', [ProductController::class, 'update']);
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/admin/product/insert', [AdminController::class, 'insertProduct']);
 Route::get('/admin/product/change', [AdminController::class, 'changeProduct']);
 Route::get('/admin/product/change/product/{id}', [AdminController::class, 'viewChangeProduct']);

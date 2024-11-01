@@ -15,10 +15,10 @@ class CategoriesSeeder extends Seeder
     {
         Category::create(['name' => 'Dissipatori', 'image' => 'images/cooling.jpg']);
         Category::create(['name' => 'Processori', 'image' => 'images/cpu.jpg']);
-        Category::create(['name' => 'Schede madri', 'image' => 'images/mobo.jpg']);
+        Category::create(['name' => 'Schede-madri', 'image' => 'images/mobo.jpg']);
         Category::create(['name' => 'Memorie', 'image' => 'images/ram.jpg']);
         Category::create(['name' => 'Alimentatori', 'image' => 'images/psu.jpg']);
-        Category::create(['name' => 'Schede video', 'image' => 'images/gpu.jpg']);
+        Category::create(['name' => 'Schede-video', 'image' => 'images/gpu.jpg']);
         Category::create(['name' => 'Storage', 'image' => 'images/storage.jpg']);
         Category::create(['name' => 'Monitor', 'image' => 'images/monitor.jpg']);
         Category::create(['name' => 'Ventole', 'image' => 'images/fan.jpg']);

@@ -30,12 +30,12 @@ class StaffController extends Controller
 
     //view per i malfunzionamenti
 
-    public function tableMalfuntions($productId)
+    public function listMalfuntions($productId)
     {
         $malfunctions = Malfunction::where('product_id', $productId)
             ->select('id', 'title')
             ->get();
-        return view('staff/partialViews/malfunctionsTable', ['malfunctions' => $malfunctions]);
+        return view('staff/partialViews/malfunctionsList', ['malfunctions' => $malfunctions]);
     }
     public function viewInsertMalfunction(): View
     {
@@ -56,11 +56,11 @@ class StaffController extends Controller
 
 
     //view per le soluzioni
-    public function tableSolutions($malfunctionId): View
+    public function listSolutions($malfunctionId): View
     {
         $solutions = Solution::where('malfunction_id', $malfunctionId)->select('id', 'title')
             ->get();
-        return view('staff/partialViews/solutionsTable', ['solutions' => $solutions]);
+        return view('staff/partialViews/solutionsList', ['solutions' => $solutions]);
     }
 
     public function viewInsertSolution(): View

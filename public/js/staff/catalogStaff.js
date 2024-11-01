@@ -36,7 +36,7 @@ $(document).ready(function () {
         event.preventDefault();;
         $('#section-form-view').empty();
         productId = $(this).attr('value');
-        creationMalfunctionTable();
+        createMalfunctionList();
     });
 
     //listener sui titoli della tabella malfunzionamenti per ottenere le soluzioni correlate
@@ -44,7 +44,7 @@ $(document).ready(function () {
         event.preventDefault();;
         $('#section-form-view').empty();
         malfunctionId = $(this).data('id');
-        createSolutionsTable();
+        createSolutionList();
     });
 
     //listener sui bottoni aggiungi delle due tabelle, lo switch gestisce i casi su quale tabella avviene l'evento
@@ -66,7 +66,7 @@ $(document).ready(function () {
         tableOperationAjax(method, url);
     });
 
-    //listener sui bottoni dell'occhio per visualizzare le info del prodotto
+    //listener sui bottoni dell'occhio per visualizzare le info dell'elemento
     $(document).on('click', '.viewLink', function (event) {
         event.preventDefault();;
         const element = $(this).data('element');
@@ -177,10 +177,10 @@ $(document).ready(function () {
                 alert(response.message);
                 switch (formElement) {
                     case 'malfunction':
-                        creationMalfunctionTable();
+                        createMalfunctionList();
                         break;
                     case 'solution':
-                        createSolutionsTable();
+                        createSolutionList();
                         break;
                     default:
                         break;
@@ -245,9 +245,9 @@ $(document).ready(function () {
                 $('#section-form-view').html(response);
                 if (method === 'DELETE') {
                     if (element == 'solution') {
-                        createSolutionsTable()
+                        createSolutionList()
                     } else {
-                        creationMalfunctionTable();
+                        createMalfunctionList();
                     }
 
                 }
@@ -265,7 +265,7 @@ $(document).ready(function () {
     }
 
     //funzione che invia la richiesta ajax e inserisce la tabella dei malfunzionamenti
-    function creationMalfunctionTable() {
+    function createMalfunctionList() {
         $.ajax({
             type: "GET",
             url: '/api/staff/product/' + productId + '/malfunction',
@@ -284,16 +284,22 @@ $(document).ready(function () {
         });
     }
     //funzione che invia la richiesta ajax e inserisce la tabella delle soluzioni
-    function createSolutionsTable() {
+    function createSolutionList() {
         $.ajax({
             type: "GET",
             url: "/api/staff/malfunction/" + malfunctionId + "/solution",
             dataType: "html",
             success: function (response) {
-                $('<div>', {
-                    id: 'solutionsTable'
-                }).appendTo('#list-div');
-                $('#solutionsTable').html(response);
+                if ($('#solutionsList').length) {
+                    $('#solutionsList').empty();
+                    $('#solutionsList').html(response);
+                } else{
+                    $('<div>', {
+                        id: 'solutionsList'
+                    }).appendTo('#list-div');
+                    $('#solutionsList').html(response);
+                }
+
             }
         });
     }
