@@ -1,21 +1,22 @@
 <div id="form">
 @if(isset($malfunction))
     <h2>Modifica Malfunzionamento: {{ $malfunction->title }}</h2>
+    <p>Se i campi vengono lasciati vuoti, si manterrano le informazioni correnti </p>
     
     <!-- Form per il cambiamento dei dati -->
-    <form id="changeFormMalfunction" data-id="{{ $malfunction->id }}">
+    <form id="changeFormMalfunction" data-id="{{ $malfunction->id }}" data-element="malfunction">
 
 
         <!-- Titolo -->
         <div class="mb-3">
             <label for="title" class="form-label">Titolo</label>
-            <input type="text" name="title" id="title" class="form-control" value="{{ $malfunction->title }}" required>
+            <input type="text" name="title" id="title" class="form-control" value="{{ $malfunction->title }}">
         </div>
 
         <!-- Descrizione -->
         <div class="mb-3">
             <label for="description" class="form-label">Descrizione</label>
-            <textarea name="description" id="description" class="form-control" rows="4" required>{{ $malfunction->description }}</textarea>
+            <textarea name="description" id="description" class="form-control" rows="4">{{ $malfunction->description }}</textarea>
         </div>
 
         <!-- Pulsante di salvataggio -->
@@ -31,13 +32,13 @@
         <!-- Titolo -->
         <div class="mb-3">
             <label for="title" class="form-label">Titolo</label>
-            <input type="text" name="title" id="title" class="form-control" value="{{ $solution->title }}" required>
+            <input type="text" name="title" id="title" class="form-control" value="{{ $solution->title }}">
         </div>
 
         <!-- Descrizione -->
         <div class="mb-3">
             <label for="description" class="form-label">Descrizione</label>
-            <textarea name="description" id="description" class="form-control" rows="4" required>{{ $solution->description }}</textarea>
+            <textarea name="description" id="description" class="form-control" rows="4">{{ $solution->description }}</textarea>
         </div>
 
         <!-- Pulsante di salvataggio -->

@@ -28,5 +28,5 @@
 
         <button type="submit" class="btn btn-primary">Aggiungi</button>
     </form>
-    @endif
+
 </div>

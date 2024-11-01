@@ -32,13 +32,6 @@
             <button id="bottone-ricerca" type="submit">cerca</button>
 
         </form>
-
-
-
-
-
-
-
     </aside>
 
 

@@ -29,17 +29,21 @@ class MalfunctionController extends Controller
      */
     public function store($id, Request $request)
     {
-        // Validazione dei dati in arrivo
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
-        $malfunction = new Malfunction();
-        $malfunction->product_id = $id;
-        $malfunction->title = $request->get('title');
-        $malfunction->description = $request->get('description');
-        $malfunction->save();
-        return response()->json(['message' => 'Malfunzionamento inserito con successo']);
+        try {
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+            ]);
+            $malfunction = new Malfunction();
+            $malfunction->product_id = $id;
+            $malfunction->title = $request->get('title');
+            $malfunction->description = $request->get('description');
+            $malfunction->save();
+            return response()->json(['message' => 'Malfunzionamento inserito con successo']);
+        } catch (\Exception $e) {       
+            return response()->json([], 500);
+        }
+
     }
 
     /**
@@ -63,13 +67,19 @@ class MalfunctionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $malfunction = Malfunction::findOrFail($id);
-        $malfunction->title = $request->input('title') ?: $malfunction->title;
-        $malfunction->description = $request->input('description') ?: $malfunction->description;
+        try {
+            $malfunction = Malfunction::findOrFail($id);
+            $malfunction->title = $request->input('title') ?: $malfunction->title;
+            $malfunction->description = $request->input('description') ?: $malfunction->description;
+            $malfunction->save();
+            return response()->json(['message' => 'Malfunzionamento aggiornato con successo']);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([], 404);
+        }catch (\Exception $e) {
+            return response()->json([], 500);
+        }
 
-        $malfunction->save();
 
-        return response()->json(['message' => 'Malfunzionamento aggiornato con successo']);
     }
 
     /**

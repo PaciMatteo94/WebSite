@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Solution;
+use PhpParser\Node\Stmt\TryCatch;
 
 class SolutionController extends Controller
 {
@@ -15,7 +16,8 @@ class SolutionController extends Controller
     {
         $prodotto = Product::find($id);
         $datas = $prodotto->solutions;
-        return view('staff/removeOption', ['datas' => $datas])->render();    }
+        return view('staff/removeOption', ['datas' => $datas])->render();
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -30,16 +32,21 @@ class SolutionController extends Controller
      */
     public function store($id, Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
-        $solution = new Solution();
-        $solution->malfunction_id = $id;
-        $solution->title = $request->get('title');
-        $solution->description = $request->get('description');
-        $solution->save();
-        return response()->json(['message' => 'Soluzione inserita con successo']);
+        try {
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+            ]);
+            $solution = new Solution();
+            $solution->malfunction_id = $id;
+            $solution->title = $request->get('title');
+            $solution->description = $request->get('description');
+            $solution->save();
+            return response()->json(['message' => 'Soluzione inserita con successo']);
+        } catch (\Exception $e) {       
+            return response()->json([], 500);
+        }
+
     }
 
     /**
@@ -63,15 +70,19 @@ class SolutionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $solution = Solution::findOrFail($id);
+        try {
+            $solution = Solution::findOrFail($id);
+            $solution->title = $request->input('title') ?: $solution->title;
+            $solution->description = $request->input('description') ?: $solution->description;
+            $solution->save();
+            return response()->json(['message' => 'Soluzione aggiornata con successo']);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([], 404);
+        }catch (\Exception $e) {
+            return response()->json([], 500);
+        }
 
-        // Controlla i valori e, se vuoti, mantieni i valori attuali
-        $solution->title = $request->input('title') ?: $solution->title;
-        $solution->description = $request->input('description') ?: $solution->description;
-    
-        $solution->save();
-    
-        return response()->json(['success' => true, 'message' => 'Solution updated successfully']);    }
+    }
 
     /**
      * Remove the specified resource from storage.

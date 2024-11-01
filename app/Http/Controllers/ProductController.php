@@ -50,7 +50,7 @@ class ProductController extends Controller
         }
         if ($user === 'staff') {
             // Restituisce una view diversa se l'utente è staff
-            return view('staff/staffProductsList',['products' => $products])->render();
+            return view('staff/partialViews/staffProductsList',['products' => $products])->render();
         }
 
 

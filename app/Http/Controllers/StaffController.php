@@ -28,54 +28,58 @@ class StaffController extends Controller
     }
 
 
+    //view per i malfunzionamenti
 
-    public function productMalfuntions($productId)
+    public function tableMalfuntions($productId)
     {
-
         $malfunctions = Malfunction::where('product_id', $productId)
             ->select('id', 'title')
             ->get();
-        return view('staff/malfunctionsTable', ['malfunctions' => $malfunctions]);
+        return view('staff/partialViews/malfunctionsTable', ['malfunctions' => $malfunctions]);
     }
-
-    public function malfunctionSolutions($malfunctionId): View
-    {
-        $solutions = Solution::where('malfunction_id', $malfunctionId)->select('id', 'title')
-            ->get();
-        return view('staff/solutionsTable', ['solutions' => $solutions]);
-    }
-
-
-
     public function viewInsertMalfunction(): View
     {
-        return view('staff/partial-views/insert',['type' => 'malfunction']);
+        return view('staff/partialViews/insert', ['type' => 'malfunction']);
     }
-    public function viewInsertSolution(): View
-    {
-        return view('staff/partial-views/insert',['type' => 'solution']);
-    }
+
     public function viewMalfunction($malfunctionId): View
     {
         $malfunction = Malfunction::find($malfunctionId);
-        return view('staff/partial-views/view', compact('malfunction'));
-    }
-
-    public function viewSolution($solutionId): View
-    {
-        $solution = Solution::find($solutionId);
-        return view('staff/partial-views/view', compact('solution'));
+        return view('staff/partialViews/view', compact('malfunction'));
     }
 
     public function changeMalfunction($malfunctionId): View
     {
         $malfunction = Malfunction::find($malfunctionId);
-        return view('staff/partial-views/change', compact('malfunction'));
+        return view('staff/partialViews/change', compact('malfunction'));
     }
+
+
+    //view per le soluzioni
+    public function tableSolutions($malfunctionId): View
+    {
+        $solutions = Solution::where('malfunction_id', $malfunctionId)->select('id', 'title')
+            ->get();
+        return view('staff/partialViews/solutionsTable', ['solutions' => $solutions]);
+    }
+
+    public function viewInsertSolution(): View
+    {
+        return view('staff/partialViews/insert', ['type' => 'solution']);
+    }
+
+
+    public function viewSolution($solutionId): View
+    {
+        $solution = Solution::find($solutionId);
+        return view('staff/partialViews/view', compact('solution'));
+    }
+
+
 
     public function changeSolution($solutionId): View
     {
         $solution = Solution::find($solutionId);
-        return view('staff/partial-views/change', compact('solution'));
+        return view('staff/partialViews/change', compact('solution'));
     }
 }

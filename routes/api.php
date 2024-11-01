@@ -53,25 +53,29 @@ Route::post('/malfunctions/insert/{id}', [MalfunctionController::class, 'store']
 Route::post('/solutions/insert/{id}', [SolutionController::class, 'store']);
 
 //ROTTE STAFF
-Route::get('/staff/product/{id}/malfunction', [StaffController::class, 'productMalfuntions']);
-Route::get('/staff/malfunction/insertView', [StaffController::class, 'viewInsertMalfunction']);
-Route::get('/staff/solution/insertView', [StaffController::class, 'viewInsertSolution']);
-Route::get('/staff/malfunction/{id}', [StaffController::class, 'viewMalfunction']);
-Route::get('/staff/solution/{id}', [StaffController::class, 'viewSolution']);
-Route::get('/staff/malfunction/{id}/change', [StaffController::class, 'changeMalfunction']);
-Route::get('/staff/solution/{id}/change', [StaffController::class, 'changeSolution']);
-Route::get('/staff/malfunction/{id}/solution', [StaffController::class, 'malfunctionSolutions']);
 Route::get('/staff/info', [ProductController::class, 'index']);
+//view malfunction
+Route::get('/staff/product/{id}/malfunction', [StaffController::class, 'tableMalfuntions']);
+Route::get('/staff/malfunction/insertView', [StaffController::class, 'viewInsertMalfunction']);
+Route::get('/staff/malfunction/{id}', [StaffController::class, 'viewMalfunction']);
+Route::get('/staff/malfunction/{id}/change', [StaffController::class, 'changeMalfunction']);
+//view solution
 
-//operazioni
+Route::get('/staff/malfunction/{id}/solution', [StaffController::class, 'tableSolutions']);
+Route::get('/staff/solution/insertView', [StaffController::class, 'viewInsertSolution']);
+Route::get('/staff/solution/{id}', [StaffController::class, 'viewSolution']);
+Route::get('/staff/solution/{id}/change', [StaffController::class, 'changeSolution']);
+
+
+//operazioni malfunction
 Route::delete('/staff/malfunction/{id}/delete', [MalfunctionController::class, 'destroy']);
-Route::delete('/staff/solution/{id}/delete', [SolutionController::class, 'destroy']);
 Route::post('/staff/malfunction/{id}/change', [MalfunctionController::class, 'update']);
-Route::post('/staff/solution/{id}/change', [SolutionController::class, 'update']);
 Route::post('/staff/product/{id}/malfunction/store', [MalfunctionController::class, 'store']);
+
+//operazioni solution
+Route::post('/staff/solution/{id}/change', [SolutionController::class, 'update']);
 Route::post('/staff/malfunction/{id}/solution/store', [SolutionController::class, 'store']);
-
-
+Route::delete('/staff/solution/{id}/delete', [SolutionController::class, 'destroy']);
 
 
 //ROTTE ADMIN STAFF
