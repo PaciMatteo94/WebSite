@@ -9,7 +9,7 @@
 @endsection
 
 @section('content_css')
-<link rel="stylesheet" type="text/css" href="{{ asset('css/catalog.css') }}?v={{ time() }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/staff/catalogStaff.css') }}?v={{ time() }}">
 @endsection
 
 @section('content')
@@ -52,8 +52,11 @@
 
 
 </div>
-<div id="showInfo">
 
+<div id="showInfo">
+    <div id="list-div">
+
+    </div>
 </div>
 @endsection
 

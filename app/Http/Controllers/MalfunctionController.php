@@ -39,7 +39,7 @@ class MalfunctionController extends Controller
         $malfunction->title = $request->get('title');
         $malfunction->description = $request->get('description');
         $malfunction->save();
-        return;
+        return response()->json(['message' => 'Malfunzionamento inserito con successo']);
     }
 
     /**
@@ -64,14 +64,12 @@ class MalfunctionController extends Controller
     public function update(Request $request, $id)
     {
         $malfunction = Malfunction::findOrFail($id);
-
-        // Controlla i valori e, se vuoti, mantieni i valori attuali
         $malfunction->title = $request->input('title') ?: $malfunction->title;
         $malfunction->description = $request->input('description') ?: $malfunction->description;
 
         $malfunction->save();
 
-        return response()->json(['success' => true, 'message' => 'Malfunction updated successfully']);
+        return response()->json(['message' => 'Malfunzionamento aggiornato con successo']);
     }
 
     /**

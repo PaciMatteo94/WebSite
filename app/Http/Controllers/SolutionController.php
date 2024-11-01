@@ -39,7 +39,7 @@ class SolutionController extends Controller
         $solution->title = $request->get('title');
         $solution->description = $request->get('description');
         $solution->save();
-        return;
+        return response()->json(['message' => 'Soluzione inserita con successo']);
     }
 
     /**

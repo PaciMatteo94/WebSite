@@ -6,6 +6,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MalfunctionController;
 use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\StaffController;
+use App\Models\Malfunction;
+use App\Models\Solution;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,14 +53,23 @@ Route::post('/malfunctions/insert/{id}', [MalfunctionController::class, 'store']
 Route::post('/solutions/insert/{id}', [SolutionController::class, 'store']);
 
 //ROTTE STAFF
-Route::get('/staff/insert/malfunction', [StaffController::class, 'viewInsertMalfunction']);
-Route::get('/staff/change/malfunction', [StaffController::class, 'viewChangeMalfuction']);
-Route::get('/staff/remove/malfunction', [StaffController::class, 'viewRemoveMalfunction']);
-Route::get('/staff/product/{id}/info', [StaffController::class, 'infoProduct']);
+Route::get('/staff/product/{id}/malfunction', [StaffController::class, 'productMalfuntions']);
+Route::get('/staff/malfunction/insertView', [StaffController::class, 'viewInsertMalfunction']);
+Route::get('/staff/solution/insertView', [StaffController::class, 'viewInsertSolution']);
+Route::get('/staff/malfunction/{id}', [StaffController::class, 'viewMalfunction']);
+Route::get('/staff/solution/{id}', [StaffController::class, 'viewSolution']);
+Route::get('/staff/malfunction/{id}/change', [StaffController::class, 'changeMalfunction']);
+Route::get('/staff/solution/{id}/change', [StaffController::class, 'changeSolution']);
+Route::get('/staff/malfunction/{id}/solution', [StaffController::class, 'malfunctionSolutions']);
 Route::get('/staff/info', [ProductController::class, 'index']);
 
-
-
+//operazioni
+Route::delete('/staff/malfunction/{id}/delete', [MalfunctionController::class, 'destroy']);
+Route::delete('/staff/solution/{id}/delete', [SolutionController::class, 'destroy']);
+Route::post('/staff/malfunction/{id}/change', [MalfunctionController::class, 'update']);
+Route::post('/staff/solution/{id}/change', [SolutionController::class, 'update']);
+Route::post('/staff/product/{id}/malfunction/store', [MalfunctionController::class, 'store']);
+Route::post('/staff/malfunction/{id}/solution/store', [SolutionController::class, 'store']);
 
 
 
