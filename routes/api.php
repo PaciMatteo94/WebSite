@@ -48,13 +48,18 @@ Route::put('/malfunctions/update/{id}', [MalfunctionController::class, 'update']
 
 Route::put('/solutions/update/{id}', [SolutionController::class, 'update']);
 
-Route::get('/malfunctions/index/{id}', [MalfunctionController::class, 'index']);
+// Route::get('/malfunctions/index/{id}', [MalfunctionController::class, 'index']);
 
-Route::get('/solutions/index/{id}', [SolutionController::class, 'index']);
+// Route::get('/solutions/index/{id}', [SolutionController::class, 'index']);
 
 Route::post('/malfunctions/insert/{id}', [MalfunctionController::class, 'store']);
 
 Route::post('/solutions/insert/{id}', [SolutionController::class, 'store']);
+
+Route::get('/malfunction/{id}/solution', [SolutionController::class, 'index']);
+
+Route::get('/malfunction/{id}', [MalfunctionController::class, 'index']);
+Route::get('/solution/{id}', [SolutionController::class, 'show']);
 
 //ROTTE STAFF
 Route::get('/staff/info', [ProductController::class, 'index']);
@@ -88,6 +93,8 @@ Route::get('/admin/staff/insertView', [AdminController::class, 'insertView']);
 Route::get('/admin/staff/show/{id}', [AdminController::class, 'show']);
 Route::get('/admin/staff/change/{id}', [AdminController::class, 'change']);
 Route::delete('/admin/staff/remove/{id}', [UserController::class, 'destroy']);
+Route::post('/admin/staff/store', [UserController::class, 'store']);
+Route::post('/admin/staff/{id}/change', [UserController::class, 'update']);
 
 
 

@@ -1,9 +1,6 @@
 $(document).ready(function () {
-    var testo = '';
     const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ*]+$/;
-    var selectedCategories = [];
-    let productId;
-    let categoryId;
+let elementId;
     listStaffAjax();
 
     function listStaffAjax(){
@@ -72,6 +69,46 @@ $(document).ready(function () {
         }
 
 
+
+
+    });
+
+    $(document).on('submit', '#container form', function (event) {
+        event.preventDefault();;
+        const formData = new FormData(this);
+        const formElement = $(this).data('element');
+        const formOperation = $(this).data('operation');
+        switch (formOperation) {
+            case 'store':
+                formData.append('element', formElement);
+                url = '/api/admin/staff/store';
+                break;
+            case 'change':
+                console.log(elementId);
+                url = '/api/admin/staff/'+elementId+'/change';
+                break;
+            default:
+                break;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (response) {
+                $('#sectionFormView').empty();
+                alert(response.message);
+                listStaffAjax()
+            },
+            error: function (xhr, error) {
+                console.error('Errore nella richiesta AJAX:', error);
+                console.log(xhr);
+
+            }
+        });
 
 
     });

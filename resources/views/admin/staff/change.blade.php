@@ -1,7 +1,7 @@
 @if($roleType == 'staff')
 <div id="container">
     <h1>Cambio informazioni dell'utente: {{ $user->name }}</h1>
-    <form id="select-user-form">
+    <form id="select-user-form" data-operation ='change'>
         <input type="hidden" name="user_id" id="user-id">
 
         <div>
@@ -36,7 +36,7 @@
 @elseif($roleType == 'technician')
 <div id="container">
 <h1>Cambio informazioni dell'utente: {{ $user->name }}</h1>
-    <form id="edit-tech-form">
+    <form id="edit-tech-form" data-operation ='change'>
     <div>
             <label for="name">Nome:</label>
             <input type="text" id="name" name="name" value="{{ $user->name }}" required>

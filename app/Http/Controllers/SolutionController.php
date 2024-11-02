@@ -6,17 +6,25 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Solution;
 use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\View\View;
 
 class SolutionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    // public function index($id)
+    // {
+    //     $prodotto = Product::find($id);
+    //     $datas = $prodotto->solutions;
+    //     return view('staff/removeOption', ['datas' => $datas])->render();
+    // }
+
+    public function index($malfunctionId): View
     {
-        $prodotto = Product::find($id);
-        $datas = $prodotto->solutions;
-        return view('staff/removeOption', ['datas' => $datas])->render();
+        $solutions = Solution::where('malfunction_id', $malfunctionId)->select('id', 'title')
+        ->get();
+        return view('listSolutionsPublic', ['solutions' => $solutions]);
     }
 
     /**
@@ -52,9 +60,10 @@ class SolutionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $solutionId)
     {
-        //
+        $solution = Solution::find($solutionId);
+        return view('solutionShow', compact('solution'));
     }
 
     /**

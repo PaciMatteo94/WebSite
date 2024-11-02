@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Malfunction;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Stabilimenti;
@@ -60,13 +61,13 @@ class PublicController extends Controller
     {
         $navbarView = 'layouts/navUser';
         $cssFile = asset('css/navUser.css');
-        $product = Product::with(['malfunctions', 'solutions'])->find($id);
+        $product =Product::findOrFail($id);
+        $malfunctions = Malfunction::where('product_id', $id)->get();
         return view('productShow', [
             'navbarView' => $navbarView,
             'cssFile' => $cssFile,
             'product' => $product,
-            'malfunctions' => $product->malfunctions, // Passa i malfunzionamenti alla view
-            'solutions' => $product->solutions,       // Passa le soluzioni alla view
+            'malfunctions' => $malfunctions,
         ])->render();
     }
 

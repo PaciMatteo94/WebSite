@@ -1,4 +1,9 @@
 <div id="navbar">
+    <div id="titolo">
+        <a href="{{ route('home') }}">
+            <h2 id="titolo-home">NEX:Assistenza Tecnica</h2>
+        </a>
+    </div>
     <div id="box-options">
         <div class="navbar option-1">
             <h2 class="option-nav"> <a href="{{ route('info') }}">Info</a></h2>

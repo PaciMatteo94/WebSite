@@ -1,7 +1,7 @@
 @if($roleType == 'staff')
-<div id="container">
+<div id="container" >
     <h1>Sezione inserimento staff</h1>
-    <form id="form-insert" action="">
+    <form id="form-insert" data-element='staff' data-operation ='store'>
         <div>
             <label for="name">Nome:</label>
             <input type="text" id="name" name="name" required>
@@ -32,7 +32,7 @@
 </div>
 @elseif($roleType == 'technician')
 <div id="container">
-<form id="create-tech-form">   
+<form id="create-tech-form" data-element='technician' data-operation ='store'>   
     <div>
         <label for="name">Nome:</label>
         <input type="text" id="name" name="name" required>

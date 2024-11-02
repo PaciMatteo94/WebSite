@@ -29,37 +29,39 @@
         <p>{{ $product->installation_mode }}</p>
 
         <!-- Mostra l'immagine del prodotto -->
-             <!-- Se l'utente è loggato e ha il ruolo 'technician', mostra malfunctions e solutions -->
-    @if (auth()->check() && auth()->user()->role === 'technician')
-    <div class="product-malfunctions">
-        <h2>Malfunctions</h2>
-        <!-- Qui visualizza gli elementi malfunctions associati al prodotto -->
-        <ul>
-        @foreach ($malfunctions as $malfunction)
-        <li>{{ $malfunction->description }}</li>
-    @endforeach
-        </ul>
+        <!-- Se l'utente è loggato e ha il ruolo 'technician', mostra malfunctions e solutions -->
+        @if (auth()->check() && auth()->user()->role === 'technician')
+        @forelse($malfunctions as $malfunction)
+        <li>
+            <!-- ID e titolo del malfunzionamento -->
+            <div>
+                <strong>ID:</strong> {{ $malfunction->id }} -
+                <a href="#" class="titleLink" data-id="{{ $malfunction->id }}" data-type="malfunction">{{ $malfunction->title }}</a>
+                <a href="#" class="viewLink" data-id="{{ $malfunction->id }}">👁️</a>
+            </div>
+        </li>
+        @empty
+        <li>Nessun malfunzionemento disponibile</li>
+        @endforelse
+        @endif
+
+        <div id="malfunctionView">
+
+        </div>
+        <div id="solutionsList">
+
+        </div>
+        <div id="solutionView">
+
+        </div>
+
+
     </div>
-
-    <div class="product-solutions">
-        <h2>Solutions</h2>
-        <!-- Qui visualizza gli elementi solutions associati al prodotto -->
-
-
-        <ul>
-
-        @foreach ($solutions as $solution)
-        <li>{{ $solution->description }}</li>
-    @endforeach
-
-        </ul>
-
-    </div>
-    @endif
-    </div>
-
-
-
-
 </div>
+</div>
+
+@endsection
+
+@section('javascript')
+<script src="{{ asset('js/productShow.js') }}?v={{ time() }}"> </script>
 @endsection

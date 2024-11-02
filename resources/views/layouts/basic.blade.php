@@ -15,11 +15,7 @@
 <body>
     <div id="page">
         <header id="header">
-            <div id="titolo">
-                <a href="{{ route('home') }}">
-                    <h2 id="titolo-home">NEX:Assistenza Tecnica</h2>
-                </a>
-            </div>
+   
             @yield('navbar') <!-- Inserimento dinamico della navbar -->
         </header>
         <div id="contenuto">

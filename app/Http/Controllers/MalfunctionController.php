@@ -10,10 +10,16 @@ class MalfunctionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    // public function index($id)
+    // {
+    //     $datas = Malfunction::where('product_id', $id)->get();
+    //     return view('staff/removeOption', ['datas' => $datas])->render();
+    // }
+
+    public function index($malfunctionId)
     {
-        $datas = Malfunction::where('product_id', $id)->get();
-        return view('staff/removeOption', ['datas' => $datas])->render();
+        $malfunction = Malfunction::find($malfunctionId);
+        return view('malfunctionsPublicView', compact('malfunction'));
     }
 
     /**
