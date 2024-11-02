@@ -14,19 +14,11 @@
 @endsection
 
 @section('content')
-<div id="section-operation">
-    <aside>
-        <ul id="operation">
-            <li><a href="#" class="operation-link" id="insert">Inserimento</a></li>
-            <li><a href="#" class="operation-link" id="change">Modifica</a></li>
-            <li><a href="#" class="operation-link" id="remove">Rimozione</a></li>
-        </ul>
-    </aside>
-
-    <div id="visualization-section">
-
+<div id="containerSection">
+    <div id="listStaff">
 
     </div>
+
 
 
 </div>

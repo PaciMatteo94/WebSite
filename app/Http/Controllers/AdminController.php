@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
@@ -20,13 +21,83 @@ class AdminController extends Controller
     }
 
     //SEZIONE VIEW STAFF
-    public function viewAdminStaff(): View
+    // public function viewAdminStaff(): View
+    // {
+    //     $javascript = 'js/admin/operationsStaff.js';
+    //     $navbarView = 'admin/navbarAdmin';
+    //     $cssFile = asset('css/navUser.css');
+    //     return view('admin/basicViewAdmin', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
+    // }
+
+    public function adminStaff(): View
     {
-        $javascript = 'js/admin/operationsStaff.js';
+        $javascript = 'js/admin/operationsStaff2.js';
         $navbarView = 'admin/navbarAdmin';
         $cssFile = asset('css/navUser.css');
         return view('admin/basicViewAdmin', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
     }
+
+    public function listStaff(): View
+    {
+        $staffUsers = User::where('role', 'staff')
+        ->select('id','name', 'surname')
+        ->get();
+        $technicianUsers = User::where('role', 'technician')
+        ->select('id','name', 'surname')
+        ->get();
+        return view('admin/staff/listStaff', compact('staffUsers', 'technicianUsers'));
+    }
+
+    public function insertView(Request $request): View
+    {
+        $roleType = $request->input('role');
+        return view('admin/staff/insertView',compact('roleType'));
+    }
+
+    public function show(Request $request, $id): View
+    {
+        $roleType = $request->input('role');
+
+        if( $roleType == 'technician'){
+            $user = DB::table('users')
+            ->join('tech_profiles', 'users.id', '=', 'tech_profiles.user_id')
+            ->select('users.*', 'tech_profiles.birth_date', 'tech_profiles.specialization','tech_profiles.center_name','tech_profiles.center_address') // Aggiungi i campi che vuoi
+            ->where('users.id', $id)
+            ->first();
+
+        }else{
+            $user = User::find($id);
+        }
+        return view('admin/staff/show',compact('user','roleType'));
+    }
+
+    public function change(Request $request, $id): View
+    {
+        $roleType = $request->input('role');
+        if( $roleType == 'technician'){
+            $user = DB::table('users')
+            ->join('tech_profiles', 'users.id', '=', 'tech_profiles.user_id')
+            ->select('users.*', 'tech_profiles.birth_date', 'tech_profiles.specialization','tech_profiles.center_name','tech_profiles.center_address') // Aggiungi i campi che vuoi
+            ->where('users.id', $id)
+            ->first();
+
+        }else{
+            $user = User::find($id);
+        }
+        return view('admin/staff/change',compact('user','roleType'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function insertStaff()
     {
@@ -298,3 +369,8 @@ class AdminController extends Controller
     }
 
 }
+
+
+
+
+

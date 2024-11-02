@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tech_profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->date('birth_date')->nullable();
+            $table->date('birth_date');
             $table->string('specialization')->nullable();
             $table->string('center_name')->nullable();
             $table->string('center_address')->nullable();

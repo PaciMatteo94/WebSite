@@ -122,7 +122,7 @@ class ProductController extends Controller
         if ($request->hasFile('thumbnail')) {
             $thumbnailName = $request->file('thumbnail')->getClientOriginalName();
             $request->file('thumbnail')->move(public_path('images/' . $categoryName . '/Thumbnails'), $thumbnailName);
-            $thumbnailPath = 'images/' . $categoryName . '/' . $thumbnailName;
+            $thumbnailPath = 'images/' . $categoryName . '/Thumbnails/' . $thumbnailName;
         }
         $product = new Product();
         $product->category_id = $category_id;
@@ -167,15 +167,29 @@ class ProductController extends Controller
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024'
         ]);
         if ($request->hasFile('image')) {
+            $category_id = $product->category_id;
+            $categoryName = Category::where('id', $category_id)->value('name');
+            $oldImagePath = public_path( $product->image);
+            if (File::exists($oldImagePath)) {
+                File::delete($oldImagePath);
+            }
+
             $imageName = $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('images'), $imageName);
-            $imagePath = 'images/' . $imageName;
+            $request->file('image')->move(public_path('images/' . $categoryName), $imageName);
+            $imagePath = 'images/' . $categoryName . '/' . $imageName;
             $product->image = $imagePath;
         }
+
         if ($request->hasFile('thumbnail')) {
+            $category_id = $product->category_id;
+            $categoryName = Category::where('id', $category_id)->value('name');
+            $oldThumbnailPath = public_path($product->thumbnail);
+            if (File::exists($oldThumbnailPath)) {
+                File::delete($oldThumbnailPath);
+            }
             $thumbnailName = $request->file('thumbnail')->getClientOriginalName();
-            $request->file('thumbnail')->move(public_path('images'), $thumbnailName);
-            $thumbnailPath = 'images/' . $thumbnailName;
+            $request->file('thumbnail')->move(public_path('images/' . $categoryName . '/Thumbnails'), $thumbnailName);
+            $thumbnailPath = 'images/' . $categoryName . '/Thumbnails/' . $thumbnailName;
             $product->thumbnail = $thumbnailPath;
         }
         $product->name = $request->input('name') ?: $product->name;
@@ -195,8 +209,6 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $product = Product::findOrFail($id);
-        $category_id = $product->category_id;
-        $category = Category::findOrFail($category_id);
         $imagePath = public_path( $product->image);
         $thumbnailPath = public_path($product->thumbnail);
         if (File::exists($imagePath)) {
@@ -206,7 +218,6 @@ class ProductController extends Controller
         if (File::exists($thumbnailPath)) {
             File::delete($thumbnailPath);
         }
-        Product::destroy($id);
         $product->delete();
     }
 }

@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             ProductsSeeder::class,
             MalfunctionsSeeder::class,
-            SolutionsSeeder::class
-
+            SolutionsSeeder::class,
+            TechProfilesTableSeeder::class
 
         ]);
 

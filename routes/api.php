@@ -7,9 +7,11 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MalfunctionController;
 use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\UserController;
 use App\Models\Category;
 use App\Models\Malfunction;
 use App\Models\Solution;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -81,12 +83,22 @@ Route::delete('/staff/solution/{id}/delete', [SolutionController::class, 'destro
 
 
 //ROTTE ADMIN STAFF
-Route::get('/admin/staff/insert', [AdminController::class, 'insertStaff']);
-Route::get('/admin/staff/change', [AdminController::class, 'changeStaff']);
-Route::get('/admin/staff/remove', [AdminController::class, 'removeStaff']);
-Route::put('/admin/staff/change/{id}', [AdminController::class, 'update']);
-Route::post('/admin/staff/insertOp', [AdminController::class, 'store']);
-Route::delete('/admin/staff/deleteOp/{id}', [AdminController::class, 'destroy']);
+Route::get('/admin/staff', [AdminController::class, 'listStaff']);
+Route::get('/admin/staff/insertView', [AdminController::class, 'insertView']);
+Route::get('/admin/staff/show/{id}', [AdminController::class, 'show']);
+Route::get('/admin/staff/change/{id}', [AdminController::class, 'change']);
+Route::delete('/admin/staff/remove/{id}', [UserController::class, 'destroy']);
+
+
+
+
+
+// Route::get('/admin/staff/insert', [AdminController::class, 'insertStaff']);
+// Route::get('/admin/staff/change', [AdminController::class, 'changeStaff']);
+// Route::get('/admin/staff/remove', [AdminController::class, 'removeStaff']);
+// Route::put('/admin/staff/change/{id}', [AdminController::class, 'update']);
+// Route::post('/admin/staff/insertOp', [AdminController::class, 'store']);
+// Route::delete('/admin/staff/deleteOp/{id}', [AdminController::class, 'destroy']);
 
 //ROTTE ADMIN TECNICI
 Route::get('/admin/tech/insert', [AdminController::class, 'insertTech']);
