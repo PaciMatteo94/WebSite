@@ -33,7 +33,10 @@ $(document).ready(function () {
 
     //listener per l'ancora sui prodotti
     $(document).on('click', '.link-product', function (event) {
-        event.preventDefault();;
+        event.preventDefault();
+        if ($('#list-div').css('display') == 'none') {
+            $('#list-div').show();
+        }
         $('#section-form-view').empty();
         productId = $(this).attr('value');
         createMalfunctionList();
@@ -41,8 +44,11 @@ $(document).ready(function () {
 
     //listener sui titoli della tabella malfunzionamenti per ottenere le soluzioni correlate
     $(document).on('click', '.titleLink', function (event) {
-        event.preventDefault();;
+        event.preventDefault();
         $('#section-form-view').empty();
+        if ($('#section-form-view').css('display') == 'block') {
+            $('#section-form-view').css('display', 'none');
+        }
         malfunctionId = $(this).data('id');
         createSolutionList();
     });
@@ -229,6 +235,9 @@ $(document).ready(function () {
 
     //funzione che invia la richiesta ajax in base hai parametri passati
     function tableOperationAjax(method, url, element = null) {
+        if (($('#section-form-view').css('display') == 'none')&&(!(method === 'DELETE'))) {
+            $('#section-form-view').show();
+        }
         $.ajax({
             type: method,
             url: url,
@@ -239,7 +248,8 @@ $(document).ready(function () {
                 } else {
                     $('<div>', {
                         id: 'section-form-view'
-                    }).appendTo('#showInfo');
+                    }).appendTo('#show-info');
+                    $('#section-form-view').show();
                 }
 
                 $('#section-form-view').html(response);
@@ -290,14 +300,14 @@ $(document).ready(function () {
             url: "/api/staff/malfunction/" + malfunctionId + "/solution",
             dataType: "html",
             success: function (response) {
-                if ($('#solutionsList').length) {
-                    $('#solutionsList').empty();
-                    $('#solutionsList').html(response);
-                } else{
+                if ($('#solutions-list').length) {
+                    $('#solutions-list').empty();
+                    $('#solutions-list').html(response);
+                } else {
                     $('<div>', {
-                        id: 'solutionsList'
+                        id: 'solutions-list'
                     }).appendTo('#list-div');
-                    $('#solutionsList').html(response);
+                    $('#solutions-list').html(response);
                 }
 
             }

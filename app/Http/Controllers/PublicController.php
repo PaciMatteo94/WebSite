@@ -30,40 +30,40 @@ class PublicController extends Controller
 
     public function home(): View{
         $categories = Category::all();
-        $navbarView = 'layouts/navUser';
+        $navbarView = 'general/partialViews/navUser';
         $cssFile = asset('css/navUser.css'); //asset = funzione base di laravel per creare l'url completo, si riferisce ai file nella cartella public
-        return view('home',compact('categories'), ['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
+        return view('general/home',compact('categories'), ['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
         // view = funzione base di laravel per restituire un file che si trova in resources
     }
 
     public function info(): View{
-        $navbarView = 'layouts/navUser';
+        $navbarView = 'general/partialViews/navUser';
         $cssFile = asset('css/navUser.css');
-        return view('info',['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
+        return view('general/info',['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
     }
 
     public function where(): View{
-        $navbarView = 'layouts/navUser';
+        $navbarView = 'general/partialViews/navUser';
         $cssFile = asset('css/navUser.css');
-        return view('where',['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
+        return view('general/where',['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
     }
 
 
 
     public function catalog(): View{
-        $navbarView = 'layouts/navUser';
+        $navbarView = 'general/partialViews/navUser';
         $cssFile = asset('css/navUser.css');
         $categories = Category::all();
-        return view('catalog',['navbarView'=>$navbarView, 'cssFile'=>$cssFile, 'categories'=>$categories]);
+        return view('general/catalog',['navbarView'=>$navbarView, 'cssFile'=>$cssFile, 'categories'=>$categories]);
     }
 
     public function show($id)
     {
-        $navbarView = 'layouts/navUser';
+        $navbarView = 'general/partialViews/navUser';
         $cssFile = asset('css/navUser.css');
         $product =Product::findOrFail($id);
         $malfunctions = Malfunction::where('product_id', $id)->get();
-        return view('productShow', [
+        return view('general/productShow', [
             'navbarView' => $navbarView,
             'cssFile' => $cssFile,
             'product' => $product,

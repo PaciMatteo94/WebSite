@@ -6,6 +6,16 @@
 #box-options {
     flex-grow: 1;
     display: flex;
+    min-width: fit-content;
+}
+#titolo {
+    padding: 16px;
+    margin: 5px;
+    border-right: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: fit-content;
 }
 
 .navbar {
@@ -30,9 +40,16 @@
     font-weight: 100;
 }
 
+
+
+
 .option-1{
     margin-left: 5px;
     padding-left: 16px;
+}
+.option-2{
+
+    min-width: fit-content;
 }
 
 a {
@@ -46,7 +63,7 @@ a:visited {
 }
 
 a:hover {
-    color: white;
+    color: rgb(58, 58, 58);
 }
 
 a:active {

@@ -19,7 +19,7 @@ class MalfunctionController extends Controller
     public function index($malfunctionId)
     {
         $malfunction = Malfunction::find($malfunctionId);
-        return view('malfunctionsPublicView', compact('malfunction'));
+        return view('general/partialViews/malfunctionsPublicView', compact('malfunction'));
     }
 
     /**

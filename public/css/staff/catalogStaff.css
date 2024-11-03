@@ -2,39 +2,60 @@
     display: flex;
     margin: 5px;
     padding: 16px;
-    max-height: fit-content;
-}
+    min-height: fit-content;
 
+}
 #sezione-ricerca{
-    max-height: auto;
-    background-color: rgb(159, 167, 202);
+
     padding: 16px;
     margin: 5px;
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
+    border-radius: 8px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    min-width: fit-content;
+    background-color: rgb(33, 33, 49);
+    box-shadow: rgba(255, 254, 254, 0.15) 2.4px 2.4px 3.2px;
+
 }
 
 #ricerca{
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
-    border-bottom: solid;
-    border-bottom-width: 2px;
-    border-color: black;
-    padding-bottom: 10px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 40px;
+
+}
+
+#search-form{
+    margin: 8px;
+    padding: 16px;
 }
 
 
+
+
 #barra-ricerca{
-    margin: 5px;
-    width: 100% ;
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('../../images/iconaSearch.svg');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
 }
 
 #bottone-ricerca{
     margin: 5px;
     font-size: 16px;
-    width: 40%;
+    width: fit-content;
+    padding: 5px;
 }
 .categorie-ricerca{
     display: flex;
@@ -56,17 +77,13 @@
 #risultati{
     flex-grow: 1;
     max-height: auto;
-    background-color: rgb(159, 167, 202);
     padding: 16px;
     margin: 5px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-}
-
-#showInfo{
-    background-color: rgb(87, 87, 174);
-    display: flex;
+    background-color: rgb(33, 33, 49);
+    box-shadow: rgba(255, 255, 255, 0.15) 2.4px 2.4px 3.2px;
 }
 
 
@@ -77,8 +94,9 @@
 /* Sezione della view dinamica */
 #mostra-prodotti{
     display: flex;
-    justify-content: flex-start;
+    justify-content:center;
     flex-wrap: wrap;
+    gap: 1em;   
 
 }
 
@@ -88,15 +106,17 @@
 }
 
 .product-name{
-    margin: 5px;
-    padding: 16px;
     display: flex;
     justify-content: center;
+    color: white;
+    font-family: 'Raleway', sans-serif;
 }
 
 .pagination{
     display: flex;
     justify-content: center;
+    margin: 16px;
+    padding: 16px;
 }
 
 .link-product{
@@ -107,14 +127,98 @@
     color: black ;
 }
 
-.link-product:visited {
-    color: black;
-}
 
-.link-product:hover {
-    color: black;
+.categoria label{
+    color: white;
+    font-family: 'Raleway', sans-serif;
 }
-
-.link-product:active {
+#pagination a:hover{
+color: rgb(226, 226, 226);
+}
+ .product-item:hover .product-name{
     color: black;
+ }
+
+ .categoria label{
+    margin-left: 5px;
+ }
+
+/* sezione mostra informazion */
+
+ #show-info{
+    margin: 5px;
+    padding: 16px;
+    display: flex;
+ }
+ #list-div, #section-form-view{
+    display: none;
+    border-radius: 10px;
+    background-color: rgb(33, 33, 49);
+    box-shadow: rgba(255, 255, 255, 0.15) 2.4px 2.4px 3.2px;
+    padding: 40px;
+    width: 50%;
+ }
+ #section-form-view{
+    margin-left: 10px;
+ }
+
+ #malfunction-section{
+    margin-bottom: 20px;
+ }
+
+ .option{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-bottom-style: solid;
+    border-bottom-width:2px ;
+    border-color: rgb(200, 200, 200);
+    padding: 5px;
+ }
+
+ .operation-div{
+    min-width: fit-content;
+    display: flex;
+ }
+ .operation-div a{
+    padding: 5px;
+ }
+
+ .title-div{
+    display: flex;
+    justify-content: space-between;
+ }
+ .button-add{
+    padding: 8px;
+ }
+
+ #form h2{
+    margin-bottom: 20px;
+ }
+ #form label{
+    margin-bottom: 5px;
+ }
+ #form input{
+    margin-bottom: 20px;
+    width: fit-content;
+ }
+ .form-group{
+    display: flex;
+    flex-direction: column;
+ }
+ #form textarea{
+    margin-bottom: 20px;
+ }
+
+ ul{
+    list-style-type: none;
+ }
+
+
+ @media (max-width: 1300px) {
+    body{
+        min-width: 1300px; /* Imposta una larghezza minima per la pagina */
+        overflow-x: auto;  /* Aggiunge una barra di scorrimento orizzontale */
+    }
 }

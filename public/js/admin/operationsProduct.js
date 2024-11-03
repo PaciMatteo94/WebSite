@@ -1,8 +1,4 @@
 $(document).ready(function () {
-    var testo = '';
-    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ*]+$/;
-    var selectedCategories = [];
-    let productId;
     let categoryId;
     listCategoryAjax();
 
@@ -150,7 +146,7 @@ $(document).ready(function () {
                 } else {
                     $('<div>', {
                         id: 'sectionFormView'
-                    }).appendTo('#prova');
+                    }).appendTo('#container-section');
                 }
 
                 $('#sectionFormView').html(response);

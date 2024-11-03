@@ -21,11 +21,11 @@ class ProductController extends Controller
         $user = $request->get('user');
 
         if (empty($categoryIds) && ($searchArray[0] == null || $searchArray[0] === '')) {
-            $products = Product::simplePaginate(5);
+            $products = Product::simplePaginate(8);
         } else if (!empty($categoryIds) && ($searchArray[0] == null || $searchArray[0] === '')) {
             $query = Product::query();
             $query->whereIn('category_id', $categoryIds);
-            $products = $query->simplePaginate(5);
+            $products = $query->simplePaginate(8);
         } else if (!empty($categoryIds) && !($searchArray[0] == null || $searchArray[0] === '')) {
             $search = $searchArray[0];
             $query = Product::query();
@@ -33,10 +33,10 @@ class ProductController extends Controller
             if (substr($search, -1) === '*') {
                 $search = rtrim($search, '*');
                 $query->where('info', 'LIKE', "%{$search}%");
-                $products = $query->simplePaginate(5);
+                $products = $query->simplePaginate(8);
             } else {
                 $query->where('info', 'LIKE', "% $search %");
-                $products = $query->simplePaginate(5);
+                $products = $query->simplePaginate(8);
             }
         } else if (empty($categoryIds) && !($searchArray[0] == null || $searchArray[0] === '')) {
             $search = $searchArray[0];
@@ -44,10 +44,10 @@ class ProductController extends Controller
             if (substr($search, -1) === '*') {
                 $search = rtrim($search, '*');
                 $query->where('info', 'LIKE', "% {$search}%");
-                $products = $query->simplePaginate(5);
+                $products = $query->simplePaginate(8);
             } else {
                 $query->where('info', 'LIKE', "% $search %")->simplePaginate(5);
-                $products = $query->simplePaginate(5);
+                $products = $query->simplePaginate(8);
             }
         }
         if ($user === 'staff') {
@@ -56,7 +56,7 @@ class ProductController extends Controller
         }
 
 
-        return view('productsList', ['products' => $products])->render();
+        return view('general/partialViews/productsList', ['products' => $products])->render();
     }
 
 

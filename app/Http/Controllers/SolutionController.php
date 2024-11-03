@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Malfunction;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Solution;
@@ -22,9 +23,10 @@ class SolutionController extends Controller
 
     public function index($malfunctionId): View
     {
-        $solutions = Solution::where('malfunction_id', $malfunctionId)->select('id', 'title')
+        $solutions = Solution::where('malfunction_id', $malfunctionId)->select('id','title')
         ->get();
-        return view('listSolutionsPublic', ['solutions' => $solutions]);
+        $malfunction = Malfunction::select('title')->find($malfunctionId);
+        return view('general/partialViews/listSolutionsPublic', ['solutions' => $solutions, 'malfunction'=>$malfunction]);
     }
 
     /**
@@ -63,7 +65,7 @@ class SolutionController extends Controller
     public function show(string $solutionId)
     {
         $solution = Solution::find($solutionId);
-        return view('solutionShow', compact('solution'));
+        return view('general/partialViews/solutionShow', compact('solution'));
     }
 
     /**

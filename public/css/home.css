@@ -64,9 +64,10 @@
 }
 
 .ancora-catalogo:hover {
-    color: black;
+    color: rgb(241, 241, 241);
 }
 
 .ancora-catalogo:active {
     color: black;
 }
+

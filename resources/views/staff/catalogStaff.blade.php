@@ -45,7 +45,7 @@
 
 </div>
 
-<div id="showInfo">
+<div id="show-info">
     <div id="list-div">
 
     </div>

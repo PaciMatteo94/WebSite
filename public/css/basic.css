@@ -11,7 +11,7 @@
 }
 
 body {
-    min-width: 700px;
+    min-width: fit-content;
     height: 100vh;
     background-color: rgb(46, 47, 61);
 
@@ -19,7 +19,7 @@ body {
 
 #page {
     height: 100vh;
-    width: 100v;
+    width: 100%;
     display: flex;
     flex-direction: column;
     
@@ -31,14 +31,7 @@ body {
     display: flex;
 }
 
-#titolo {
-    padding: 16px;
-    margin: 5px;
-    border-right: 1px solid white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+
 
 #titolo-home {
     font-family: 'Raleway', sans-serif;
@@ -48,12 +41,14 @@ body {
 
 #contenuto{
     max-width: 1440px; /* Imposta la larghezza massima della tua area centrale */
-    height: 100vh;
+    min-height: fit-content;
     width: 100%;
     margin: 0 auto; /* Centra il contenitore orizzontalmente */
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    color: rgb(218, 218, 218);
+    font-family: 'Raleway', sans-serif;
 }
 
 a{

@@ -19,8 +19,7 @@
     <aside id="sezione-ricerca">
         <form id="search-form">
             <div id="ricerca">
-                <input id="barra-ricerca" type="text" name="barra">
-
+                <input id="barra-ricerca" type="text" name="barra" placeholder="Ricerca...">
             </div>
             <div class="categorie-ricerca">
                 @foreach($categories as $category)
@@ -31,7 +30,7 @@
 
                 @endforeach
             </div>
-            <button id="bottone-ricerca" type="submit">cerca</button>
+            <button id="bottone-ricerca" type="submit">Ricerca</button>
 
         </form>
 

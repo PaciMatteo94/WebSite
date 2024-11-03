@@ -1,30 +1,39 @@
-<div class="d-flex justify-content-end mb-3">
-    <h1>Soluzioni</h1>
-    <a href="#" id="add" data-element="solution">Aggiungi</a>
-</div>
+<div>
+    <div class="title-div">
+        <div>
+            <h1>Soluzioni</h1>
+        </div>
 
-<!-- Lista dei malfunzionamenti -->
-<ul class="list-group">
-    @forelse($solutions as $solution)
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <!-- ID e titolo del malfunzionamento -->
-            <div >
-                
-                <li>
-                <strong>ID:</strong> {{ $solution->id }} - 
-                {{ $solution->title }}
-                <a href="#" class="viewLink" data-id="{{ $solution->id }}" data-element="solution">👁️</a>
-                
-                <!-- Link Modifica -->
-                <a href="#" class="changeLink" data-id="{{ $solution->id }}" data-element="solution">✏️</a>
+        <div class="button-add">
+            <button id="add" data-element="solution">Aggiungi</button>
+        </div>
+    </div>
 
-                <!-- Link Rimuovi -->
-                <a href="#" class="removeLink" data-id="{{ $solution->id }}" data-element="solution">❌</a>
-                </li>
+
+
+
+
+    <ul class="list-group">
+        @forelse($solutions as $solution)
+        <li>
+            <div class="option">
+                <div>
+                    {{ $solution->title }}
+                </div>
+
+                <div class="operation-div">
+                    <a href="#" class="viewLink" data-id="{{ $solution->id }}" data-element="solution">👁️</a>
+                    <a href="#" class="changeLink" data-id="{{ $solution->id }}" data-element="solution">✏️</a>
+                    <a href="#" class="removeLink" data-id="{{ $solution->id }}" data-element="solution">❌</a>
+                </div>
 
             </div>
+
+
         </li>
+
         @empty
         <li class="list-group-item text-center">Nessuna soluzione disponibile</li>
-    @endforelse
-</ul>
+        @endforelse
+    </ul>
+</div>
