@@ -15,7 +15,6 @@
 <body>
     <div id="page">
         <header id="header">
-   
             @yield('navbar') <!-- Inserimento dinamico della navbar -->
         </header>
         <div id="contenuto">

@@ -21,7 +21,6 @@ class CategoryController extends Controller
         }
         $category->delete();
     }
-
     public function store(Request $request)
     {
         try {
@@ -32,7 +31,6 @@ class CategoryController extends Controller
             if ($request->hasFile('image')) {
                 $imageName = $request->file('image')->getClientOriginalName();
                 $request->file('image')->move(public_path('images/Categorie'), $imageName);
-
             }
             $category = new Category();
             $category->name = $request->input('name');
@@ -43,7 +41,6 @@ class CategoryController extends Controller
             return response()->json([], 500);
         }
     }
-
     public function update(Request $request, $id)
     {
         try {
@@ -60,9 +57,8 @@ class CategoryController extends Controller
                 }
                 $request->file('image')->move(public_path('images/Categorie'), $imageName);
                 $category->image = 'images/Categorie/' . $imageName;
-                
             }
-            
+
             $category->name = $request->input('name') ?: $category->name;
             $category->save();
             return response()->json(['message' => 'Categoria aggiornata con successo']);

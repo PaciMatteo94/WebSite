@@ -1,124 +1,152 @@
 $(document).ready(function () {
-    var operation;
-    $('<link>', {
-        id: 'dynamic-css',                    
-        rel: 'stylesheet',
-        href: '',                                     
-        type: 'text/css'                      
-    }).appendTo('head');
+    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ*]+$/;
+let elementId;
+    listStaffAjax();
 
-    $('#operation').on('click', '.operation-link', function (event) {
-        event.preventDefault();
-        operation = $(this).attr('id');
-        let url = '';
-
-
-
-        switch (operation) {
-            case 'insert':
-                url = '/api/admin/staff/insert';
-                break;
-
-            case 'change':
-                url = '/api/admin/staff/change';
-                break;
-
-            case 'remove':
-                url = '/api/admin/staff/remove';
-                break;
-
-            default:
-                $('#visualization-section').empty();
-                $('#visualization-section').html('<p>Si è verificato un errore, perfavore segnlare il problema all\'assistenza</p>');
-                return;
-        }
+    function listStaffAjax(){
         $.ajax({
             type: "GET",
-            url: url,
-            dataType: "JSON",
+            url: '/api/admin/staff',
+            dataType: "html",
             success: function (response) {
-                $('#dynamic-css').attr('href', response.css);
-                $('#visualization-section').html(response.html);
+    
+                $('#listStaff').empty();
+                $('#listStaff').html(response);
+                console.log('eseguo la creazione tabella');
 
-            }, error: function (xhr) {
-                alert('Errore durante la richiesta dei dati');
+            },
+            error: function (xhr, error) {
+                console.error('Errore nella richiesta AJAX:', error);
                 console.log(xhr);
 
             }
         });
+    }
+
+    $(document).on('click', '#add', function (event) {
+        event.preventDefault();;
+        const element = $(this).data('element');
+        const method = 'GET';
+        const url = '/api/admin/staff/insertView';
+
+        operationsAjax(method, url , element);
+    });
+
+    $(document).on('click', '.viewLink', function (event) {
+        event.preventDefault();;
+        const element = $(this).data('element');
+        elementId = $(this).data('id'); // Ottiene l'ID
+        const url = '/api/admin/staff/show/'+ elementId;
+        const method = 'GET';
+        operationsAjax(method, url, element);
+    });
+
+
+    $(document).on('click', '.changeLink', function (event) {
+        event.preventDefault();;
+        const element = $(this).data('element');
+        elementId = $(this).data('id'); // Ottiene l'ID
+        const url = '/api/admin/staff/change/'+ elementId;
+        const method = 'GET';
+        operationsAjax(method, url, element);
+
+    });
+
+    $(document).on('click', '.removeLink', function (event) {
+        event.preventDefault();;
+        const element = $(this).data('element');
+        var result = confirm("Sei sicuro di voler rimuovere questo malfunzionamento?");
+        if (result) {
+            elementId = $(this).data('id'); // Ottiene l'ID
+            const url = '/api/admin/staff/remove/'+ elementId;
+            const method = 'DELETE';
+            operationsAjax(method, url, element);
+            
+
+
+        } else {
+            alert("Operazione annullata.");
+        }
+
+
 
 
     });
 
-    $('#visualization-section').on('submit', function (event) {
-        event.preventDefault();
-        let password;
-        let passwordConfirmation;
-        let userId;
-        let formData;
-        let url = '';
-        let typeOperation = '';
-        switch (operation) {
-            case 'insert':
-                password = $('#password').val();
-                passwordConfirmation = $('#password_confirmation').val();
-                if (password !== passwordConfirmation) {
-                    alert("Le password non combaciano.");
-                    return;
-                }
-                formData = $('#form-insert').serialize() + '&role=staff';
-                url = '/api/admin/staff/insertOp';
-                typeOperation = 'POST';
-
+    $(document).on('submit', '#container form', function (event) {
+        event.preventDefault();;
+        const formData = new FormData(this);
+        const formElement = $(this).data('element');
+        const formOperation = $(this).data('operation');
+        switch (formOperation) {
+            case 'store':
+                formData.append('element', formElement);
+                url = '/api/admin/staff/store';
                 break;
             case 'change':
-                userId = $('#user-select').val();
-                password = $('#password').val();
-                passwordConfirmation = $('#password_confirmation').val();
-                if (password !== passwordConfirmation) {
-                    alert("Le password non combaciano.");
-                    return;
-                }
-                formData = $('#select-user-form').serialize();
-                url = '/api/admin/staff/change/' + userId;
-                typeOperation = 'PUT';
+                console.log(elementId);
+                url = '/api/admin/staff/'+elementId+'/change';
                 break;
-            case 'remove':
-                FormData = null;
-                userId = $('#user-select').val();
-                url = '/api/admin/staff/deleteOp/' + userId;
-                typeOperation = 'DELETE';
-
-                break;
-
             default:
-                $('#visualization-section').empty();
-                $('#visualization-section').html('<p>Si è verificato un errore, perfavore segnlare il problema all\'assistenza</p>');
                 break;
-
-
-
         }
+
         $.ajax({
+            type: "POST",
             url: url,
-            type: typeOperation,
             data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "json",
             success: function (response) {
-                $('#visualization-section').empty();
-                $('#visualization-section').html('<p>operazione eseguita con successo</p>');
+                $('#sectionFormView').empty();
+                alert(response.message);
+                listStaffAjax()
             },
-            error: function (xhr) {
-                alert('Errore durante l’inserimento dei dati');
+            error: function (xhr, error) {
+                console.error('Errore nella richiesta AJAX:', error);
                 console.log(xhr);
 
             }
         });
 
+
     });
 
 
 
+    function operationsAjax(method, url, element = null) {
+        $.ajax({
+            type: method,
+            url: url,
+            data: {role: element},
+            dataType: "html",
+            success: function (response) {
+                if ($('#sectionFormView').length) {
+                    $('#sectionFormView').empty();
+                } else {
+                    $('<div>', {
+                        id: 'sectionFormView'
+                    }).appendTo('#containerSection');
+                }
 
+                $('#sectionFormView').html(response);
+                if (method === 'DELETE') {
+                    listStaffAjax();
+
+                }
+
+            },
+            error: function (xhr, error) {
+                console.error('Errore nella richiesta AJAX:', error);
+                console.log(xhr);
+
+            }
+        });
+
+
+
+    }
 
 
 
