@@ -13,6 +13,10 @@ $(document).ready(function () {
         const formData = new FormData(this);
         testo = formData.get('barra').trim();
         selectedCategories = formData.getAll('categories[]');
+        if (($('.list-div').css('display') == 'block')||($('.section-form-view').css('display') == 'block')) {
+            $('.section-form-view').css('display', 'none');
+            $('.list-div').css('display', 'none');
+        }
         if (testo === '') {
             fetchProducts();
         } else if (!regex.test(testo)) {
@@ -34,10 +38,14 @@ $(document).ready(function () {
     //listener per l'ancora sui prodotti
     $(document).on('click', '.link-product', function (event) {
         event.preventDefault();
-        if ($('#list-div').css('display') == 'none') {
-            $('#list-div').show();
+        if ($('.list-div').css('display') == 'none') {
+            $('.list-div').show();
         }
-        $('#section-form-view').empty();
+        if ($('.section-form-view').css('display') == 'block') {
+            $('.section-form-view').css('display', 'none');
+        }
+
+        $('.section-form-view').empty();
         productId = $(this).attr('value');
         createMalfunctionList();
     });
@@ -45,9 +53,9 @@ $(document).ready(function () {
     //listener sui titoli della tabella malfunzionamenti per ottenere le soluzioni correlate
     $(document).on('click', '.titleLink', function (event) {
         event.preventDefault();
-        $('#section-form-view').empty();
-        if ($('#section-form-view').css('display') == 'block') {
-            $('#section-form-view').css('display', 'none');
+        $('.section-form-view').empty();
+        if ($('.section-form-view').css('display') == 'block') {
+            $('.section-form-view').css('display', 'none');
         }
         malfunctionId = $(this).data('id');
         createSolutionList();
@@ -179,7 +187,7 @@ $(document).ready(function () {
             processData: false,
             dataType: "json",
             success: function (response) {
-                $('#section-form-view').empty();
+                $('.section-form-view').empty();
                 alert(response.message);
                 switch (formElement) {
                     case 'malfunction':
@@ -235,24 +243,24 @@ $(document).ready(function () {
 
     //funzione che invia la richiesta ajax in base hai parametri passati
     function tableOperationAjax(method, url, element = null) {
-        if (($('#section-form-view').css('display') == 'none')&&(!(method === 'DELETE'))) {
-            $('#section-form-view').show();
+        if (($('.section-form-view').css('display') == 'none')&&(!(method === 'DELETE'))) {
+            $('.section-form-view').show();
         }
         $.ajax({
             type: method,
             url: url,
             dataType: "html",
             success: function (response) {
-                if ($('#section-form-view').length) {
-                    $('#section-form-view').empty();
+                if ($('.section-form-view').length) {
+                    $('.section-form-view').empty();
                 } else {
                     $('<div>', {
-                        id: 'section-form-view'
+                        class: 'section-form-view'
                     }).appendTo('#show-info');
-                    $('#section-form-view').show();
+                    $('.section-form-view').show();
                 }
 
-                $('#section-form-view').html(response);
+                $('.section-form-view').html(response);
                 if (method === 'DELETE') {
                     if (element == 'solution') {
                         createSolutionList()
@@ -281,8 +289,8 @@ $(document).ready(function () {
             url: '/api/staff/product/' + productId + '/malfunction',
             dataType: "html",
             success: function (response) {
-                $('#list-div').empty();
-                $('#list-div').html(response);
+                $('.list-div').empty();
+                $('.list-div').html(response);
                 console.log('eseguo la creazione tabella');
 
             },
@@ -306,7 +314,7 @@ $(document).ready(function () {
                 } else {
                     $('<div>', {
                         id: 'solutions-list'
-                    }).appendTo('#list-div');
+                    }).appendTo('.list-div');
                     $('#solutions-list').html(response);
                 }
 

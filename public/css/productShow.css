@@ -2,6 +2,12 @@
     display: flex;
     border-radius: 10px;
     margin: 20px;
+    border-radius: 10px;
+    background-color: rgb(33, 33, 49);
+    box-shadow: rgba(255, 255, 255, 0.15) 2.4px 2.4px 3.2px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
 }
 
 .product-image {
@@ -9,6 +15,8 @@
     padding: 16px;
     display: flex;
     flex-direction: column;
+    min-width: 300px;
+  max-width: 300px;
 }
 
 
@@ -61,4 +69,11 @@ margin: 5px;
 
 ul li a:hover{
     color: rgb(108, 108, 108);
+}
+.card{
+    display: flex;
+    flex-direction: column;
+}
+.title-view-product{
+    margin-bottom: 5px;
 }

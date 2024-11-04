@@ -14,6 +14,7 @@ $(document).ready(function () {
         console.log(localStorage.length);
 
     } else{
+        $('input[type="checkbox"]').prop('checked', false);
         checkCategories();
         handleSearch();
     }

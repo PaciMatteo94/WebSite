@@ -10,14 +10,19 @@
 @endsection
 
 @section('content_css')
-<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/basicViewAdmin.css') }}?v={{ time() }}">
+<link rel="stylesheet" type="text/css" href="{{ asset($contentCss) }}?v={{ time() }}">
 @endsection
 
 @section('content')
-<div id="containerSection">
-    <div id="listStaff">
+<div class="container-section">
+    <div class="list-div">
 
     </div>
+
+
+</div>
+
+
 
 
 

@@ -1,12 +1,15 @@
-#contenuto-where{
+#where{
     display: flex;
     justify-content: space-between;
+    padding: 24px;
 }
 #map{
     margin: 5px;
     padding: 16px;
-    height: 500px;
-    width: 500px;
+    min-height: 500px;
+    min-width: 500px;
+    max-height: 500px;
+    max-width: 500px;
 }
 
 
@@ -16,8 +19,16 @@
     flex-direction: column;
     margin: 5px;
     padding: 16px;
+    min-width: 40%;
 }
 
-.p{
-    color: white;
+#description-section h2{
+    margin-bottom: 20px;
 }
+
+
+#stabilimenti-list h3{
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+

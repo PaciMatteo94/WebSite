@@ -1,4 +1,4 @@
-<div id="form">
+<div class="form">
     <h2>Aggiungi un Nuovo Elemento</h2>
     @if($type === 'malfunction')
     <form id="insertFormMalfunction" data-element="malfunction">

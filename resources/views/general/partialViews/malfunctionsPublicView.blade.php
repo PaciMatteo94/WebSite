@@ -1,4 +1,10 @@
 <div class="card">
-    <strong>Titolo:</strong> {{ $malfunction->title }} <br>
-    <strong>Descrizione:</strong> {{ $malfunction->description }} <br>
+    <div class="title-view-product">
+    <strong>Titolo:</strong> {{ $malfunction->title }} 
+    </div>
+    <div class="description-view-product">
+    <strong>Descrizione:</strong> {{ $malfunction->description }} 
+    </div>
+
+
 </div>

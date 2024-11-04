@@ -9,8 +9,19 @@
 @endsection
 
 @section('content')
-<div id="catalogo">
-<h1>Benvenuto alla pagina dell'admin</h1>
+
+<div class="container-welcome">
+<div class="space"></div>
+    <div id="welcome">
+
+        <div>
+            <h1>Benvenuto: {{ $user->name }} {{ $user->surname }}</h1>
+        </div>
+
+
+    </div>
+    <div class="space"></div>
 
 </div>
+
 @endsection

@@ -1,11 +1,16 @@
-#category-section{
-    margin-bottom: 20px;
- }
 
 .container-section{
     margin: 5px;
     padding: 16px;
     display: flex;
+}
+
+.title{
+   min-width:fit-content ;
+}
+
+#staff-section{
+   margin-bottom: 20px;
 }
 
  .option{
@@ -22,21 +27,28 @@
  .title-div{
     display: flex;
     justify-content: space-between;
+    gap: 10em;
+ }
+
+ .list-div{
+   min-width: 30%;
  }
 
  .list-div, .section-form-view{
-    border-radius: 10px;
-    background-color: rgb(33, 33, 49);
-    box-shadow: rgba(255, 255, 255, 0.15) 2.4px 2.4px 3.2px;
-    padding: 40px;
-    min-width: 50%;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
+   border-radius: 10px;
+   background-color: rgb(33, 33, 49);
+   box-shadow: rgba(255, 255, 255, 0.15) 2.4px 2.4px 3.2px;
+   border-style: solid;
+   border-width: 1px;
+   border-color: black;
+   padding: 40px;
+
  }
  .section-form-view{
-    margin-left: 10px;
+   flex-grow: 1;
+   margin-left: 10px;
  }
+
 
  .operation-div{
     min-width: fit-content;
@@ -51,8 +63,8 @@
  }
 
 
- /* sezione form */
- .form h2{
+  /* sezione form */
+  .form h2{
     margin-bottom: 20px;
  }
  .form label{
@@ -108,3 +120,18 @@
     overflow: hidden;
     object-fit: cover;
   }
+
+.form-tech{
+   display: flex;
+   justify-content: space-around;
+   gap: 5em;
+}
+
+.title-tech{
+   display: flex;
+   justify-content: center;
+}
+.button-add{
+   display: flex;
+   justify-content: center;
+}

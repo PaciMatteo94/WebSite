@@ -15,7 +15,7 @@ class AuthenticatedSessionController extends Controller
     public function create(): View
     {
         $navbarView = 'general/partialViews/navUser';
-        $cssFile = asset('css/navUser.css');
+        $cssFile = asset('css/navbar.css');
         return view('general/login', ['navbarView' => $navbarView, 'cssFile' => $cssFile]);
     }
 

@@ -12,7 +12,10 @@ $(document).ready(function () {
 
     $(document).on('click', '.titleLink', function (event) {
         event.preventDefault();;
-        $('#sectionFormView').empty();
+        $('.section-form-view').empty();
+        if ($('.section-form-view').css('display') == 'block') {
+            $('.section-form-view').css('display', 'none');
+        }
         categoryId = $(this).data('id');
         createProductList();
     });
@@ -29,7 +32,7 @@ $(document).ready(function () {
                 } else {
                     $('<div>', {
                         id: 'productsList'
-                    }).appendTo('#results');
+                    }).appendTo('.list-div');
                     $('#productsList').html(response);
                 }
 
@@ -134,22 +137,24 @@ $(document).ready(function () {
 
     //funzione che invia la richiesta ajax in base hai parametri passati
     function listOperationAjax(method, url, element = null) {
-        console.log(url);
+        if (($('.section-form-view').css('display') == 'none')&&(!(method === 'DELETE'))) {
+            $('.section-form-view').show();
+        }
 
         $.ajax({
             type: method,
             url: url,
             dataType: "html",
             success: function (response) {
-                if ($('#sectionFormView').length) {
-                    $('#sectionFormView').empty();
+                if ($('.section-form-view').length) {
+                    $('.section-form-view').empty();
                 } else {
                     $('<div>', {
-                        id: 'sectionFormView'
-                    }).appendTo('#container-section');
+                        class: 'section-form-view'
+                    }).appendTo('.container-section');
                 }
 
-                $('#sectionFormView').html(response);
+                $('.section-form-view').html(response);
                 if (method === 'DELETE') {
                     if (element == 'product') {
                         createProductList();
@@ -179,8 +184,8 @@ $(document).ready(function () {
             dataType: "html",
             success: function (response) {
                 $('#productsList').empty();
-                $('#list-div').empty();
-                $('#list-div').html(response);
+                $('.list-div').empty();
+                $('.list-div').html(response);
                 console.log('eseguo la creazione tabella');
 
             },
@@ -207,17 +212,17 @@ $(document).ready(function () {
         let url;
         let elementId
         switch (formId) {
-            case 'changeFormCategory':
+            case 'change-form-category':
                 elementId = $(this).data('id');
                 url = '/api/admin/category/' + elementId + '/change';
                 break;
-            case 'insertFormCategory':
+            case 'insert-form-category':
                 url = '/api/admin/category/add';
                 break;
-            case 'insertFormProduct':
+            case 'insert-form-product':
                 url = '/api/admin/category/' + categoryId + '/product/add'
                 break;
-            case 'changeFormProduct':
+            case 'change-form-product':
                 elementId = $(this).data('id');
                 url = '/api/admin/product/' + elementId + '/change'
                 break;
@@ -233,7 +238,7 @@ $(document).ready(function () {
             processData: false,
             dataType: "json",
             success: function (response) {
-                $('#sectionFormView').empty();
+                $('.section-form-view').empty();
                 alert(response.message);
                 switch (formElement) {
                     case 'category':

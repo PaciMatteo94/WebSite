@@ -17,6 +17,9 @@
 @endforelse
 </div>
 
+<div class="space">
+
+</div>
 
 @if($products->hasPages())
 <div class="pagination">

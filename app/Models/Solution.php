@@ -18,7 +18,7 @@ class Solution extends Model
 
     public function malfunction()
     {
-        return $this->belongsTo(Malfunction::class);
+        return $this->belongsToMany(Malfunction::class);
     }
 
 }

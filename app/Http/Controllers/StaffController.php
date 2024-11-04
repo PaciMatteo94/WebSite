@@ -8,21 +8,23 @@ use App\Models\Product;
 use App\Models\Solution;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
+
 
 class StaffController extends Controller
 {
 
     public function viewStaffHome(): View
     {
-        $navbarView = 'staff/navbarStaff2';
-        $cssFile = asset('css/navUser.css');
-
-        return view('/staff/staffHome', ['navbarView' => $navbarView, 'cssFile' => $cssFile]);
+        $navbarView = 'staff/navbarStaff';
+        $cssFile = asset('css/navbar.css');
+        $user = Auth::user();
+        return view('/staff/staffHome',compact('user'), ['navbarView' => $navbarView, 'cssFile' => $cssFile]);
     }
     public function viewStaffCatalog(): View
     {
-        $navbarView = 'staff/navbarStaff2';
-        $cssFile = asset('css/navUser.css');
+        $navbarView = 'staff/navbarStaff';
+        $cssFile = asset('css/navbar.css');
         $categories = Category::all();
         return view('/staff/catalogStaff', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'categories' => $categories]);
     }

@@ -10,8 +10,8 @@ let elementId;
             dataType: "html",
             success: function (response) {
     
-                $('#listStaff').empty();
-                $('#listStaff').html(response);
+                $('.list-div').empty();
+                $('.list-div').html(response);
                 console.log('eseguo la creazione tabella');
 
             },
@@ -73,7 +73,7 @@ let elementId;
 
     });
 
-    $(document).on('submit', '#container form', function (event) {
+    $(document).on('submit', '.form form', function (event) {
         event.preventDefault();;
         const formData = new FormData(this);
         const formElement = $(this).data('element');
@@ -99,7 +99,7 @@ let elementId;
             processData: false,
             dataType: "json",
             success: function (response) {
-                $('#sectionFormView').empty();
+                $('.section-form-view').empty();
                 alert(response.message);
                 listStaffAjax()
             },
@@ -122,15 +122,15 @@ let elementId;
             data: {role: element},
             dataType: "html",
             success: function (response) {
-                if ($('#sectionFormView').length) {
-                    $('#sectionFormView').empty();
+                if ($('.section-form-view').length) {
+                    $('.section-form-view').empty();
                 } else {
                     $('<div>', {
-                        id: 'sectionFormView'
-                    }).appendTo('#containerSection');
+                        class: 'section-form-view'
+                    }).appendTo('.container-section');
                 }
 
-                $('#sectionFormView').html(response);
+                $('.section-form-view').html(response);
                 if (method === 'DELETE') {
                     listStaffAjax();
 

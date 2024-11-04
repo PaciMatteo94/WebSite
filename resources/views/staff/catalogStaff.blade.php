@@ -31,6 +31,9 @@
             <button id="bottone-ricerca" type="submit">cerca</button>
 
         </form>
+        <div class="space">
+
+</div>
     </aside>
 
 
@@ -46,7 +49,7 @@
 </div>
 
 <div id="show-info">
-    <div id="list-div">
+    <div class="list-div">
 
     </div>
 </div>

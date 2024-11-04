@@ -6,10 +6,12 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -17,23 +19,26 @@ class AdminController extends Controller
     public function adminHome(): View
     {
         $navbarView = 'admin/navbarAdmin';
-        $cssFile = asset('css/navUser.css');
-        return view('admin/adminHome', ['navbarView' => $navbarView, 'cssFile' => $cssFile]);
+        $cssFile = asset('css/navbar.css');
+        $user = Auth::user();
+        return view('admin/adminHome', compact('user'),['navbarView' => $navbarView, 'cssFile' => $cssFile]);
     }
 
     public function viewAdminProduct(): View
     {
         $javascript = 'js/admin/operationsProduct.js';
         $navbarView = 'admin/navbarAdmin';
-        $cssFile = asset('css/navUser.css');
-        return view('admin/product/productBasic', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
+        $contentCss = asset('css/admin/product/productSection.css');
+        $cssFile = asset('css/navbar.css');
+        return view('admin/basicViewAdmin', ['contentCss'=>$contentCss,'navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
     }
     public function adminStaff(): View
     {
         $javascript = 'js/admin/operationsStaff.js';
         $navbarView = 'admin/navbarAdmin';
-        $cssFile = asset('css/navUser.css');
-        return view('admin/basicViewAdmin', ['navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
+        $contentCss = asset('css/admin/staff/staffSection.css');
+        $cssFile = asset('css/navbar.css');
+        return view('admin/basicViewAdmin', ['contentCss'=>$contentCss,'navbarView' => $navbarView, 'cssFile' => $cssFile, 'javascript' => $javascript]);
     }
 
 

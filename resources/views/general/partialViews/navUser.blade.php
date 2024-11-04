@@ -11,8 +11,11 @@
         <div class="navbar option-2">
             <h2 class="option-nav "> <a href="{{ route('where') }}">Dove Siamo</a></h2>
         </div>
+        <div class="navbar option-3">
+            <h2 class="option-nav "> <a href="#">Documentazione</a></h2>
+        </div>
     </div>
-    <div class="navbar option-3">
+    <div class="navbar option-4">
         @if(auth()->check())
         <h2 class="option-nav">
             <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
