@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Malfunction;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Solution;
-use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\View\View;
 
 class SolutionController extends Controller

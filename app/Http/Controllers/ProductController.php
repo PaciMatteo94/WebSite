@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\File;
 
-use function Laravel\Prompts\search;
-
 class ProductController extends Controller
 {
 

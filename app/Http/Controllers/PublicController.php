@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Malfunction;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
-use App\Models\Stabilimenti;
 use App\Models\Product;
 
 class PublicController extends Controller
