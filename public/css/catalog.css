@@ -1,7 +1,6 @@
 #catalogo {
     display: flex;
-    margin: 5px;
-    padding: 16px;
+margin-top: 30px;
     height: 700px;
 
 }
@@ -12,7 +11,7 @@
     margin: 5px;
     display: flex;
     flex-direction: column;
-    border-radius: 8px;
+    border-radius: 10px;
     border-color: black;
     border-style: solid;
     border-width: 1px;
@@ -83,8 +82,8 @@
     max-height: auto;
     padding: 16px;
     margin: 5px;
-    border-radius: 10px;
 
+    border-radius: 10px;
     background-color: rgb(33, 33, 49);
     box-shadow: rgba(255, 255, 255, 0.15) 2.4px 2.4px 3.2px;
     border-style: solid;

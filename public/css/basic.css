@@ -89,7 +89,7 @@ button:hover{
     justify-content: center;
     max-width: fit-content;
     padding: 32px;
-    margin: 16px;
+    margin-top: 30px;
     border-radius: 10px;
     background-color: rgb(33, 33, 49);
     box-shadow: rgba(255, 255, 255, 0.15) 2.4px 2.4px 3.2px;

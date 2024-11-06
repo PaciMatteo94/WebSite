@@ -28,7 +28,7 @@
                 @endforeach
             </div>
             
-            <button id="bottone-ricerca" type="submit">cerca</button>
+            <button id="bottone-ricerca" type="submit">Ricerca</button>
 
         </form>
         <div class="space">

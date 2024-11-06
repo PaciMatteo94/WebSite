@@ -72,7 +72,7 @@
 
         <div class="form-group">
             <label for="installation_mode">Modalità di installazione:</label>
-            <textarea id="installation_mode" name="installation_mode" rows="3" required>{{ old('installation_mode', $product->installation_mode) }}</textarea>
+            <textarea id="installation_mode" name="installation_mode" rows="3">{{ old('installation_mode', $product->installation_mode) }}</textarea>
         </div>
 
 

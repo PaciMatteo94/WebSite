@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ*]+$/;
+    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s]+$/;
+    const usernameRegex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ]+$/;
 let elementId;
     listStaffAjax();
 
@@ -78,6 +79,41 @@ let elementId;
         const formData = new FormData(this);
         const formElement = $(this).data('element');
         const formOperation = $(this).data('operation');
+        const password = formData.get('password'); // Prende il valore del campo password
+        const passwordConfirmation = formData.get('password_confirmation'); // Prende il valore di password_confirmation
+       let isValid = true; 
+        // Controllo se le password corrispondono
+        if (password !== passwordConfirmation) {
+            alert("Le password non corrispondono. Per favore, controlla e riprova.");
+            return;
+        }
+        for (let [key, value] of formData.entries()) {
+            const inputElement = document.querySelector(`[name="${key}"]`);
+            
+            // Ignora i campi di tipo date
+            if (inputElement && inputElement.type === 'date') {
+                continue;
+            }
+            
+            if (typeof value === 'string' && !(inputElement.name === 'password' || inputElement.name === 'password_confirmation')) {
+                if (value === '') {
+                    break;
+                }else if(inputElement.name === 'username'){
+                    if (!usernameRegex.test(value)) {
+                        alert(`Il campo "${key}" contiene caratteri non validi. Sono accettati solo numeri, lettere e lettere accentate e nessuno spazio.`);
+                        isValid = false;
+                        break;
+                    }
+
+                }else if (!regex.test(value)) {
+                    alert(`Il campo "${key}" contiene caratteri non validi. Sono accettati solo numeri, lettere e lettere accentate.`);
+                    isValid = false;
+                    break;
+                }
+            }
+        }
+        
+        if (!isValid) return;
         switch (formOperation) {
             case 'store':
                 formData.append('element', formElement);
@@ -100,13 +136,25 @@ let elementId;
             dataType: "json",
             success: function (response) {
                 $('.section-form-view').empty();
+                if ($('.section-form-view').css('display') == 'block') {
+                    $('.section-form-view').css('display', 'none');
+                }
                 alert(response.message);
                 listStaffAjax()
             },
-            error: function (xhr, error) {
-                console.error('Errore nella richiesta AJAX:', error);
-                console.log(xhr);
-
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    // Gestisce gli errori di validazione
+                    var errors = xhr.responseJSON.errors;
+                    var errorMessage = '';
+                    $.each(errors, function(key, messages) {
+                        errorMessage += messages.join("\n") + "\n";
+                    });
+                    alert(errorMessage);  // Mostra tutti i messaggi di errore
+                } else {
+                    // Gestisce altri errori (esempio: 500)
+                    alert('Si è verificato un errore. Riprova.');
+                }
             }
         });
 
@@ -116,6 +164,9 @@ let elementId;
 
 
     function operationsAjax(method, url, element = null) {
+        if (($('.section-form-view').css('display') == 'none') && (!(method === 'DELETE'))) {
+            $('.section-form-view').show();
+        }
         $.ajax({
             type: method,
             url: url,
@@ -124,6 +175,7 @@ let elementId;
             success: function (response) {
                 if ($('.section-form-view').length) {
                     $('.section-form-view').empty();
+
                 } else {
                     $('<div>', {
                         class: 'section-form-view'
@@ -132,6 +184,9 @@ let elementId;
 
                 $('.section-form-view').html(response);
                 if (method === 'DELETE') {
+                    if ($('.section-form-view').css('display') == 'block') {
+                        $('.section-form-view').css('display', 'none');
+                    }
                     listStaffAjax();
 
                 }

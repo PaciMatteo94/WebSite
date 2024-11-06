@@ -19,7 +19,7 @@
 
 <div id="login">
     <div id="login-operation">
-        <form method="POST" action="{{ route('login') }}">
+        <form id="login-form" method="POST" action="{{ route('login') }}">
             @csrf <!-- Token CSRF per la sicurezza -->
             <fieldset id="campo">
                 <label for="username">Nome Utente</label>
@@ -46,6 +46,22 @@
     </div>
 
 </div>
+@endsection
 
-
+@section('javascript')
+<script>
+    $(document).ready(function() {
+        // Quando viene inviato il form
+        $('#login-form').submit(function(event) {
+            var username = $('#username').val();
+            const usernameRegex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ]+$/; // Regex per caratteri validi
+            
+            // Se l'username non è valido, prevenire l'invio del form e mostrare un alert
+            if (!usernameRegex.test(username)) {
+                event.preventDefault();  // Prevenire l'invio del form
+                alert('Il nome utente contiene caratteri non validi. Sono accettati solo numeri, lettere e lettere accentate.');
+            }
+        });
+    });
+</script>
 @endsection

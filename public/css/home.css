@@ -1,17 +1,17 @@
 #contenitone-categorie {
     flex-grow: 1;
-    /* background-color: rgb(51, 143, 150); */
+
     display: flex;
     justify-content: space-around;
     align-items: stretch;
     flex-wrap: wrap;
-    padding: 20px;
+margin-top: 30px;
 }
 
 #titolo-categorie {
     display: flex;
     justify-content: center;
-    padding: 20px 20px 0px 20px;
+    margin-top: 30px;
 }
 
 #titolo-categorie h1 {
@@ -24,12 +24,9 @@
 
 .categorie {
     background-color: rgb(159, 167, 202);
-    /* Colore di sfondo per visibilità */
     width: 360px;
-    /* 3 elementi per riga, meno il margine */
     height: 370px;
     margin: 30px;
-    /* Spazio tra gli elementi */
     text-align: center;
     border-radius: 10px;
     overflow: hidden;
@@ -46,7 +43,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Copre il div mantenendo le proporzioni */
 }
 
 .nome-categoria {

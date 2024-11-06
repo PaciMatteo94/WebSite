@@ -23,34 +23,67 @@ class CategoryController extends Controller
     }
     public function store(Request $request)
     {
-        try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            ]);
-            if ($request->hasFile('image')) {
-                $imageName = $request->file('image')->getClientOriginalName();
-                $request->file('image')->move(public_path('images/Categorie'), $imageName);
+
+        $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'name.required' => 'Il campo nome è obbligatorio e non può contenere solo spazi.',
+            'image.required' => 'L\'immagine è obbligatoria.',
+            'image.image' => 'Il file deve essere un\'immagine valida.',
+            'image.mimes' => 'L\'immagine deve essere di tipo jpeg, png, jpg o gif.',
+            'image.max' => 'L\'immagine non può superare i 2MB.'
+        ]);
+            $existingCategory = Category::whereRaw('LOWER(name) = ?', [strtolower($request->input('name'))])->first();
+            if ($existingCategory) {
+                return response()->json(['message' => 'Il nome della categoria è già presente.'], 400);
             }
+
+            $imageName = $request->file('image')->getClientOriginalName();
+            $destinationPath = public_path('images/Categorie');
+            if (file_exists($destinationPath . '/' . $imageName)) {
+                return response()->json(['message' => 'Esiste già un file con lo stesso nome.'], 400);
+            }
+            $request->file('image')->move(public_path('images/Categorie'), $imageName);
             $category = new Category();
             $category->name = $request->input('name');
             $category->image = 'images/Categorie/' . $imageName; // Salva il percorso dell'immagine come stringa
             $category->save();
             return response()->json(['message' => 'Categoria inserita con successo']);
-        } catch (\Exception $e) {
-            return response()->json([], 500);
-        }
+
     }
+
+
+
+
+
     public function update(Request $request, $id)
     {
         try {
             $category = Category::findOrFail($id);
             $request->validate([
-                'name' => 'string|max:255',
-                'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+                'name' => 'nullable|string|max:255',
+                'image' => 'nullabel|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ],[
+                'image.image' => 'Il file deve essere un\'immagine valida.',
+                'image.mimes' => 'L\'immagine deve essere di tipo jpeg, png, jpg o gif.',
+                'image.max' => 'L\'immagine non può superare i 2MB.'
+            
             ]);
+            $existingCategory = Category::whereRaw('LOWER(name) = ?', [strtolower($request->input('name'))])->first();
+            if ($existingCategory) {
+                return response()->json(['message' => 'Il nome della categoria è già presente.'], 400);
+            }
             if ($request->hasFile('image')) {
                 $imageName = $request->file('image')->getClientOriginalName();
+                $destinationPath = public_path('images/Categorie');
+                if (file_exists($destinationPath . '/' . $imageName)) {
+                    return response()->json(['message' => 'Esiste già un file con lo stesso nome.'], 400);
+                }
                 $oldImagePath = public_path($category->image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);

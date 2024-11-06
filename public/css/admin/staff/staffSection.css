@@ -1,40 +1,41 @@
-
-.container-section{
-    margin: 5px;
-    padding: 16px;
-    display: flex;
+.container-section {
+   padding: 16px;
+   margin-top: 14px;
+   display: flex;
 }
 
-.title{
-   min-width:fit-content ;
+.title {
+   min-width: fit-content;
 }
 
-#staff-section{
+#staff-section {
    margin-bottom: 20px;
 }
 
- .option{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-bottom-style: solid;
-    border-bottom-width:2px ;
-    border-color: rgb(200, 200, 200);
-    padding: 5px;
- }
+.option {
+   display: flex;
+   justify-content: space-between;
+   margin-top: 5px;
+   margin-bottom: 5px;
+   border-bottom-style: solid;
+   border-bottom-width: 2px;
+   border-color: rgb(200, 200, 200);
+   padding: 5px;
+}
 
- .title-div{
-    display: flex;
-    justify-content: space-between;
-    gap: 10em;
- }
+.title-div {
+   display: flex;
+   justify-content: space-between;
+   gap: 10em;
+}
 
- .list-div{
-   min-width: 30%;
- }
+.list-div {
+   min-width: fit-content;
+   max-width: 30%;
+}
 
- .list-div, .section-form-view{
+.list-div,
+.section-form-view {
    border-radius: 10px;
    background-color: rgb(33, 33, 49);
    box-shadow: rgba(255, 255, 255, 0.15) 2.4px 2.4px 3.2px;
@@ -43,95 +44,105 @@
    border-color: black;
    padding: 40px;
 
- }
- .section-form-view{
+}
+
+.section-form-view {
    flex-grow: 1;
    margin-left: 10px;
- }
+}
 
 
- .operation-div{
-    min-width: fit-content;
-    display: flex;
- }
- #results{
-    margin-top: 20px;
- }
+.operation-div {
+   min-width: fit-content;
+   display: flex;
+}
 
- ul{
-    list-style-type: none;
- }
+#results {
+   margin-top: 20px;
+}
+
+ul {
+   list-style-type: none;
+}
 
 
-  /* sezione form */
-  .form h2{
-    margin-bottom: 20px;
- }
- .form label{
-    margin-bottom: 5px;
- }
- .form input{
-    margin-bottom: 20px;
-    width: fit-content;
- }
- .form-group{
-    display: flex;
-    flex-direction: column;
- }
- .form textarea{
-    margin-bottom: 20px;
- }
-
- .form p{
+/* sezione form */
+.form h2 {
    margin-bottom: 20px;
- }
-
- .info-view, .info-view-img{
-    margin-bottom: 5px;
-  }
-  .info-view-img{      
-    max-height: 400px;
-    max-width: 400px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-.info-view-img img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-
-.info-view-img-thumbnail{
-    height: auto;
-    width: auto;     
-    max-height: 185px;
-    max-width: 185px;
-    overflow: hidden;
-    object-fit: cover;
-    display: flex;
-    flex-direction: column;
 }
 
+.form label {
+   margin-bottom: 5px;
+}
+
+.form input {
+   margin-bottom: 20px;
+   width: fit-content;
+}
+
+.form-group {
+   display: flex;
+   flex-direction: column;
+}
+
+.form textarea {
+   margin-bottom: 20px;
+}
+
+.form p {
+   margin-bottom: 20px;
+}
+
+.info-view,
+.info-view-img {
+   margin-bottom: 5px;
+}
+
+.info-view-img {
+   max-height: 400px;
+   max-width: 400px;
+   overflow: hidden;
+   display: flex;
+   flex-direction: column;
+}
+
+.info-view-img img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
 
 
-  .card{
-    overflow: hidden;
-    object-fit: cover;
-  }
+.info-view-img-thumbnail {
+   height: auto;
+   width: auto;
+   max-height: 185px;
+   max-width: 185px;
+   overflow: hidden;
+   object-fit: cover;
+   display: flex;
+   flex-direction: column;
+}
 
-.form-tech{
+
+
+.card {
+   overflow: hidden;
+   object-fit: cover;
+}
+
+.form-tech {
    display: flex;
    justify-content: space-around;
    gap: 5em;
 }
 
-.title-tech{
+.title-tech {
    display: flex;
    justify-content: center;
 }
-.button-add{
+
+.button-add {
    display: flex;
    justify-content: center;
 }

@@ -83,22 +83,98 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'info' => 'required|string',
-            'usage_techniques' => 'nullable|string',
-            'installation_mode' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024'
+            'usage_techniques' => 'required|string',
+            'installation_mode' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:width=500,height=500',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024|dimensions:width=185,height=185',
+        ], [
+            'name.required' => 'Il campo nome è obbligatorio.',
+            'name.string' => 'Il nome deve essere una stringa.',
+            'name.max' => 'Il nome non può superare i 255 caratteri.',
+
+            'info.required' => 'Il campo informazioni è obbligatorio.',
+            'info.string' => 'Le informazioni devono essere una stringa.',
+
+            'usage_techniques.required' => 'Il campo tecniche di utilizzo è obbligatorio.',
+            'usage_techniques.string' => 'Le tecniche di utilizzo devono essere una stringa.',
+
+            'installation_mode.required' => 'Il campo modalità di installazione è obbligatorio.',
+            'installation_mode.string' => 'La modalità di installazione deve essere una stringa.',
+
+            'image.required' => 'Il campo immagine è obbligatorio.',
+            'image.image' => 'Il file immagine deve essere valido.',
+            'image.mimes' => 'L\'immagine deve essere di tipo jpeg, png, jpg o gif.',
+            'image.max' => 'L\'immagine non può superare i 2MB.',
+            'image.dimensions' => 'L\'immagine deve avere una dimensione di 500x500px.',
+
+            'thumbnail.required' => 'Il campo miniatura è obbligatorio.',
+            'thumbnail.image' => 'Il file miniatura deve essere valido.',
+            'thumbnail.mimes' => 'La miniatura deve essere di tipo jpeg, png, jpg o gif.',
+            'thumbnail.max' => 'La miniatura non può superare i 1MB.',
+            'thumbnail.dimensions' => 'La miniatura deve avere una dimensione di 185x185px.',
         ]);
         $categoryName = Category::where('id', $category_id)->value('name');
-        if ($request->hasFile('image')) {
-            $imageName = $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('images/' . $categoryName), $imageName);
-            $imagePath = 'images/' . $categoryName . '/' . $imageName;
+        $imagePath = '';
+        $thumbnailPath = '';
+        //controllo del nome
+        $productExists = Product::where('category_id', $category_id)
+            ->where('name', $request->input('name'))
+            ->exists();
+
+        if ($productExists) {
+            return response()->json(['message' => 'Esiste già un prodotto con lo stesso nome nella stessa categoria.'], 400);
         }
-        if ($request->hasFile('thumbnail')) {
-            $thumbnailName = $request->file('thumbnail')->getClientOriginalName();
-            $request->file('thumbnail')->move(public_path('images/' . $categoryName . '/Thumbnails'), $thumbnailName);
-            $thumbnailPath = 'images/' . $categoryName . '/Thumbnails/' . $thumbnailName;
+        //parte immagine controllo e storage
+        $imageName = $request->file('image')->getClientOriginalName();
+        $imageFolderPath = public_path('images/' . $categoryName);
+        if (is_dir($imageFolderPath)) {
+            // Se la cartella esiste, scansiona i file
+            $imageFiles = scandir($imageFolderPath);
+            $imageExists = false;
+        
+            foreach ($imageFiles as $file) {
+                // Confronta il nome del file ignorando maiuscole e minuscole
+                if (strtolower($file) === strtolower($imageName)) {
+                    $imageExists = true;
+                    break;
+                }
+            }
+        
+            // Se esiste un'immagine con lo stesso nome, restituisci un errore
+            if ($imageExists) {
+                return response()->json(['message' => 'Esiste già un\'immagine con lo stesso nome nella categoria.'], 400);
+            }
         }
+
+
+        //parte thumbanil controllo che storage
+        $thumbnailName = $request->file('thumbnail')->getClientOriginalName();
+        // Verifica se il file con lo stesso nome esiste già, ignorando maiuscole/minuscole
+        $thumbnailFolderPath = public_path('images/' . $categoryName . '/Thumbnails');
+        if (is_dir($thumbnailFolderPath)) {
+            // Se la cartella esiste, scansiona i file
+            $thumbnailFiles = scandir($thumbnailFolderPath);
+            $thumbnailExists = false;
+        
+            foreach ($thumbnailFiles as $file) {
+                // Confronta il nome del file ignorando maiuscole e minuscole
+                if (strtolower($file) === strtolower($thumbnailName)) {
+                    $thumbnailExists = true;
+                    break;
+                }
+            }
+        
+            // Se esiste una thumbnail con lo stesso nome, restituisci un errore
+            if ($thumbnailExists) {
+                return response()->json(['message' => 'Esiste già un\'immagine thumbnail con lo stesso nome nella categoria.'], 400);
+            }
+        }
+
+        $request->file('image')->move($imageFolderPath, $imageName);
+        $imagePath = 'images/' . $categoryName . '/' . $imageName;
+        $request->file('thumbnail')->move($thumbnailFolderPath, $thumbnailName);
+        $thumbnailPath = 'images/' . $categoryName . '/Thumbnails/' . $thumbnailName;
+
         $product = new Product();
         $product->category_id = $category_id;
         $product->name = $request->input('name');
@@ -134,23 +210,66 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($productId);
         $request->validate([
-            'name' => 'required|string|max:255',
-            'info' => 'required|string',
+            'name' => 'nullable|string|max:255',
+            'info' => 'nullable|string',
             'usage_techniques' => 'nullable|string',
             'installation_mode' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:width=500,height=500',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1024|dimensions:width=185,height=185',
+        ], [
+            
+            'name.string' => 'Il nome deve essere una stringa.',
+            'name.max' => 'Il nome non può superare i 255 caratteri.',
+
+            'info.string' => 'Le informazioni devono essere una stringa.',
+
+            'usage_techniques.string' => 'Le tecniche di utilizzo devono essere una stringa.',
+            
+            'installation_mode.string' => 'La modalità di installazione deve essere una stringa.',
+            
+            'image.image' => 'Il file immagine deve essere valido.',
+            'image.mimes' => 'L\'immagine deve essere di tipo jpeg, png, jpg o gif.',
+            'image.max' => 'L\'immagine non può superare i 2MB.',
+            'image.dimensions' => 'L\'immagine deve avere una dimensione di 500x500px.',
+
+            'thumbnail.image' => 'Il file miniatura deve essere valido.',
+            'thumbnail.mimes' => 'La miniatura deve essere di tipo jpeg, png, jpg o gif.',
+            'thumbnail.max' => 'La miniatura non può superare i 1MB.',
+            'thumbnail.dimensions' => 'La miniatura deve avere una dimensione di 185x185px.',
         ]);
+        if ($request->input('name') && Product::where('category_id', $product->category_id)
+                                         ->where('name', $request->input('name'))
+                                         ->where('id', '!=', $product->id)
+                                         ->exists()) {
+    return response()->json(['message' => 'Esiste già un prodotto con lo stesso nome nella stessa categoria.'], 400);
+}
         if ($request->hasFile('image')) {
             $category_id = $product->category_id;
             $categoryName = Category::where('id', $category_id)->value('name');
-            $oldImagePath = public_path( $product->image);
+
+            $imageName = $request->file('image')->getClientOriginalName();
+            $imageFolderPath = public_path('images/' . $categoryName);
+
+            // Controlla se esiste già un'immagine con lo stesso nome
+            $imageFiles = scandir($imageFolderPath);
+            $imageExists = false;
+            foreach ($imageFiles as $file) {
+                if (strtolower($file) === strtolower($imageName)) {
+                    $imageExists = true;
+                    break;
+                }
+            }
+        
+            if ($imageExists) {
+                return response()->json(['message' => 'Esiste già un\'immagine con lo stesso nome nella categoria.'], 400);
+            }
+
+            $oldImagePath = public_path($product->image);
             if (File::exists($oldImagePath)) {
                 File::delete($oldImagePath);
             }
 
-            $imageName = $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('images/' . $categoryName), $imageName);
+            $request->file('image')->move($imageFolderPath, $imageName);
             $imagePath = 'images/' . $categoryName . '/' . $imageName;
             $product->image = $imagePath;
         }
@@ -158,15 +277,35 @@ class ProductController extends Controller
         if ($request->hasFile('thumbnail')) {
             $category_id = $product->category_id;
             $categoryName = Category::where('id', $category_id)->value('name');
+            $thumbnailName = $request->file('thumbnail')->getClientOriginalName();
+            $thumbnailFolderPath = public_path('images/' . $categoryName . '/Thumbnails');
+            
+            // Controlla se esiste già un thumbnail con lo stesso nome
+            $thumbnailFiles = scandir($thumbnailFolderPath);
+            $thumbnailExists = false;
+            foreach ($thumbnailFiles as $file) {
+                if (strtolower($file) === strtolower($thumbnailName)) {
+                    $thumbnailExists = true;
+                    break;
+                }
+            }
+        
+            if ($thumbnailExists) {
+                return response()->json(['message' => 'Esiste già un\'immagine thumbnail con lo stesso nome nella categoria.'], 400);
+            }
+        
+            // Elimina il thumbnail precedente se esiste
             $oldThumbnailPath = public_path($product->thumbnail);
             if (File::exists($oldThumbnailPath)) {
                 File::delete($oldThumbnailPath);
             }
-            $thumbnailName = $request->file('thumbnail')->getClientOriginalName();
-            $request->file('thumbnail')->move(public_path('images/' . $categoryName . '/Thumbnails'), $thumbnailName);
+        
+            // Carica il nuovo thumbnail
+            $request->file('thumbnail')->move($thumbnailFolderPath, $thumbnailName);
             $thumbnailPath = 'images/' . $categoryName . '/Thumbnails/' . $thumbnailName;
             $product->thumbnail = $thumbnailPath;
         }
+
         $product->name = $request->input('name') ?: $product->name;
         $product->info = $request->input('info') ?: $product->info;
         $product->usage_techniques = $request->input('usage_techniques') ?: $product->usage_techniques;
@@ -184,12 +323,12 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $product = Product::findOrFail($id);
-        $imagePath = public_path( $product->image);
+        $imagePath = public_path($product->image);
         $thumbnailPath = public_path($product->thumbnail);
         if (File::exists($imagePath)) {
             File::delete($imagePath);
         }
-    
+
         if (File::exists($thumbnailPath)) {
             File::delete($thumbnailPath);
         }

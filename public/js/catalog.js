@@ -15,6 +15,8 @@ $(document).ready(function () {
 
     } else{
         $('input[type="checkbox"]').prop('checked', false);
+        testo = '';
+        $('#barra-ricerca').val('');
         checkCategories();
         handleSearch();
     }
@@ -49,7 +51,7 @@ $(document).ready(function () {
         if(testo === ''){
             fetchProducts();
         }else if(!regex.test(testo)){
-            alert(' sono stati inseriti caratteri non validi')
+            alert('Sono stati inseriti caratteri non validi o sono state inserite più parole')
         }else{
             fetchProducts();
         }

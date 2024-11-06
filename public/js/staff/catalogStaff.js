@@ -1,11 +1,12 @@
 $(document).ready(function () {
     var testo = '';
     const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ*]+$/;
+    const regexText = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s]+$/;
     var selectedCategories = [];
     let productId;
     let malfunctionId;
 
-    //PARTE AJAX PER LA SELEZIONE DELLE CATEGORIE PRODOTTO
+    firstSearchClean();
 
     //listener per la form di ricerca: ottiene i dati e invia la richiesta 
     document.getElementById('search-form').addEventListener('submit', function (event) {
@@ -13,14 +14,14 @@ $(document).ready(function () {
         const formData = new FormData(this);
         testo = formData.get('barra').trim();
         selectedCategories = formData.getAll('categories[]');
-        if (($('.list-div').css('display') == 'block')||($('.section-form-view').css('display') == 'block')) {
+        if (($('.list-div').css('display') == 'block') || ($('.section-form-view').css('display') == 'block')) {
             $('.section-form-view').css('display', 'none');
             $('.list-div').css('display', 'none');
         }
         if (testo === '') {
             fetchProducts();
         } else if (!regex.test(testo)) {
-            alert(' sono stati inseriti caratteri non validi')
+            alert('Sono stati inseriti caratteri non validi o sono state inserite più parole')
         } else {
             fetchProducts();
         }
@@ -77,7 +78,7 @@ $(document).ready(function () {
             default:
                 break;
         }
-        tableOperationAjax(method, url);
+        operationAjax(method, url);
     });
 
     //listener sui bottoni dell'occhio per visualizzare le info dell'elemento
@@ -97,7 +98,7 @@ $(document).ready(function () {
                 break;
         }
         const method = 'GET';
-        tableOperationAjax(method, url);
+        operationAjax(method, url);
     });
 
     //listener sui bottoni matita per ottenere la form per il cambio dei prodotti
@@ -117,13 +118,13 @@ $(document).ready(function () {
                 break;
         }
         const method = 'GET';
-        tableOperationAjax(method, url);
+        operationAjax(method, url);
 
     });
 
     //listener sui bottoni della croce per inviare la richiesta di eliminazione del prodotto
     $(document).on('click', '.removeLink', function (event) {
-        event.preventDefault();;
+        event.preventDefault();
         const element = $(this).data('element');
         var result = confirm("Sei sicuro di voler rimuovere questo malfunzionamento?");
         if (result) {
@@ -141,7 +142,7 @@ $(document).ready(function () {
             }
 
             const method = 'DELETE';
-            tableOperationAjax(method, url, element);
+            operationAjax(method, url, element);
         } else {
             alert("Operazione annullata.");
         }
@@ -153,13 +154,25 @@ $(document).ready(function () {
 
 
     //listener sulle form delle view di inserimento e cambio per estrarre i dati e chiamare la giusta rotta per l'operazione
-    $(document).on('submit', '#form form', function (event) {
-        event.preventDefault();;
+    $(document).on('submit', '.form form', function (event) {
+        event.preventDefault();
         const formId = this.id;
         const formData = new FormData(this);
         const formElement = $(this).data('element');
         let url;
-        let elementId
+        let elementId;
+        let isValid = true;
+        formData.forEach((value, key) => {
+            if (typeof value === 'string') {
+                if (!regexText.test(value)) {
+                    alert(`Il campo "${key}" contiene caratteri non validi.`);
+                    isValid = false;
+                    return;
+                }
+            }
+        });
+        if (!isValid) return;
+
         switch (formId) {
             case 'changeFormMalfunction':
                 elementId = $(this).data('id');
@@ -189,6 +202,9 @@ $(document).ready(function () {
             success: function (response) {
                 $('.section-form-view').empty();
                 alert(response.message);
+                if ($('.section-form-view').css('display') == 'block') {
+                    $('.section-form-view').css('display', 'none');
+                }
                 switch (formElement) {
                     case 'malfunction':
                         createMalfunctionList();
@@ -242,8 +258,8 @@ $(document).ready(function () {
     }
 
     //funzione che invia la richiesta ajax in base hai parametri passati
-    function tableOperationAjax(method, url, element = null) {
-        if (($('.section-form-view').css('display') == 'none')&&(!(method === 'DELETE'))) {
+    function operationAjax(method, url, element = null) {
+        if (($('.section-form-view').css('display') == 'none') && (!(method === 'DELETE'))) {
             $('.section-form-view').show();
         }
         $.ajax({
@@ -253,6 +269,7 @@ $(document).ready(function () {
             success: function (response) {
                 if ($('.section-form-view').length) {
                     $('.section-form-view').empty();
+
                 } else {
                     $('<div>', {
                         class: 'section-form-view'
@@ -262,6 +279,9 @@ $(document).ready(function () {
 
                 $('.section-form-view').html(response);
                 if (method === 'DELETE') {
+                    if ($('.section-form-view').css('display') == 'block') {
+                        $('.section-form-view').css('display', 'none');
+                    }
                     if (element == 'solution') {
                         createSolutionList()
                     } else {
@@ -320,6 +340,18 @@ $(document).ready(function () {
 
             }
         });
+    }
+
+    function firstSearchClean() {
+        selectedCategories.length = 0;
+        testo = '';
+        $('#barra-ricerca').val('');
+        $('.category-checkbox:checked').each(function () {
+            selectedCategories.push($(this).val());
+
+        });
+
+        fetchProducts();
     }
 
 });

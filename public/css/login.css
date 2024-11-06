@@ -12,26 +12,27 @@
     padding: 16px;
 }
 #campo{
-    width: 400px; /* Imposta la larghezza desiderata */
-    height: auto; /* Lascia che l'altezza si adatti al contenuto */
-    margin: 100px auto; /* Centra il fieldset */
-    padding: 20px; /* Aggiunge spazio interno */
-    background-color: #2b2b38; /* Colore di sfondo più scuro o personalizzato */
-    border: 2px solid #b3b3b3; /* Cambia colore del bordo */
-    border-radius: 15px; /* Aggiunge bordi arrotondati */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Aggiunge un'ombra */
+    width: 400px; 
+    height: auto; 
+    margin: 100px auto; 
+    padding: 24px; 
+    border-radius: 10px;
+    background-color: rgb(33, 33, 49);
+    box-shadow: rgba(255, 255, 255, 0.15) 2.4px 2.4px 3.2px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
     display: flex;
     flex-direction: column;
     margin-top: 30px;
-    color: white;
 }
-input[type="text"], input[type="password"] {
-    width: 70%; /* Fa sì che gli input occupino tutta la larghezza del fieldset */
-    padding: 10px; /* Spazio interno */
-    margin-bottom: 15px; /* Spazio tra gli input */
-    border-radius: 5px; /* Arrotonda i bordi degli input */
-    border: 1px solid #ccc; /* Cambia colore del bordo */
-    box-sizing: border-box; /* Include padding e bordi nella larghezza totale */
+input{
+    width: 70%; 
+    padding: 10px; 
+    margin-bottom: 15px; 
+    border-radius: 5px; 
+    border: 1px solid #ccc; 
+    box-sizing: border-box; 
     font-size: 18px;
 }
 
@@ -42,24 +43,7 @@ input[type="text"], input[type="password"] {
 
 label{
     font-size: 24px;
-    color: white;
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
-}
-
-button {
-    background-color: #324297; /* Colore blu chiaro */
-    color: #ffffff; /* Testo bianco */
-    border: none; /* Rimuove il bordo */
-    border-radius: 5px; /* Bordo arrotondato */
-    padding: 10px 15px; /* Padding interno */
-    cursor: pointer; /* Cambia il cursore al passaggio */
-    transition: background-color 0.3s; /* Transizione per il colore di sfondo */
-    width: 50%;
-    font-size: 24px;
-}
-
-button:hover{
-    color: #2b2b38;
 }

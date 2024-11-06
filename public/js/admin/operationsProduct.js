@@ -1,5 +1,6 @@
 $(document).ready(function () {
     let categoryId;
+    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s]+$/;
     listCategoryAjax();
 
 
@@ -137,7 +138,7 @@ $(document).ready(function () {
 
     //funzione che invia la richiesta ajax in base hai parametri passati
     function listOperationAjax(method, url, element = null) {
-        if (($('.section-form-view').css('display') == 'none')&&(!(method === 'DELETE'))) {
+        if (($('.section-form-view').css('display') == 'none') && (!(method === 'DELETE'))) {
             $('.section-form-view').show();
         }
 
@@ -156,6 +157,9 @@ $(document).ready(function () {
 
                 $('.section-form-view').html(response);
                 if (method === 'DELETE') {
+                    if ($('.section-form-view').css('display') == 'block') {
+                        $('.section-form-view').css('display', 'none');
+                    }
                     if (element == 'product') {
                         createProductList();
                     } else {
@@ -204,13 +208,29 @@ $(document).ready(function () {
 
 
     //listener sulle form delle view di inserimento e cambio per estrarre i dati e chiamare la giusta rotta per l'operazione
-    $(document).on('submit', '#form form', function (event) {
+    $(document).on('submit', '.form form', function (event) {
         event.preventDefault();;
         const formId = this.id;
         const formData = new FormData(this);
         const formElement = $(this).data('element');
         let url;
         let elementId
+        let isValid = true;
+        const file = formData.get('image');
+        for (let [key, value] of formData.entries()) {
+            if (typeof value === 'string') {
+                if (value === '') {
+                    break;
+                } else if (!regex.test(value)) {
+                    alert(`Il campo "${key}" contiene caratteri non validi. Si accetano solo numeri, lettere e lettere accentate`);
+                    isValid = false;
+                    break;
+                }
+
+            }
+        }
+        if (!isValid) return;
+
         switch (formId) {
             case 'change-form-category':
                 elementId = $(this).data('id');
@@ -239,6 +259,9 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 $('.section-form-view').empty();
+                if ($('.section-form-view').css('display') == 'block') {
+                    $('.section-form-view').css('display', 'none');
+                }
                 alert(response.message);
                 switch (formElement) {
                     case 'category':
@@ -252,11 +275,29 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr, error) {
-                console.error('Errore nella richiesta AJAX:', error);
-                console.log(xhr);
-
+                if (xhr.status === 422) {
+                    let errors = xhr.responseJSON.errors;
+                    let errorMessage = '';
+        
+                    for (let key in errors) {
+                        if (errors.hasOwnProperty(key)) {
+                            errorMessage += errors[key][0] + "\n"; // Messaggio di errore per ogni campo
+                        }
+                    }
+        
+                    if (errorMessage) {
+                        alert(errorMessage.trim()); // Mostra tutti i messaggi di errore in un alert
+                    }
+                } else if (xhr.status === 400) {
+                    alert(xhr.responseJSON.message); // Mostra il messaggio di errore personalizzato
+                } else {
+                    alert("Si è verificato un errore imprevisto."); // Messaggio per errori generali
+                }
+        
+                console.error('Errore nella richiesta AJAX:', xhr); // Log degli errori nella console
             }
-        });
+
+            });
 
 
     });
