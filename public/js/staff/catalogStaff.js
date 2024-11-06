@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var testo = '';
     const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ*]+$/;
-    const regexText = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s]+$/;
+    const regexText = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s\-\_\.\,\;\:]+$/;
     var selectedCategories = [];
     let productId;
     let malfunctionId;

@@ -23,20 +23,20 @@ class UserController extends Controller
     
         // Messaggi di errore personalizzati per i campi comuni
         $commonValidationMessages = [
-            'name.required' => 'Il campo nome è obbligatorio.',
+            'name.required' => 'Il campo nome è obbligatorio e non può contenere solo spazi.',
             'name.string' => 'Il nome deve essere una stringa.',
             'name.max' => 'Il nome non può superare i 255 caratteri.',
             
-            'surname.required' => 'Il campo cognome è obbligatorio.',
+            'surname.required' => 'Il campo cognome è obbligatorio e non può contenere solo spazi.',
             'surname.string' => 'Il cognome deve essere una stringa.',
             'surname.max' => 'Il cognome non può superare i 255 caratteri.',
             
-            'username.required' => 'Il campo username è obbligatorio.',
+            'username.required' => 'Il campo username è obbligatorio e non può contenere solo spazi.',
             'username.string' => 'L\'username deve essere una stringa.',
             'username.unique' => 'Questo username è già stato usato.',
             'username.max' => 'L\'username non può superare i 255 caratteri.',
             
-            'password.required' => 'Il campo password è obbligatorio.',
+            'password.required' => 'Il campo password è obbligatorio e non può contenere solo spazi.',
             'password.string' => 'La password deve essere una stringa.',
             'password.min' => 'La password deve essere di almeno 6 caratteri.',
         ];
@@ -58,15 +58,15 @@ class UserController extends Controller
                 'birth_date.required' => 'Il campo data di nascita è obbligatorio.',
                 'birth_date.date' => 'La data di nascita deve essere una data valida.',
                 
-                'specialization.required' => 'Il campo specializzazione è obbligatorio.',
+                'specialization.required' => 'Il campo specializzazione è obbligatorio e non può contenere solo spazi.',
                 'specialization.string' => 'La specializzazione deve essere una stringa.',
                 'specialization.max' => 'La specializzazione non può superare i 255 caratteri.',
                 
-                'center_name.required' => 'Il campo nome centro è obbligatorio.',
+                'center_name.required' => 'Il campo nome centro è obbligatorio e non può contenere solo spazi.',
                 'center_name.string' => 'Il nome del centro deve essere una stringa.',
                 'center_name.max' => 'Il nome del centro non può superare i 255 caratteri.',
                 
-                'center_address.required' => 'Il campo indirizzo centro è obbligatorio.',
+                'center_address.required' => 'Il campo indirizzo centro è obbligatorio e non può contenere solo spazi.',
                 'center_address.string' => 'L\'indirizzo del centro deve essere una stringa.',
                 'center_address.max' => 'L\'indirizzo del centro non può superare i 255 caratteri.',
             ]);

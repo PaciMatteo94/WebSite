@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s]+$/;
+    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s\-\_\.\,\;\:]+$/;
     const usernameRegex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ]+$/;
     let elementId;
     listStaffAjax();
@@ -79,6 +79,7 @@ $(document).ready(function () {
             }
 
             if (typeof value === 'string' && !(inputElement.name === 'password' || inputElement.name === 'password_confirmation')) {
+                value = value.trim();
                 if (value === '') {
                     break;
                 } else if (inputElement.name === 'username') {

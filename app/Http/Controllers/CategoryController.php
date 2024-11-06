@@ -18,14 +18,14 @@ class CategoryController extends Controller
                 'string',
                 'max:255'
             ],
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024',
         ], [
 
             'name.required' => 'Il campo nome è obbligatorio e non può contenere solo spazi.',
             'image.required' => 'L\'immagine è obbligatoria.',
             'image.image' => 'Il file deve essere un\'immagine valida.',
             'image.mimes' => 'L\'immagine deve essere di tipo jpeg, png, jpg o gif.',
-            'image.max' => 'L\'immagine non può superare i 2MB.',
+            'image.max' => 'L\'immagine non può superare i 1MB.',
         ]);
 
         //Controllo se esiste gia il nome nella tabella ignorando maiuscole e minuscole, se esiste, ritorno un messaggio di errore
@@ -75,12 +75,14 @@ class CategoryController extends Controller
         );
         //Controllo come sopra se il nome della categoria già esiste ignorando il caso in cui si ripassa il nome della categoria che si sta modificando 
         $category = Category::findOrFail($id);
-        if ($request->input('name') && Category::whereRaw('LOWER(name) = ?', [strtolower($request->input('name'))])
+        if (
+            $request->input('name') && Category::whereRaw('LOWER(name) = ?', [strtolower($request->input('name'))])
             ->where('id', '!=', $category->id)
             ->exists()
         ) {
             return response()->json(['message' => 'Il nome della categoria è già presente.'], 400);
         }
+
         /*
         Se la richiesta ha un immagine si controlla se esiste gia un file con lo stesso nome nella cartella.
         In caso affermativo si invia un messaggio di errore
@@ -101,6 +103,13 @@ class CategoryController extends Controller
         }
 
         //si inserisce il nuovo nome o si tiene quello vecchio e si salva
+        $oldname = $category->name;
+        $newName = $request->input('name') ?: $category->name;
+        $oldCategoryDirectoryPath = public_path('images/' . $oldname);
+        $newCategoryDirectoryPath = public_path('images/' . $newName);
+        if (File::exists($oldCategoryDirectoryPath)) {
+            File::move($oldCategoryDirectoryPath, $newCategoryDirectoryPath);
+        }
         $category->name = $request->input('name') ?: $category->name;
         $category->save();
         return response()->json(['message' => 'Categoria aggiornata con successo']);

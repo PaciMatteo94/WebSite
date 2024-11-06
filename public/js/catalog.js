@@ -54,6 +54,8 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 console.error('Errore nella richiesta AJAX:', error);
+                console.log(xhr);
+                
             }
         });
     }

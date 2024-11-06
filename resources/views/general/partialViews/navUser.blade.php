@@ -12,7 +12,7 @@
             <h2 class="option-nav "> <a href="{{ route('where') }}">Dove Siamo</a></h2>
         </div>
         <div class="navbar option-3">
-            <h2 class="option-nav "> <a href="#">Documentazione</a></h2>
+            <h2 class="option-nav "> <a href="https://drive.google.com/file/d/1X8pv1qd5tmA4ZzbvmilQddleuAMboidZ/view?usp=sharing">Documentazione</a></h2>
         </div>
     </div>
     <div class="navbar option-4">

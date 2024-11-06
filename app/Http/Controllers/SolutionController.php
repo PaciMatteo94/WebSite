@@ -37,7 +37,7 @@ class SolutionController extends Controller
             ],
             'description' => 'required|string',
         ], [
-            'title.required' => 'Il campo titolo è obbligatorio.',
+            'title.required' => 'Il campo titolo è obbligatorio e non può contenere solo spazi.',
             'title.string' => 'Il campo titolo deve essere una stringa valida.',
             'title.max' => 'Il campo titolo non può superare i 255 caratteri.',
             'description.required' => 'Il campo descrizione è obbligatorio.',

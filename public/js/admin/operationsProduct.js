@@ -1,6 +1,6 @@
 $(document).ready(function () {
     let categoryId;
-    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s]+$/;
+    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s\-\_\.\,\;\:]+$/;
     listCategoryAjax();
 
     //listener sul link dei nomi delle categorie

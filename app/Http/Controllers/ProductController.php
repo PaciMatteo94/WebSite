@@ -32,10 +32,10 @@ class ProductController extends Controller
             $query->whereIn('category_id', $categoryIds);
             if (substr($search, -1) === '*') {
                 $search = rtrim($search, '*');
-                $query->where('info', 'LIKE', "%{$search}%");
+                $query->where('info', 'LIKE', "% {$search}%");
                 $products = $query->simplePaginate(8);
             } else {
-                $query->where('info', 'LIKE', "% $search %");
+                $query->whereRaw("REPLACE(REPLACE(REPLACE(info, '.', ''), ',', ''), '!', '') LIKE ?", ["% $search %"]);
                 $products = $query->simplePaginate(8);
             }
         } else if (empty($categoryIds) && !($searchArray[0] == null || $searchArray[0] === '')) {
@@ -46,7 +46,7 @@ class ProductController extends Controller
                 $query->where('info', 'LIKE', "% {$search}%");
                 $products = $query->simplePaginate(8);
             } else {
-                $query->where('info', 'LIKE', "% $search %")->simplePaginate(5);
+                $query->whereRaw("REPLACE(REPLACE(REPLACE(info, '.', ''), ',', ''), '!', '') LIKE ?", ["% $search %"])->simplePaginate(8);
                 $products = $query->simplePaginate(8);
             }
         }
@@ -69,29 +69,29 @@ class ProductController extends Controller
             'info' => 'required|string',
             'usage_techniques' => 'required|string',
             'installation_mode' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:width=500,height=500',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024|dimensions:width=500,height=500',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024|dimensions:width=185,height=185',
         ], [
-            'name.required' => 'Il campo nome è obbligatorio.',
+            'name.required' => 'Il campo nome è obbligatorio e non può contenere solo spazi.',
             'name.string' => 'Il nome deve essere una stringa.',
             'name.max' => 'Il nome non può superare i 255 caratteri.',
 
-            'info.required' => 'Il campo informazioni è obbligatorio.',
+            'info.required' => 'Il campo info è obbligatorio e non può contenere solo spazi.',
             'info.string' => 'Le informazioni devono essere una stringa.',
 
-            'usage_techniques.required' => 'Il campo tecniche di utilizzo è obbligatorio.',
+            'usage_techniques.required' => 'Il campo tecniche di utilizzo è obbligatorio e non può contenere solo spazi.',
             'usage_techniques.string' => 'Le tecniche di utilizzo devono essere una stringa.',
 
-            'installation_mode.required' => 'Il campo modalità di installazione è obbligatorio.',
+            'installation_mode.required' => 'Il campo modalità di installazione è obbligatorio e non può contenere solo spazi.',
             'installation_mode.string' => 'La modalità di installazione deve essere una stringa.',
 
-            'image.required' => 'Il campo immagine è obbligatorio.',
+            'image.required' => 'Il campo immagine è obbligatorio e non può contenere solo spazi.',
             'image.image' => 'Il file immagine deve essere valido.',
             'image.mimes' => 'L\'immagine deve essere di tipo jpeg, png, jpg o gif.',
-            'image.max' => 'L\'immagine non può superare i 2MB.',
+            'image.max' => 'L\'immagine non può superare i 1MB.',
             'image.dimensions' => 'L\'immagine deve avere una dimensione di 500x500px.',
 
-            'thumbnail.required' => 'Il campo miniatura è obbligatorio.',
+            'thumbnail.required' => 'Il campo miniatura è obbligatorio e non può contenere solo spazi.',
             'thumbnail.image' => 'Il file miniatura deve essere valido.',
             'thumbnail.mimes' => 'La miniatura deve essere di tipo jpeg, png, jpg o gif.',
             'thumbnail.max' => 'La miniatura non può superare i 1MB.',
