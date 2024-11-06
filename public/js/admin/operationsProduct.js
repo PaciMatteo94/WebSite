@@ -183,9 +183,10 @@ $(document).ready(function () {
                     alert(errorMessage);  
                 } else {
                     alert('Si è verificato un errore. Riprova.');
+                    console.error('Errore nella richiesta AJAX:', error);
+                    console.log(xhr);
                 }
-                console.error('Errore nella richiesta AJAX:', error);
-                console.log(xhr);
+
             }
         });
 
