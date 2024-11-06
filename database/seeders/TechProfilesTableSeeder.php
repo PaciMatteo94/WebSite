@@ -17,9 +17,9 @@ class TechProfilesTableSeeder extends Seeder
             [
                 'user_id' => 1,
                 'birth_date' => '1985-05-15',
-                'specialization' => 'cpu',
-                'center_name' => 'centro marte',
-                'center_address' => 'gaetano properzi 332'
+                'specialization' => 'Processori',
+                'center_name' => 'Nex Assistenza tecnica Milano',
+                'center_address' => 'Via Torino, 58, 20123 Milano MI'
 
             ]
         ]);
