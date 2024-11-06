@@ -42,6 +42,9 @@
     min-width: fit-content;
     display: flex;
  }
+ .operation-div a {
+   padding: 5px;
+}
  #results{
     margin-top: 20px;
  }
