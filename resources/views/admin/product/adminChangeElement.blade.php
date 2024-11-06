@@ -25,7 +25,7 @@
     </form>
     @elseif(isset($product))
     <h2>Modifica Prodotto: {{ $product->name }}</h2>
-    <p>( Se i campi vengono lasciati vuoti, si manterrano le informazioni correnti )</p>
+    <p>(Se i campi vengono lasciati vuoti, si manterrano le informazioni correnti)</p>
 
 
     <form id="change-form-product" data-id="{{ $product->id }}" data-element="product">

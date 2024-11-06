@@ -2,6 +2,7 @@
     @if($roleType == 'staff')
 
     <h2>Cambio informazioni dell'utente: {{ $user->name }} {{ $user->surname }}</h2>
+    <p>(Se i campi vengono lasciati vuoti, si manterrano le informazioni correnti)</p>
     <form id="select-user-form" data-operation='change'>
         <div class="form-group">
             <label for="name">Nome:</label>
@@ -33,6 +34,9 @@
     @elseif($roleType == 'technician')
     <div class="title-tech">
         <h2>Cambio informazioni dell'utente: {{ $user->name }} {{ $user->surname }}</h2>
+    </div>
+    <div class="title-tech">
+    <p>(Se i campi vengono lasciati vuoti, si manterrano le informazioni correnti)</p>
     </div>
 
     <form id="edit-tech-form" data-operation='change'>
