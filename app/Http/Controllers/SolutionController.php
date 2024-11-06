@@ -9,6 +9,12 @@ use Illuminate\View\View;
 
 class SolutionController extends Controller
 {
+    //restituisce la view con le info del malfunzionemento
+    public function show(string $solutionId)
+    {
+        $solution = Solution::find($solutionId);
+        return view('general/partialViews/solutionShow', compact('solution'));
+    }
 
     //restituzione della soluzioni riguardanti ad un malfunzionamento
     public function index($malfunctionId): View
