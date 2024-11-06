@@ -11,76 +11,58 @@ use Illuminate\View\View;
 
 class SolutionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    // public function index($id)
-    // {
-    //     $prodotto = Product::find($id);
-    //     $datas = $prodotto->solutions;
-    //     return view('staff/removeOption', ['datas' => $datas])->render();
-    // }
 
+    //restituzione della soluzioni riguardanti ad un malfunzionamento
     public function index($malfunctionId): View
     {
-        $solutions = Solution::where('malfunction_id', $malfunctionId)->select('id','title')
-        ->get();
+        $solutions = Solution::where('malfunction_id', $malfunctionId)->select('id', 'title')
+            ->get();
         $malfunction = Malfunction::select('title')->find($malfunctionId);
-        return view('general/partialViews/listSolutionsPublic', ['solutions' => $solutions, 'malfunction'=>$malfunction]);
+        return view('general/partialViews/listSolutionsPublic', ['solutions' => $solutions, 'malfunction' => $malfunction]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    //Funzione per il salvataggio di un nuova soluzione
     public function store($id, Request $request)
     {
-        try {
-            $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required|string',
-            ]);
-            $solution = new Solution();
-            $solution->malfunction_id = $id;
-            $solution->title = $request->get('title');
-            $solution->description = $request->get('description');
-            $solution->save();
-            return response()->json(['message' => 'Soluzione inserita con successo']);
-        } catch (\Exception $e) {       
-            return response()->json([], 500);
-        }
-
+        //validazione delle informazioni passate
+        $request->validate([
+            'title' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'description' => 'required|string',
+        ], [
+            'title.required' => 'Il campo titolo è obbligatorio.',
+            'title.string' => 'Il campo titolo deve essere una stringa valida.',
+            'title.max' => 'Il campo titolo non può superare i 255 caratteri.',
+            'description.required' => 'Il campo descrizione è obbligatorio.',
+            'description.string' => 'Il campo descrizione deve essere una stringa valida.',
+        ]);
+        //salvataggio delle informazioni
+        $solution = new Solution();
+        $solution->malfunction_id = $id;
+        $solution->title = $request->get('title');
+        $solution->description = $request->get('description');
+        $solution->save();
+        return response()->json(['message' => 'Soluzione inserita con successo']);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $solutionId)
-    {
-        $solution = Solution::find($solutionId);
-        return view('general/partialViews/solutionShow', compact('solution'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    //funzione per la modifica delle informaizoni di una soluzione
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => [
+                'nullable',
+                'string',
+                'max:255'
+            ],
+            'description' => 'nullable|string',
+        ], [
+            'title.string' => 'Il campo titolo deve essere una stringa valida.',
+            'title.max' => 'Il campo titolo non può superare i 255 caratteri.',
+            'description.string' => 'Il campo descrizione deve essere una stringa valida.',
+        ]);
         try {
             $solution = Solution::findOrFail($id);
             $solution->title = $request->input('title') ?: $solution->title;
@@ -89,15 +71,12 @@ class SolutionController extends Controller
             return response()->json(['message' => 'Soluzione aggiornata con successo']);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([], 404);
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json([], 500);
         }
-
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    //funzione per la rimozione della soluzione
     public function destroy($id)
     {
         Solution::destroy($id);

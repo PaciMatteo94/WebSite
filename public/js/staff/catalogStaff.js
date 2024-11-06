@@ -9,7 +9,7 @@ $(document).ready(function () {
     firstSearchClean();
 
     //listener per la form di ricerca: ottiene i dati e invia la richiesta 
-    document.getElementById('search-form').addEventListener('submit', function (event) {
+    $('#search-form').on('submit', function(event) {
         event.preventDefault();
         const formData = new FormData(this);
         testo = formData.get('barra').trim();
@@ -64,7 +64,7 @@ $(document).ready(function () {
 
     //listener sui bottoni aggiungi delle due tabelle, lo switch gestisce i casi su quale tabella avviene l'evento
     $(document).on('click', '#add', function (event) {
-        event.preventDefault();;
+        event.preventDefault();
         const element = $(this).data('element');
         const method = 'GET';
         let url;
@@ -83,7 +83,7 @@ $(document).ready(function () {
 
     //listener sui bottoni dell'occhio per visualizzare le info dell'elemento
     $(document).on('click', '.viewLink', function (event) {
-        event.preventDefault();;
+        event.preventDefault();
         const element = $(this).data('element');
         elementId = $(this).data('id'); // Ottiene l'ID
         let url;
@@ -103,7 +103,7 @@ $(document).ready(function () {
 
     //listener sui bottoni matita per ottenere la form per il cambio dei prodotti
     $(document).on('click', '.changeLink', function (event) {
-        event.preventDefault();;
+        event.preventDefault();
         const element = $(this).data('element');
         elementId = $(this).data('id'); // Ottiene l'ID
         let url;
@@ -162,17 +162,19 @@ $(document).ready(function () {
         let url;
         let elementId;
         let isValid = true;
-        formData.forEach((value, key) => {
+        for (let [key, value] of formData.entries()) {
             if (typeof value === 'string') {
-                if (!regexText.test(value)) {
-                    alert(`Il campo "${key}" contiene caratteri non validi.`);
+                if (value === '') {
+                    break;
+                }else if (!regexText.test(value)) {
+                    alert(`Il campo "${key}" contiene caratteri non validi. Sono accettati solo numeri, lettere e lettere accentate.`);
                     isValid = false;
-                    return;
+                    break;
                 }
             }
-        });
+        }
+        
         if (!isValid) return;
-
         switch (formId) {
             case 'changeFormMalfunction':
                 elementId = $(this).data('id');
@@ -217,16 +219,19 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr, error) {
-                if (xhr.status === 404) {
-                    console.error('Soluzione non trovata');
-                    alert('Errore: soluzione non trovata.');
-                } else if (xhr.status === 500) {
-                    console.error('Errore del server durante l\'aggiornamento della soluzione');
-                    alert('Errore del server durante l\'aggiornamento. Riprova più tardi.');
+                //visualizzazione dell'allert per i casi di errore
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    var errorMessage = '';
+                    $.each(errors, function (key, messages) {
+                        errorMessage += messages.join("\n") + "\n";
+                    });
+                    alert(errorMessage);  
                 } else {
-                    console.error('Errore nella richiesta AJAX:', error);
-                    alert('Errore imprevisto. Contatta il supporto se il problema persiste.');
+                    alert('Si è verificato un errore. Riprova.');
                 }
+                console.error('Errore nella richiesta AJAX:', error);
+                console.log(xhr);
             }
         });
 
@@ -298,8 +303,6 @@ $(document).ready(function () {
             }
         });
 
-
-
     }
 
     //funzione che invia la richiesta ajax e inserisce la tabella dei malfunzionamenti
@@ -311,7 +314,6 @@ $(document).ready(function () {
             success: function (response) {
                 $('.list-div').empty();
                 $('.list-div').html(response);
-                console.log('eseguo la creazione tabella');
 
             },
             error: function (xhr, error) {
@@ -342,6 +344,7 @@ $(document).ready(function () {
         });
     }
 
+    //funzione per la prima ricerca quando si accede alla pagina e quando si aggiorna la pagina
     function firstSearchClean() {
         selectedCategories.length = 0;
         testo = '';
@@ -350,7 +353,6 @@ $(document).ready(function () {
             selectedCategories.push($(this).val());
 
         });
-
         fetchProducts();
     }
 

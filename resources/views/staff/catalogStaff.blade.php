@@ -17,7 +17,7 @@
     <aside id="sezione-ricerca">
         <form id="search-form">
             <div id="ricerca">
-                <input id="barra-ricerca" type="text" name="barra">
+                <input id="barra-ricerca" type="text" name="barra" placeholder="Ricerca...">
 
             </div>
             <div class="categorie-ricerca">

@@ -51,12 +51,6 @@ margin-top: 30px;
     padding: 12px 20px 12px 40px;
 }
 
-#bottone-ricerca {
-    margin: 5px;
-    font-size: 16px;
-    width: fit-content;
-    padding: 5px;
-}
 
 .categorie-ricerca {
     display: flex;

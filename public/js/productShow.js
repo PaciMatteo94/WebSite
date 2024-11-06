@@ -1,10 +1,12 @@
 $(document).ready(function () {
     let elementId;
 
+    //listener sul link dei titoli dei malfunzionamenti e soluzioni
     $(document).on('click', '.title-link', function (event) {
         event.preventDefault();
         const type = $(this).data('type')
         elementId = $(this).data('id');
+        //se è un malfunzionamento ottiene la view che mostra il malfunzionamento
         if (type == 'malfunction') {
             if ($('#malfunction-view').css('display') == 'none') {
                 $('#malfunction-view').show();
@@ -24,6 +26,7 @@ $(document).ready(function () {
             });
         }
 
+        //controlla il tipo per pulire il div e ricreare la lista delle soluzioni oppure visualizzare le informazioni della soluzione
         switch (type) {
             case 'malfunction':
                 $('#solutions-list').empty();
@@ -40,6 +43,7 @@ $(document).ready(function () {
 
     });
 
+    //funzione che inserisce la view della lista dei malfunzionameti
     function createSolutionList() {
 
         $.ajax({
@@ -54,7 +58,7 @@ $(document).ready(function () {
             }
         });
     }
-
+    //funzione che inserisce la view dove si vedono le info della soluzione
     function createSolutionView() {
         if ($('#solution-view').css('display') == 'none') {
             $('#solution-view').show();

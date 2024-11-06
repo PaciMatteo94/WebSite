@@ -3,7 +3,7 @@ $(document).ready(function () {
     const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ*]+$/;
     var selectedCategories = [];
 
-    //PARTE AJAX PER LA SELEZIONE DELLE CATEGORIE PRODOTTO
+
 
     //controllo se sono entrato in catalogo tramite la home e prendo l'id selezionato dalla home
     if (localStorage.length > 0) {
@@ -11,7 +11,7 @@ $(document).ready(function () {
         checkCategories();
         localStorage.clear();
         handleSearch();
-        console.log(localStorage.length);
+
 
     } else{
         $('input[type="checkbox"]').prop('checked', false);
@@ -21,51 +21,25 @@ $(document).ready(function () {
         handleSearch();
     }
 
-    document.getElementById('search-form').addEventListener('submit', function(event) {
+    //
+    $('#search-form').on('submit', function(event){
         event.preventDefault(); // Preveniamo il comportamento predefinito del form (ricaricare la pagina)
         // Raccogliamo i dati dal form
         const formData = new FormData(this);
         // Creiamo un oggetto con i dati
         testo = formData.get('barra').trim(); // otteniamo il testo di ricerca
         selectedCategories = formData.getAll('categories[]'); // otteniamo tutte le categorie selezionate
-    
-        // Verifica i dati (facoltativo)
-        console.log('Ricerca:', testo);
-        console.log('Categorie selezionate:', selectedCategories);
         handleSearch();
-
-    
     });
 
- 
-
-
+    //listener sul link della paginazione
     $(document).on('click', '.pagination a', function (e) {
         e.preventDefault();
         var page = $(this).attr('href').split('page=')[1];
         fetchProducts(page);
     });
-
-    function handleSearch(){
-        console.log('funzione handle, catergorie:'+selectedCategories);
-        if(testo === ''){
-            fetchProducts();
-        }else if(!regex.test(testo)){
-            alert('Sono stati inseriti caratteri non validi o sono state inserite più parole')
-        }else{
-            fetchProducts();
-        }
-    }
-
-
-
-
-    function fetchProducts(page = 1) {
-        console.log('arrivo a fetche prodotti e richiesta ajax');
-        console.log('categorie che vanno in ajax: ' + selectedCategories);
-        console.log('Categorie selezionate:', selectedCategories);
-        console.log('testo che va in ajax:' , testo);
-        
+    //funzione per richiedere i prodotti e visualizzare la view restituita
+    function fetchProducts(page = 1) {  
         $.ajax({
             type: "GET",
             url: "/api/products?page=" + page,
@@ -83,19 +57,25 @@ $(document).ready(function () {
             }
         });
     }
-
+    //controlla le categoria selezionate
     function checkCategories(){
         selectedCategories.length=0;
-        
         $('.category-checkbox:checked').each(function () {
             selectedCategories.push($(this).val());
             
         });
-
-        console.log('fetch categorie: '+ selectedCategories);
     }
-
-
+    
+    //controlla se il testo inserito è valido
+    function handleSearch(){
+        if(testo === ''){
+            fetchProducts();
+        }else if(!regex.test(testo)){
+            alert('Sono stati inseriti caratteri non validi o sono state inserite più parole')
+        }else{
+            fetchProducts();
+        }
+    }
 
 
 });

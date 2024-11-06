@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    //PAGINE DI BASE
+    //Funzioni che restituiscono le view di base delle pagine
     public function adminHome(): View
     {
         $navbarView = 'admin/navbarAdmin';
@@ -42,7 +42,7 @@ class AdminController extends Controller
     }
 
 
-    //VIEW SEZIONE PRODOTTI
+    //Funzioni che restituiscono le view parziali dell'area prodotti
     public function listCategory(): View
     {
         $categories = Category::all();
@@ -56,7 +56,6 @@ class AdminController extends Controller
             ->get();
         return view('admin/product/listProducts', compact('products'));
     }
-
     public function viewInsertCategory(): View
     {
         return view('admin/product/adminInsert', ['type' => 'category']);
@@ -90,7 +89,7 @@ class AdminController extends Controller
     }
 
 
-    //VIEW PER LA SEZIONE STAFF
+    //funzioni che restiuiscono le view parziali dell'area del personale
     public function listStaff(): View
     {
         $staffUsers = User::where('role', 'staff')

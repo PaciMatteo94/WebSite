@@ -38,9 +38,9 @@
             <!-- da convertire in input da bottone -->
 
         </form>
-        @if ($errors->has('login'))
+        @if ($errors->any())
         <div class="error-message" style="color: red; margin-top: 10px;">
-            {{ $errors->first('login') }}
+        {{ $errors->first() }}
         </div>
         @endif
     </div>

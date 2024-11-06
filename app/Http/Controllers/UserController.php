@@ -8,25 +8,7 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    //funzione per il salvataggio di nuovi membri dello staff
     public function store(Request $request)
     {
         $role = $request->input('element');
@@ -116,31 +98,11 @@ class UserController extends Controller
         return response()->json(['message' => 'Utente aggiunto correttamente']);
     }
     
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    //funzione per l'aggiornamento delle informazioni dello staff
     public function update(Request $request, string $id)
     {       
         $user = User::findOrFail($id);
         
-        // Validazione dei campi comuni, inclusi messaggi personalizzati
         $commonData = $request->validate([
             'name' => 'nullable|string',
             'surname' => 'nullable|string',
@@ -183,10 +145,7 @@ class UserController extends Controller
         return response()->json(['message' => 'Utente aggiornato con successo']);
     }
     
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    //funzione rimozione di un utente
     public function destroy(string $id)
     {
         User::destroy($id);

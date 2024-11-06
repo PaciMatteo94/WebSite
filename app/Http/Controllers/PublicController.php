@@ -11,29 +11,12 @@ use App\Models\Product;
 
 class PublicController extends Controller
 {
-    // $userLevel = auth()->user()->level;
-
-    // Scegli la navbar in base al livello dell'utente
-    // switch ($userLevel) {
-    //     case 'admin':
-    //         $navbarView = 'layouts.navadmin';
-    //         break;
-    //     case 'tecnico':
-    //         $navbarView = 'layouts.navtecnico';
-    //         break;
-    //     default:  // Per livello utente normale
-    //         $navbarView = 'layouts.navUser';
-    //         break;
-    // }
-
-    
-
+    //funzioni per le varie restituzioni view pubbliche
     public function home(): View{
         $categories = Category::all();
         $navbarView = 'general/partialViews/navUser';
-        $cssFile = asset('css/navbar.css'); //asset = funzione base di laravel per creare l'url completo, si riferisce ai file nella cartella public
+        $cssFile = asset('css/navbar.css'); 
         return view('general/home',compact('categories'), ['navbarView'=>$navbarView, 'cssFile'=>$cssFile]);
-        // view = funzione base di laravel per restituire un file che si trova in resources
     }
 
     public function info(): View{

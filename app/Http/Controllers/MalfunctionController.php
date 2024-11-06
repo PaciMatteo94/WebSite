@@ -7,72 +7,59 @@ use App\Models\Malfunction;
 
 class MalfunctionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    // public function index($id)
-    // {
-    //     $datas = Malfunction::where('product_id', $id)->get();
-    //     return view('staff/removeOption', ['datas' => $datas])->render();
-    // }
-
+    //Restituisce la view parziale per l'elenco dei malfunzionamenti
     public function index($malfunctionId)
     {
         $malfunction = Malfunction::find($malfunctionId);
         return view('general/partialViews/malfunctionsPublicView', compact('malfunction'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    //Funzione che salva un nuovo malfunzionamento
     public function store($id, Request $request)
     {
-        try {
+        //Validazione delle informazioni passate con eventuali messaggi di errore specifici
             $request->validate([
-                'title' => 'required|string|max:255',
+                'title' => [
+                    'required',
+                    'string',
+                    'max:255'
+                ],
                 'description' => 'required|string',
+            ], [
+                'title.required' => 'Il campo titolo è obbligatorio.',
+                'title.string' => 'Il campo titolo deve essere una stringa valida.',
+                'title.max' => 'Il campo titolo non può superare i 255 caratteri.',
+                'description.required' => 'Il campo descrizione è obbligatorio.',
+                'description.string' => 'Il campo descrizione deve essere una stringa valida.',
             ]);
+
+            //creazione e salvataggio delle informazioni
             $malfunction = new Malfunction();
             $malfunction->product_id = $id;
             $malfunction->title = $request->get('title');
             $malfunction->description = $request->get('description');
             $malfunction->save();
+    
             return response()->json(['message' => 'Malfunzionamento inserito con successo']);
-        } catch (\Exception $e) {       
-            return response()->json([], 500);
-        }
-
+        
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    //Funzione per la modifica delle informaizoni dei malfunzionamenti 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => [
+                'nullable',
+                'string',
+                'max:255'
+            ],
+            'description' => 'nullable|string',
+        ], [
+            'title.string' => 'Il campo titolo deve essere una stringa valida.',
+            'title.max' => 'Il campo titolo non può superare i 255 caratteri.',
+            'description.string' => 'Il campo descrizione deve essere una stringa valida.',
+        ]);
+        //ricerco il malfunzionamento e modifico i campi nel caso non siano nulli, sennò lascio le vecchie info
         try {
             $malfunction = Malfunction::findOrFail($id);
             $malfunction->title = $request->input('title') ?: $malfunction->title;
@@ -88,9 +75,7 @@ class MalfunctionController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    //Distrugge il malfunzionamento e le soluzioni collegate a esso
     public function destroy(string $id)
     {
         Malfunction::destroy($id);
