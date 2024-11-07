@@ -1,6 +1,6 @@
 $(document).ready(function () {
     let categoryId;
-    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s\-\_\.\,\;\:]+$/;
+    const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\-]+$/;
     listCategoryAjax();
 
     //listener sul link dei nomi delle categorie
@@ -22,10 +22,10 @@ $(document).ready(function () {
         let url;
         switch (element) {
             case 'category':
-                url = '/api/admin/category/insertView';
+                url = 'api/admin/category/insertView';
                 break;
             case 'product':
-                url = '/api/admin/product/insertView';
+                url = 'api/admin/product/insertView';
                 break;
             default:
                 break;
@@ -41,10 +41,10 @@ $(document).ready(function () {
         let url;
         switch (element) {
             case 'category':
-                url = '/api/admin/category/' + elementId + '/info';
+                url = 'api/admin/category/' + elementId + '/info';
                 break;
             case 'product':
-                url = '/api/admin/product/' + elementId + '/info';
+                url = 'api/admin/product/' + elementId + '/info';
                 break;
             default:
                 break;
@@ -62,10 +62,10 @@ $(document).ready(function () {
         let url;
         switch (element) {
             case 'category':
-                url = '/api/admin/category/' + elementId + '/change';
+                url = 'api/admin/category/' + elementId + '/change';
                 break;
             case 'product':
-                url = '/api/admin/product/' + elementId + '/change';
+                url = 'api/admin/product/' + elementId + '/change';
                 break;
             default:
                 break;
@@ -85,10 +85,10 @@ $(document).ready(function () {
             let url;
             switch (element) {
                 case 'category':
-                    url = '/api/admin/category/' + elementId + '/remove';
+                    url = 'api/admin/category/' + elementId + '/remove';
                     break;
                 case 'product':
-                    url = '/api/admin/product/' + elementId + '/remove';
+                    url = 'api/admin/product/' + elementId + '/remove';
                     break;
                 default:
                     break;
@@ -132,17 +132,17 @@ $(document).ready(function () {
         switch (formId) {
             case 'change-form-category':
                 elementId = $(this).data('id');
-                url = '/api/admin/category/' + elementId + '/change';
+                url = 'api/admin/category/' + elementId + '/change';
                 break;
             case 'insert-form-category':
-                url = '/api/admin/category/add';
+                url = 'api/admin/category/add';
                 break;
             case 'insert-form-product':
-                url = '/api/admin/category/' + categoryId + '/product/add'
+                url = 'api/admin/category/' + categoryId + '/product/add'
                 break;
             case 'change-form-product':
                 elementId = $(this).data('id');
-                url = '/api/admin/product/' + elementId + '/change'
+                url = 'api/admin/product/' + elementId + '/change'
                 break;
             default:
                 break;
@@ -241,7 +241,7 @@ $(document).ready(function () {
     function listCategoryAjax() {
         $.ajax({
             type: "GET",
-            url: '/api/admin/category',
+            url: 'api/admin/category',
             dataType: "html",
             success: function (response) {
                 $('#productsList').empty();
@@ -261,7 +261,7 @@ $(document).ready(function () {
     function createProductList() {
         $.ajax({
             type: "GET",
-            url: "/api/admin/category/" + categoryId + "/product",
+            url: "api/admin/category/" + categoryId + "/product",
             dataType: "html",
             success: function (response) {
                 if ($('#productsList').length) {

@@ -10,7 +10,7 @@ $(document).ready(function () {
         event.preventDefault();
         const element = $(this).data('element');
         const method = 'GET';
-        const url = '/api/admin/staff/insertView';
+        const url = 'api/admin/staff/insertView';
 
         operationsAjax(method, url, element);
     });
@@ -19,7 +19,7 @@ $(document).ready(function () {
         event.preventDefault();
         const element = $(this).data('element');
         elementId = $(this).data('id'); 
-        const url = '/api/admin/staff/show/' + elementId;
+        const url = 'api/admin/staff/show/' + elementId;
         const method = 'GET';
         operationsAjax(method, url, element);
     });
@@ -29,7 +29,7 @@ $(document).ready(function () {
         event.preventDefault();
         const element = $(this).data('element');
         elementId = $(this).data('id'); 
-        const url = '/api/admin/staff/change/' + elementId;
+        const url = 'api/admin/staff/change/' + elementId;
         const method = 'GET';
         operationsAjax(method, url, element);
 
@@ -41,7 +41,7 @@ $(document).ready(function () {
         var result = confirm("Sei sicuro di voler rimuovere questo malfunzionamento?");
         if (result) {
             elementId = $(this).data('id');
-            const url = '/api/admin/staff/remove/' + elementId;
+            const url = 'api/admin/staff/remove/' + elementId;
             const method = 'DELETE';
             operationsAjax(method, url, element);
 
@@ -102,10 +102,10 @@ $(document).ready(function () {
         switch (formOperation) {
             case 'store':
                 formData.append('element', formElement);
-                url = '/api/admin/staff/store';
+                url = 'api/admin/staff/store';
                 break;
             case 'change':
-                url = '/api/admin/staff/' + elementId + '/change';
+                url = 'api/admin/staff/' + elementId + '/change';
                 break;
             default:
                 break;
@@ -151,7 +151,7 @@ $(document).ready(function () {
     function listStaffAjax() {
         $.ajax({
             type: "GET",
-            url: '/api/admin/staff',
+            url: 'api/admin/staff',
             dataType: "html",
             success: function (response) {
                 $('.list-div').empty();

@@ -4,6 +4,6 @@ $(document).ready(function () {
         e.preventDefault();
         var id = $(this).attr('id');
         localStorage.setItem('selectedId', id);
-        window.location.href = "/catalog";
+        window.location.href = "catalog";
     })
 });

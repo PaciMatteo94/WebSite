@@ -42,7 +42,7 @@ $(document).ready(function () {
     function fetchProducts(page = 1) {  
         $.ajax({
             type: "GET",
-            url: "/api/products?page=" + page,
+            url: "api/products?page=" + page,
             data: {
                 search: [testo], 
                 categories: selectedCategories

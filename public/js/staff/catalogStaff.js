@@ -70,10 +70,10 @@ $(document).ready(function () {
         let url;
         switch (element) {
             case 'malfunction':
-                url = '/api/staff/malfunction/insertView';
+                url = 'api/staff/malfunction/insertView';
                 break;
             case 'solution':
-                url = '/api/staff/solution/insertView';
+                url = 'api/staff/solution/insertView';
                 break;
             default:
                 break;
@@ -89,10 +89,10 @@ $(document).ready(function () {
         let url;
         switch (element) {
             case 'malfunction':
-                url = '/api/staff/malfunction/' + elementId;
+                url = 'api/staff/malfunction/' + elementId;
                 break;
             case 'solution':
-                url = '/api/staff/solution/' + elementId;
+                url = 'api/staff/solution/' + elementId;
                 break;
             default:
                 break;
@@ -109,10 +109,10 @@ $(document).ready(function () {
         let url;
         switch (element) {
             case 'malfunction':
-                url = '/api/staff/malfunction/' + elementId + '/change';
+                url = 'api/staff/malfunction/' + elementId + '/change';
                 break;
             case 'solution':
-                url = '/api/staff/solution/' + elementId + '/change';
+                url = 'api/staff/solution/' + elementId + '/change';
                 break;
             default:
                 break;
@@ -132,10 +132,10 @@ $(document).ready(function () {
             let url;
             switch (element) {
                 case 'malfunction':
-                    url = '/api/staff/malfunction/' + elementId + '/delete';;
+                    url = 'api/staff/malfunction/' + elementId + '/delete';;
                     break;
                 case 'solution':
-                    url = '/api/staff/solution/' + elementId + '/delete';;
+                    url = 'api/staff/solution/' + elementId + '/delete';;
                     break;
                 default:
                     break;
@@ -178,17 +178,17 @@ $(document).ready(function () {
         switch (formId) {
             case 'changeFormMalfunction':
                 elementId = $(this).data('id');
-                url = '/api/staff/malfunction/' + elementId + '/change'
+                url = 'api/staff/malfunction/' + elementId + '/change'
                 break;
             case 'insertFormMalfunction':
-                url = '/api/staff/product/' + productId + '/malfunction/store'
+                url = 'api/staff/product/' + productId + '/malfunction/store'
                 break;
             case 'insertFormSolution':
-                url = '/api/staff/malfunction/' + malfunctionId + '/solution/store'
+                url = 'api/staff/malfunction/' + malfunctionId + '/solution/store'
                 break;
             case 'changeFormSolution':
                 elementId = $(this).data('id');
-                url = '/api/staff/solution/' + elementId + '/change'
+                url = 'api/staff/solution/' + elementId + '/change'
                 break;
             default:
                 break;
@@ -244,7 +244,7 @@ $(document).ready(function () {
         console.log('arrivo');
         $.ajax({
             type: "GET",
-            url: "/api/staff/info?page=" + page,
+            url: "api/staff/info?page=" + page,
             data: {
                 search: [testo],
                 categories: selectedCategories,
@@ -310,7 +310,7 @@ $(document).ready(function () {
     function createMalfunctionList() {
         $.ajax({
             type: "GET",
-            url: '/api/staff/product/' + productId + '/malfunction',
+            url: 'api/staff/product/' + productId + '/malfunction',
             dataType: "html",
             success: function (response) {
                 $('.list-div').empty();
@@ -328,7 +328,7 @@ $(document).ready(function () {
     function createSolutionList() {
         $.ajax({
             type: "GET",
-            url: "/api/staff/malfunction/" + malfunctionId + "/solution",
+            url: "api/staff/malfunction/" + malfunctionId + "/solution",
             dataType: "html",
             success: function (response) {
                 if ($('#solutions-list').length) {

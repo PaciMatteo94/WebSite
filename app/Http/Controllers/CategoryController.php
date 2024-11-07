@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -108,7 +109,22 @@ class CategoryController extends Controller
         $oldCategoryDirectoryPath = public_path('images/' . $oldname);
         $newCategoryDirectoryPath = public_path('images/' . $newName);
         if (File::exists($oldCategoryDirectoryPath)) {
+            $products = Product::where('category_id', $id)->get();
+
             File::move($oldCategoryDirectoryPath, $newCategoryDirectoryPath);
+            foreach ($products as $product) {
+                // Estrai il nome del file dall'URL salvato nei campi image e thumbnail
+                $imageName = basename($product->image);
+                $thumbnailName = basename($product->thumbnail);
+            
+                // Crea il nuovo percorso per image e thumbnail
+                $product->image = 'images/' . $newName . '/' . $imageName;
+                $product->thumbnail = 'images/' . $newName . '/Thumbnails/' . $thumbnailName;
+            
+                // Salva le modifiche al prodotto
+                $product->save();
+            }
+
         }
         $category->name = $request->input('name') ?: $category->name;
         $category->save();

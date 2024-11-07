@@ -13,7 +13,7 @@ $(document).ready(function () {
             }
             $.ajax({
                 type: "GET",
-                url: '/api/malfunction/' + elementId,
+                url: 'api/malfunction/' + elementId,
                 dataType: "html",
                 success: function (response) {
                     $('#malfunction-view').empty();
@@ -48,7 +48,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: "/api/malfunction/" + elementId + "/solution",
+            url: "api/malfunction/" + elementId + "/solution",
             dataType: "html",
             success: function (response) {
                 $('#solutions-list').empty();
@@ -65,7 +65,7 @@ $(document).ready(function () {
         }
         $.ajax({
             type: "GET",
-            url: "/api/solution/" + elementId,
+            url: "api/solution/" + elementId,
             dataType: "html",
             success: function (response) {
                 $('#solution-view').empty();

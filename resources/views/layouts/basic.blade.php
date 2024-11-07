@@ -10,6 +10,8 @@
     @yield('navbar_css') <!-- Inserimento dinamico del css associato alla navbar -->
 
     <title>NEX:Assistenza Tecnica</title>
+
+    <base href="{{ config('app.url') }}">
 </head>
 
 <body>
